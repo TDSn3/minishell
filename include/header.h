@@ -6,7 +6,7 @@
 /*   By: tda-silv <tda-silv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/17 14:29:18 by tda-silv          #+#    #+#             */
-/*   Updated: 2022/11/19 14:52:46 by tda-silv         ###   ########.fr       */
+/*   Updated: 2022/11/19 18:39:21 by tda-silv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,12 @@
 # include <dirent.h>
 # include <errno.h>
 # include <string.h>
+
 # include <libft.h>
 # include "./struct.h"
+# include "../source/t_map/map.h"
+
+void	init_input(t_input *input, char *line, char ***env);
+void	lexer(t_input *input, char *line);
 
 #endif

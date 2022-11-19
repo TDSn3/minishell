@@ -1,36 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   struct.h                                           :+:      :+:    :+:   */
+/*   map.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tda-silv <tda-silv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/10/18 15:11:18 by tda-silv          #+#    #+#             */
-/*   Updated: 2022/11/19 19:34:46 by tda-silv         ###   ########.fr       */
+/*   Created: 2022/11/19 18:11:42 by tda-silv          #+#    #+#             */
+/*   Updated: 2022/11/19 19:43:08 by tda-silv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef STRUCT_H
-# define STRUCT_H
+#ifndef MAP_H
+# define MAP_H
 
-typedef enum e_type{
-	WORD,
-	SQUOTE,
-	DQUOTE
-}	t_type;
-
-typedef struct s_map {
-	int				key;
-	char			*content;
-	t_type			type;
-	struct s_map	*next;
-}	t_map;
-
-typedef struct s_input {
-	char	**env;
-	char	*raw;
-	char	*line;
-	t_map	*lexer;
-}	t_input;
+void	map_add(t_map **lst, t_map *new);
+t_map	*map_last(t_map *lst);
+t_map	*map_new(char *content, t_type type);
 
 #endif

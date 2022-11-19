@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_substr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tda-silv <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: tda-silv <tda-silv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/02 10:51:15 by tda-silv          #+#    #+#             */
-/*   Updated: 2022/03/16 12:41:09 by tda-silv         ###   ########.fr       */
+/*   Updated: 2022/11/19 18:28:44 by tda-silv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,15 +35,8 @@ char	*ft_substr(char const *s, unsigned int start, size_t len)
 	return (copy);
 }
 /*
-#include <stdio.h>
-
-int	main(void)
-{
-	char	s1[] = "0123456789";
-	char	*copy1 = ft_substr(s1, 0, 10);
-
-	printf("\n%s\n\n", copy1);
-	free(copy1);
-	return (0);
-}
+Alloue (avec malloc(3)) et retourne une chaîne de
+caractères issue de la chaîne ’s’.
+Cette nouvelle chaîne commence à l’index ’start’ et
+a pour taille maximale ’len’.
 */

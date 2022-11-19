@@ -1,36 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   struct.h                                           :+:      :+:    :+:   */
+/*   init_input.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tda-silv <tda-silv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/10/18 15:11:18 by tda-silv          #+#    #+#             */
-/*   Updated: 2022/11/19 19:34:46 by tda-silv         ###   ########.fr       */
+/*   Created: 2022/11/19 17:18:52 by tda-silv          #+#    #+#             */
+/*   Updated: 2022/11/19 18:04:17 by tda-silv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef STRUCT_H
-# define STRUCT_H
+#include <header.h>
 
-typedef enum e_type{
-	WORD,
-	SQUOTE,
-	DQUOTE
-}	t_type;
-
-typedef struct s_map {
-	int				key;
-	char			*content;
-	t_type			type;
-	struct s_map	*next;
-}	t_map;
-
-typedef struct s_input {
-	char	**env;
-	char	*raw;
-	char	*line;
-	t_map	*lexer;
-}	t_input;
-
-#endif
+void	init_input(t_input *input, char *line, char ***env)
+{
+	input->env = *env;
+	input->raw = line;
+	input->line = NULL;
+	input->lexer = NULL;
+}

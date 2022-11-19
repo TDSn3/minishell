@@ -1,36 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   struct.h                                           :+:      :+:    :+:   */
+/*   map_add.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tda-silv <tda-silv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/10/18 15:11:18 by tda-silv          #+#    #+#             */
-/*   Updated: 2022/11/19 19:34:46 by tda-silv         ###   ########.fr       */
+/*   Created: 2022/11/19 18:16:33 by tda-silv          #+#    #+#             */
+/*   Updated: 2022/11/19 18:23:28 by tda-silv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef STRUCT_H
-# define STRUCT_H
+#include <header.h>
 
-typedef enum e_type{
-	WORD,
-	SQUOTE,
-	DQUOTE
-}	t_type;
+void	map_add(t_map **lst, t_map *new)
+{
+	t_map	*tmp;
 
-typedef struct s_map {
-	int				key;
-	char			*content;
-	t_type			type;
-	struct s_map	*next;
-}	t_map;
-
-typedef struct s_input {
-	char	**env;
-	char	*raw;
-	char	*line;
-	t_map	*lexer;
-}	t_input;
-
-#endif
+	if (!new)
+		return ;
+	if (!*lst)
+	{
+		*lst = new;
+		(*lst)->key = 0;
+		return ;
+	}
+	tmp = map_last(*lst);
+	tmp->next = new;
+	tmp->next->key = tmp->key + 1;
+}

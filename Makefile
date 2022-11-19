@@ -6,7 +6,7 @@
 #    By: tda-silv <tda-silv@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/10/17 14:32:32 by tda-silv          #+#    #+#              #
-#    Updated: 2022/11/19 15:07:12 by tda-silv         ###   ########.fr        #
+#    Updated: 2022/11/19 18:49:48 by tda-silv         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,7 +15,7 @@ NAME		= minishell
 SRC_DIR		= source/
 OBJ_DIR		= object/
 INC_DIR		= include/
-LIB_DIR		= libft
+LIB_DIR		= libft/
 
 CC			= gcc
 
@@ -38,15 +38,22 @@ L_LIB		= -L $(LIB_DIR) -l ft
 HEADERS		= ./include/header.h \
 			  ./include/struct.h \
 
-NAME_FILE	= minishell	\
+NAME_FILE	= $(addprefix t_map/,			\
+			  					map_add		\
+			  					map_last	\
+			  					map_new		\
+			  )								\
+			  minishell						\
+			  lexer							\
+			  init_input					\
 
 SRC			= $(addsuffix .c, $(addprefix $(SRC_DIR), $(NAME_FILE)))
 OBJ			= $(addsuffix .o, $(addprefix $(OBJ_DIR), $(NAME_FILE)))
 
 ################################################################################
 
-$(OBJ_DIR)%.o:		$(SRC_DIR)%.c
-	mkdir $(OBJ_DIR)
+$(OBJ_DIR)%.o: $(SRC_DIR)%.c
+	mkdir -p $(dir $@)
 	$(CC) $(CFLAGS) $(I_HEADERS) -O3 -c $< -o $@
 
 all: $(NAME) $(HEADERS)
