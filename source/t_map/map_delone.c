@@ -1,22 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   init_input.c                                       :+:      :+:    :+:   */
+/*   map_delone.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tda-silv <tda-silv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/11/19 17:18:52 by tda-silv          #+#    #+#             */
-/*   Updated: 2022/11/21 22:50:46 by tda-silv         ###   ########.fr       */
+/*   Created: 2022/11/21 19:57:51 by tda-silv          #+#    #+#             */
+/*   Updated: 2022/11/21 19:58:57 by tda-silv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <header.h>
 
-
-void	init_input(t_input *input, char *line)
+void	map_delone(t_map *lst, void (*del)(void*))
 {
-	input->env = g_d.env;
-	input->raw = line;
-	input->line = NULL;
-	input->lexer = NULL;
+	if (!del || !lst)
+		return ;
+	del(lst->content);
+	free(lst);
 }

@@ -6,7 +6,7 @@
 #    By: tda-silv <tda-silv@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/12/11 16:59:26 by tda-silv          #+#    #+#              #
-#    Updated: 2022/11/18 11:02:20 by tda-silv         ###   ########.fr        #
+#    Updated: 2022/11/21 22:28:49 by tda-silv         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -57,6 +57,8 @@ SRC = ./ft_isalpha.c \
 	  ./my_strjoin_free.c \
 	  ./my_atoi_hex.c \
 	  ./my_tab_reverse.c \
+	  ./my_strdlen.c \
+	  ./my_strdcpy.c \
 	  $(addprefix ./t_dl/, \
 	  					 dl_add_back.c \
 						 dl_clear_one.c \

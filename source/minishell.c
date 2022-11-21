@@ -6,13 +6,12 @@
 /*   By: tda-silv <tda-silv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/19 13:33:37 by tda-silv          #+#    #+#             */
-/*   Updated: 2022/11/21 15:17:10 by tda-silv         ###   ########.fr       */
+/*   Updated: 2022/11/22 00:20:34 by tda-silv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <header.h>
 
-static t_g_sig	g_d;
 static void	print_map(t_map *map);
 static void	handler(int sig, siginfo_t *x, void *y);
 
@@ -28,28 +27,32 @@ int	main(int argc, char **argv, char **env)
 	sigemptyset(&ssa.sa_mask);
 	sigaction(SIGINT, &ssa, 0);
 	sigaction(SIGQUIT, &ssa, 0);
-	init_t_g_sig(&g_d);
+	init_t_g_sig();
+	g_d.env = my_strdcpy(env);
+	printf("$> pwd\n%s\n", ft_get_env("PWD="));
+	printf("$> cd build/\n");
+	ft_cd("build/");
+	printf("$> pwd\n%s\n", ft_get_env("PWD="));
+	printf("$> cd\n");
+	ft_cd("");
+	printf("$> pwd\n%s\n", ft_get_env("PWD="));
 	while (1)
 	{
-		init_input(&input, readline("$> "), &env);
 		if (g_d.signal > -1)
 		{
 			write(1, "\n", 1);
 			g_d.signal = -1;
 		}
+		init_input(&input, readline("$> "));
 		if (!input.raw)
 			continue ;
 		lexer(&input, input.raw);
 		print_map(input.lexer);
+		free_input(&input);
 	}
 	return (0);
 }
 
-/* ************************************************************************** */
-/*																			  */
-/*	ctrl+d n'est pas un signal, readline renvois NULL à sont utilisation et	  */
-/*	le shell s'interonpta avec le message "exit".	  						  */
-/*																			  */
 /* ************************************************************************** */
 /*																			  */
 /*   sig == 2 | SIGINT	| ctrl+c											  */

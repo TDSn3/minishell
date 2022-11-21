@@ -6,7 +6,7 @@
 #    By: tda-silv <tda-silv@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/10/17 14:32:32 by tda-silv          #+#    #+#              #
-#    Updated: 2022/11/21 13:11:00 by tda-silv         ###   ########.fr        #
+#    Updated: 2022/11/21 23:02:52 by tda-silv         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,8 +19,7 @@ LIB_DIR		= libft/
 
 CC			= gcc
 
-CFLAGS		= 
-#CFLAGS		= -Wall -Wextra -Werror
+CFLAGS		= -Wall -Wextra -Werror
 LDFLAGS_1	= -fsanitize=address -g
 LDFLAGS_2	= -fsanitize=address -g -fsanitize=leak
 VFLAGS		= valgrind --leak-check=full --show-leak-kinds=all --track-origins=yes --tool=helgrind
@@ -43,13 +42,21 @@ NAME_FILE	= $(addprefix t_map/,				\
 			  					map_add			\
 			  					map_last		\
 			  					map_new			\
+								map_delone		\
+								map_clear		\
 			  )									\
-			  $(addprefix t_g_sig/,				\
+			  $(addprefix t_gd/,				\
 			  					init_t_g_sig	\
+			  )									\
+			  $(addprefix builtin/,				\
+			  					ft_cd			\
 			  )									\
 			  minishell							\
 			  lexer								\
 			  init_input						\
+			  free_input						\
+			  ft_get_env						\
+			  ft_get_env_start					\
 
 SRC			= $(addsuffix .c, $(addprefix $(SRC_DIR), $(NAME_FILE)))
 OBJ			= $(addsuffix .o, $(addprefix $(OBJ_DIR), $(NAME_FILE)))
