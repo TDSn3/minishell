@@ -6,13 +6,14 @@
 /*   By: tda-silv <tda-silv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/19 17:50:14 by tda-silv          #+#    #+#             */
-/*   Updated: 2022/11/19 19:46:05 by tda-silv         ###   ########.fr       */
+/*   Updated: 2022/11/20 10:34:24 by tda-silv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <header.h>
 
 static char	*search(char *line, int *start);
+static bool	is_delim(char c);
 
 void	lexer(t_input *input, char *line)
 {
@@ -25,11 +26,19 @@ void	lexer(t_input *input, char *line)
 	while (line[count])
 	{
 		c = line[count];
+		if (is_delim(c))
+		{
+			map_add(&input->lexer,
+				map_new(ft_substr(line, start, count - start), WORD));
+			map_add(&input->lexer,
+				map_new(ft_substr(line, count, 1), DELIM));
+			start = count + 1;
+		}
 		if (c == '\'' || c == '\"')
 		{
 			if (count - start > 0)
-				map_add(&input->lexer, map_new
-					(ft_substr(line, start, count - start), WORD));
+				map_add(&input->lexer,
+					map_new(ft_substr(line, start, count - start), WORD));
 			if (c == '\'')
 				map_add(&input->lexer, map_new(search(line, &count), SQUOTE));
 			else if (c == '\"')
@@ -62,3 +71,11 @@ static char	*search(char *line, int *start)
 	*start = count;
 	return (s);
 }
+
+static bool	is_delim(char c)
+{
+	if (c == ' ' || c == '\n' || c == '|' || c == '<' || c == '>' || c == '$')
+		return (true);
+	return (false);
+}
+ 

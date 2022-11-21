@@ -6,7 +6,7 @@
 #    By: tda-silv <tda-silv@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/10/17 14:32:32 by tda-silv          #+#    #+#              #
-#    Updated: 2022/11/19 18:49:48 by tda-silv         ###   ########.fr        #
+#    Updated: 2022/11/21 13:11:00 by tda-silv         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,7 +19,8 @@ LIB_DIR		= libft/
 
 CC			= gcc
 
-CFLAGS		= -Wall -Wextra -Werror
+CFLAGS		= 
+#CFLAGS		= -Wall -Wextra -Werror
 LDFLAGS_1	= -fsanitize=address -g
 LDFLAGS_2	= -fsanitize=address -g -fsanitize=leak
 VFLAGS		= valgrind --leak-check=full --show-leak-kinds=all --track-origins=yes --tool=helgrind
@@ -31,21 +32,24 @@ VFLAGS		= valgrind --leak-check=full --show-leak-kinds=all --track-origins=yes -
 # **************************************************************************** #
 
 I_HEADERS	= -I $(INC_DIR) -I $(LIB_DIR)
-L_LIB		= -L $(LIB_DIR) -l ft
+L_LIB		= -L $(LIB_DIR) -l ft -l readline
 
 ################################################################################
 
 HEADERS		= ./include/header.h \
 			  ./include/struct.h \
 
-NAME_FILE	= $(addprefix t_map/,			\
-			  					map_add		\
-			  					map_last	\
-			  					map_new		\
-			  )								\
-			  minishell						\
-			  lexer							\
-			  init_input					\
+NAME_FILE	= $(addprefix t_map/,				\
+			  					map_add			\
+			  					map_last		\
+			  					map_new			\
+			  )									\
+			  $(addprefix t_g_sig/,				\
+			  					init_t_g_sig	\
+			  )									\
+			  minishell							\
+			  lexer								\
+			  init_input						\
 
 SRC			= $(addsuffix .c, $(addprefix $(SRC_DIR), $(NAME_FILE)))
 OBJ			= $(addsuffix .o, $(addprefix $(OBJ_DIR), $(NAME_FILE)))
