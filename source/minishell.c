@@ -6,7 +6,7 @@
 /*   By: tda-silv <tda-silv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/19 13:33:37 by tda-silv          #+#    #+#             */
-/*   Updated: 2022/11/23 08:49:16 by tda-silv         ###   ########.fr       */
+/*   Updated: 2022/11/23 20:42:18 by tda-silv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,54 +29,6 @@ int	main(int argc, char **argv, char **env)
 	sigaction(SIGQUIT, &ssa, 0);
 	init_t_g_sig();
 	g_d.env = my_strdcpy(env);
-	printf("$> pwd\n%s\n", ft_get_env("PWD="));
-	printf("%s\n\n", *ft_get_env_start("OLDPWD="));
-
-	printf("$> cd ../minishell_thomas/printf/../../minishell_thomas\n");	
-	ft_cd("../minishell_thomas/printf/../../minishell_thomas");
-	printf("$> pwd\n%s\n", ft_get_env("PWD="));
-	printf("%s\n\n", *ft_get_env_start("OLDPWD="));
-
-	printf("$> cd ../../\n");	
-	ft_cd("../../");
-	printf("$> pwd\n%s\n", ft_get_env("PWD="));
-	printf("%s\n\n", *ft_get_env_start("OLDPWD="));
-
-	printf("$> cd build/\n");
-	ft_cd("build/");
-	printf("$> pwd\n%s\n", ft_get_env("PWD="));
-	printf("%s\n\n", *ft_get_env_start("OLDPWD="));
-	
-	printf("$> cd ..\n");
-	ft_cd("..");
-	printf("$> pwd\n%s\n", ft_get_env("PWD="));
-	printf("%s\n\n", *ft_get_env_start("OLDPWD="));
-	
-	printf("$> cd\n");
-	ft_cd("");
-	printf("$> pwd\n%s\n", ft_get_env("PWD="));
-	printf("%s\n\n", *ft_get_env_start("OLDPWD="));
-
-	printf("$> cd\n");
-	ft_cd("");
-	printf("$> pwd\n%s\n", ft_get_env("PWD="));
-	printf("%s\n\n", *ft_get_env_start("OLDPWD="));
-
-	printf("$> cd ..\n");
-	ft_cd("..");
-	printf("$> pwd\n%s\n", ft_get_env("PWD="));
-	printf("%s\n\n", *ft_get_env_start("OLDPWD="));
-
-	printf("$> cd ..\n");
-	ft_cd("..");
-	printf("$> pwd\n%s\n", ft_get_env("PWD="));
-	printf("%s\n\n", *ft_get_env_start("OLDPWD="));
-
-	printf("$> cd ..\n");
-	ft_cd("..");
-	printf("$> pwd\n%s\n", ft_get_env("PWD="));
-	printf("%s\n\n", *ft_get_env_start("OLDPWD="));
-
 	while (1)
 	{
 		if (g_d.signal > -1)
@@ -84,7 +36,7 @@ int	main(int argc, char **argv, char **env)
 			write(1, "\n", 1);
 			g_d.signal = -1;
 		}
-		init_input(&input, readline("$> "));
+		init_input(&input, readline("\033[36;01m$> \033[00m"));
 		if (!input.raw)
 			continue ;
 		lexer(&input, input.raw);
@@ -107,6 +59,8 @@ static void	handler(int sig, siginfo_t *x, void *y)
 	if (sig == 2)
 	{
 		g_d.signal = 2;
+		write(1, "\n", 1);
+		exit (1);
 	}
 	if (sig == 3)
 	{

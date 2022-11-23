@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_get_env_start.c                                 :+:      :+:    :+:   */
+/*   ms_get_env.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tda-silv <tda-silv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/21 20:42:02 by tda-silv          #+#    #+#             */
-/*   Updated: 2022/11/21 23:40:30 by tda-silv         ###   ########.fr       */
+/*   Updated: 2022/11/23 20:37:58 by tda-silv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,11 +16,12 @@ static int	str_chr_start_str(char *str, char *strchr);
 
 /* ************************************************************************** */
 /*																			  */
-/*   Similaire à ft_get_env, mais renvois un double pointeur de toute 		  */
-/*   la ligne.											  					  */
+/*   Cherche strchr au début de chaque env*. Si strchr n'est trouvée dans	  */
+/*   aucune str d'env*, retourne NULL, sinon, retourne la ligne débutant	  */
+/*   par strchr après celui-ci.												  */
 /*																			  */
 /* ************************************************************************** */
-char	**ft_get_env_start(char *strchr)
+char	*ms_get_env(char *strchr)
 {
 	int	i;
 
@@ -28,7 +29,7 @@ char	**ft_get_env_start(char *strchr)
 	while (g_d.env[i])
 	{
 		if (str_chr_start_str(g_d.env[i], strchr))
-			return (&g_d.env[i]);
+			return (g_d.env[i] + ft_strlen(strchr));
 		i++;
 	}
 	return (NULL);

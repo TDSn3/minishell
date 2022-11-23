@@ -6,7 +6,7 @@
 /*   By: tda-silv <tda-silv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/17 14:29:18 by tda-silv          #+#    #+#             */
-/*   Updated: 2022/11/23 08:47:35 by tda-silv         ###   ########.fr       */
+/*   Updated: 2022/11/23 20:38:24 by tda-silv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,10 +54,10 @@ void	lexer(t_input *input, char *line);
 void	map_add(t_map **lst, t_map *new);
 t_map	*map_last(t_map *lst);
 t_map	*map_new(char *content, t_type type);
-void    map_delone(t_map *lst, void (*del)(void*));
+void	map_delone(t_map *lst, void (*del)(void*));
 void	map_clear(t_map **lst, void (*del)(void *));
-char	*ft_get_env(char *strchr);
-char	**ft_get_env_start(char *strchr);
+char	*ms_get_env(char *strchr);
+char	**ms_get_env_start(char *strchr);
 
 /* ************************************************************************** */
 /*																			  */
@@ -73,8 +73,12 @@ void	init_t_g_sig(void);
 /*																			  */
 /* ************************************************************************** */
 
-int		ft_cd(const char *path);
-void	ft_cd_oldpwd(void);
-char	*ft_cd_remove_point(char *str);
+int		ms_cd(const char *path);
+int		update_env(const char *str);
+int		update_env_home(const char *str);
+int		update_path(const char *path, char **path_update);
+void	get_oldpwd(char *str);
+char	*remove_point(char *str);
+int		remove_last(char **copy);
 
 #endif
