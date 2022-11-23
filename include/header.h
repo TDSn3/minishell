@@ -6,7 +6,7 @@
 /*   By: tda-silv <tda-silv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/17 14:29:18 by tda-silv          #+#    #+#             */
-/*   Updated: 2022/11/21 23:09:57 by tda-silv         ###   ########.fr       */
+/*   Updated: 2022/11/23 08:47:35 by tda-silv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,5 +74,7 @@ void	init_t_g_sig(void);
 /* ************************************************************************** */
 
 int		ft_cd(const char *path);
+void	ft_cd_oldpwd(void);
+char	*ft_cd_remove_point(char *str);
 
 #endif

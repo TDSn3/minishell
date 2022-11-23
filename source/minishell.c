@@ -6,7 +6,7 @@
 /*   By: tda-silv <tda-silv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/19 13:33:37 by tda-silv          #+#    #+#             */
-/*   Updated: 2022/11/22 00:20:34 by tda-silv         ###   ########.fr       */
+/*   Updated: 2022/11/23 08:49:16 by tda-silv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,12 +30,53 @@ int	main(int argc, char **argv, char **env)
 	init_t_g_sig();
 	g_d.env = my_strdcpy(env);
 	printf("$> pwd\n%s\n", ft_get_env("PWD="));
+	printf("%s\n\n", *ft_get_env_start("OLDPWD="));
+
+	printf("$> cd ../minishell_thomas/printf/../../minishell_thomas\n");	
+	ft_cd("../minishell_thomas/printf/../../minishell_thomas");
+	printf("$> pwd\n%s\n", ft_get_env("PWD="));
+	printf("%s\n\n", *ft_get_env_start("OLDPWD="));
+
+	printf("$> cd ../../\n");	
+	ft_cd("../../");
+	printf("$> pwd\n%s\n", ft_get_env("PWD="));
+	printf("%s\n\n", *ft_get_env_start("OLDPWD="));
+
 	printf("$> cd build/\n");
 	ft_cd("build/");
 	printf("$> pwd\n%s\n", ft_get_env("PWD="));
+	printf("%s\n\n", *ft_get_env_start("OLDPWD="));
+	
+	printf("$> cd ..\n");
+	ft_cd("..");
+	printf("$> pwd\n%s\n", ft_get_env("PWD="));
+	printf("%s\n\n", *ft_get_env_start("OLDPWD="));
+	
 	printf("$> cd\n");
 	ft_cd("");
 	printf("$> pwd\n%s\n", ft_get_env("PWD="));
+	printf("%s\n\n", *ft_get_env_start("OLDPWD="));
+
+	printf("$> cd\n");
+	ft_cd("");
+	printf("$> pwd\n%s\n", ft_get_env("PWD="));
+	printf("%s\n\n", *ft_get_env_start("OLDPWD="));
+
+	printf("$> cd ..\n");
+	ft_cd("..");
+	printf("$> pwd\n%s\n", ft_get_env("PWD="));
+	printf("%s\n\n", *ft_get_env_start("OLDPWD="));
+
+	printf("$> cd ..\n");
+	ft_cd("..");
+	printf("$> pwd\n%s\n", ft_get_env("PWD="));
+	printf("%s\n\n", *ft_get_env_start("OLDPWD="));
+
+	printf("$> cd ..\n");
+	ft_cd("..");
+	printf("$> pwd\n%s\n", ft_get_env("PWD="));
+	printf("%s\n\n", *ft_get_env_start("OLDPWD="));
+
 	while (1)
 	{
 		if (g_d.signal > -1)

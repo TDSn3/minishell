@@ -6,7 +6,7 @@
 #    By: tda-silv <tda-silv@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/10/17 14:32:32 by tda-silv          #+#    #+#              #
-#    Updated: 2022/11/21 23:02:52 by tda-silv         ###   ########.fr        #
+#    Updated: 2022/11/23 08:47:39 by tda-silv         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -38,25 +38,27 @@ L_LIB		= -L $(LIB_DIR) -l ft -l readline
 HEADERS		= ./include/header.h \
 			  ./include/struct.h \
 
-NAME_FILE	= $(addprefix t_map/,				\
-			  					map_add			\
-			  					map_last		\
-			  					map_new			\
-								map_delone		\
-								map_clear		\
-			  )									\
-			  $(addprefix t_gd/,				\
-			  					init_t_g_sig	\
-			  )									\
-			  $(addprefix builtin/,				\
-			  					ft_cd			\
-			  )									\
-			  minishell							\
-			  lexer								\
-			  init_input						\
-			  free_input						\
-			  ft_get_env						\
-			  ft_get_env_start					\
+NAME_FILE	= $(addprefix t_map/,					\
+			  					map_add				\
+			  					map_last			\
+			  					map_new				\
+								map_delone			\
+								map_clear			\
+			  )										\
+			  $(addprefix t_gd/,					\
+			  					init_t_g_sig		\
+			  )										\
+			  $(addprefix builtin/,					\
+			  					ft_cd				\
+								ft_cd_oldpwd		\
+								ft_cd_remove_point	\
+			  )										\
+			  minishell								\
+			  lexer									\
+			  init_input							\
+			  free_input							\
+			  ft_get_env							\
+			  ft_get_env_start						\
 
 SRC			= $(addsuffix .c, $(addprefix $(SRC_DIR), $(NAME_FILE)))
 OBJ			= $(addsuffix .o, $(addprefix $(OBJ_DIR), $(NAME_FILE)))
