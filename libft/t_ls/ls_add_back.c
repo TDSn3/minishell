@@ -1,24 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   init_t_g_sig.c                                     :+:      :+:    :+:   */
+/*   ls_add_back.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tda-silv <tda-silv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/11/21 12:07:15 by tda-silv          #+#    #+#             */
-/*   Updated: 2022/11/24 14:01:11 by tda-silv         ###   ########.fr       */
+/*   Created: 2022/03/16 16:18:44 by tda-silv          #+#    #+#             */
+/*   Updated: 2022/11/24 13:44:06 by tda-silv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <header.h>
+#include "../libft.h"
 
-/* ************************************************************************** */
-/*																			  */
-/*	Initialise la structure t_gd											  */
-/*																			  */
-/* ************************************************************************** */
-void	init_t_g_sig(void)
+int	ls_add_back(t_ls **lst, t_ls *new)
 {
-	g_d.signal = -1;
-	g_d.export = NULL;
+	t_ls	*copyl;
+
+	if (!new)
+		return (1);
+	if (lst)
+	{
+		if (!*lst)
+			*lst = new;
+		else
+		{
+			copyl = ls_last(*lst);
+			copyl->next = new;
+			copyl->next->prev = copyl;
+		}
+	}
+	return (0);
 }

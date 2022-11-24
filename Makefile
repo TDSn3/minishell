@@ -6,7 +6,7 @@
 #    By: tda-silv <tda-silv@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/10/17 14:32:32 by tda-silv          #+#    #+#              #
-#    Updated: 2022/11/23 20:37:48 by tda-silv         ###   ########.fr        #
+#    Updated: 2022/11/24 20:09:17 by tda-silv         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -58,6 +58,12 @@ NAME_FILE	= $(addprefix t_map/,												\
 										remove_point							\
 										remove_last								\
 					)															\
+					$(addprefix	  ms_export/,									\
+			  								ms_export							\
+											wrong_name_var						\
+											get_export							\
+											show_export							\
+					)															\
 																				\
 			  )																	\
 			  minishell															\
@@ -66,6 +72,7 @@ NAME_FILE	= $(addprefix t_map/,												\
 			  free_input														\
 			  ms_get_env														\
 			  ms_get_env_start													\
+			  ms_show_env														\
 
 SRC			= $(addsuffix .c, $(addprefix $(SRC_DIR), $(NAME_FILE)))
 OBJ			= $(addsuffix .o, $(addprefix $(OBJ_DIR), $(NAME_FILE)))

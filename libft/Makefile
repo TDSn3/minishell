@@ -6,7 +6,7 @@
 #    By: tda-silv <tda-silv@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/12/11 16:59:26 by tda-silv          #+#    #+#              #
-#    Updated: 2022/11/21 22:28:49 by tda-silv         ###   ########.fr        #
+#    Updated: 2022/11/24 17:50:27 by tda-silv         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -59,6 +59,10 @@ SRC = ./ft_isalpha.c \
 	  ./my_tab_reverse.c \
 	  ./my_strdlen.c \
 	  ./my_strdcpy.c \
+	  ./my_strdjoin.c \
+	  ./my_strcmp.c \
+	  ./my_strdup_until.c \
+	  ./my_strchr_pos.c \
 	  $(addprefix ./t_dl/, \
 	  					 dl_add_back.c \
 						 dl_clear_one.c \
@@ -76,6 +80,15 @@ SRC = ./ft_isalpha.c \
 						 li_last.c \
 						 li_new.c \
 						 li_size.c \
+	  ) \
+	  $(addprefix ./t_ls/, \
+						 ls_add_back.c \
+						 ls_clear_one.c \
+						 ls_clear.c \
+						 ls_find_content.c \
+						 ls_last.c \
+						 ls_new.c \
+						 ls_size.c \
 	  ) \
 	  $(addprefix ./ft_printf/, \
 							  ft_putchar.c \

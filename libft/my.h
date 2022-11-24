@@ -6,7 +6,7 @@
 /*   By: tda-silv <tda-silv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/30 10:19:40 by tda-silv          #+#    #+#             */
-/*   Updated: 2022/11/21 22:28:41 by tda-silv         ###   ########.fr       */
+/*   Updated: 2022/11/24 17:50:14 by tda-silv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,5 +18,9 @@ long long int	my_atoi_hex(const char *nptr);
 void			my_tab_reverse(int *tab, size_t size);
 size_t			my_strdlen(char **strd);
 char			**my_strdcpy(char **strd);
+char			**my_strdjoin(char **strd, char *s);
+int				my_strcmp(const char *s1, const char *s2);
+char			*my_strdup_until(const char *s, char c);
+int				my_strchr_pos(const char *s, char c);
 
 #endif

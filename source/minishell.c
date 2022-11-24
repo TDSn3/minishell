@@ -6,7 +6,7 @@
 /*   By: tda-silv <tda-silv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/19 13:33:37 by tda-silv          #+#    #+#             */
-/*   Updated: 2022/11/23 20:42:18 by tda-silv         ###   ########.fr       */
+/*   Updated: 2022/11/24 18:22:38 by tda-silv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,11 +29,29 @@ int	main(int argc, char **argv, char **env)
 	sigaction(SIGQUIT, &ssa, 0);
 	init_t_g_sig();
 	g_d.env = my_strdcpy(env);
+/******************/
+	ms_show_env();
+	printf("\n\n");
+
+	ms_export("TEST=test");
+	ms_export("TEST2=");
+	ms_export("TEST3");
+	ms_export("TEST4==");
+	ms_export("=");
+	ms_export("=test");
+	ms_export("?=test");
+	ms_show_env();
+	printf("\n\n");
+
+	ms_export(NULL);
+/******************/
 	while (1)
 	{
 		if (g_d.signal > -1)
 		{
 			write(1, "\n", 1);
+			free_input(&input);
+			exit (1);
 			g_d.signal = -1;
 		}
 		init_input(&input, readline("\033[36;01m$> \033[00m"));
@@ -59,8 +77,6 @@ static void	handler(int sig, siginfo_t *x, void *y)
 	if (sig == 2)
 	{
 		g_d.signal = 2;
-		write(1, "\n", 1);
-		exit (1);
 	}
 	if (sig == 3)
 	{

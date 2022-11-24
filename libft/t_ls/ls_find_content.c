@@ -1,24 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   init_t_g_sig.c                                     :+:      :+:    :+:   */
+/*   ls_find_content.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tda-silv <tda-silv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/11/21 12:07:15 by tda-silv          #+#    #+#             */
-/*   Updated: 2022/11/24 14:01:11 by tda-silv         ###   ########.fr       */
+/*   Created: 2022/10/24 21:06:48 by tda-silv          #+#    #+#             */
+/*   Updated: 2022/11/24 13:58:39 by tda-silv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <header.h>
+#include "../libft.h"
 
-/* ************************************************************************** */
-/*																			  */
-/*	Initialise la structure t_gd											  */
-/*																			  */
-/* ************************************************************************** */
-void	init_t_g_sig(void)
+char	*ls_find_content(t_ls *lst, char *content)
 {
-	g_d.signal = -1;
-	g_d.export = NULL;
+	t_ls	*nextl;
+	size_t	i;
+
+	i = 0;
+	nextl = lst;
+	if (!lst)
+		return (0);
+	while (nextl)
+	{
+		if (!(my_strcmp(nextl->content_one, content)))
+			return (content);
+		nextl = nextl->next;
+		i++;
+	}
+	return (0);
 }

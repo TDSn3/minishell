@@ -6,7 +6,7 @@
 /*   By: tda-silv <tda-silv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/18 15:11:18 by tda-silv          #+#    #+#             */
-/*   Updated: 2022/11/21 22:48:21 by tda-silv         ###   ########.fr       */
+/*   Updated: 2022/11/24 14:00:07 by tda-silv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,11 +21,6 @@ typedef enum e_type{
 	DELIM
 }	t_type;
 
-typedef struct s_global_data {
-	int		signal;
-	char	**env;
-}	t_gd;
-
 typedef struct s_map {
 	int				key;
 	char			*content;
@@ -39,6 +34,12 @@ typedef struct s_input {
 	char	*line;
 	t_map	*lexer;
 }	t_input;
+
+typedef struct s_global_data {
+	int		signal;
+	char	**env;
+	t_ls	*export;
+}	t_gd;
 
 t_gd	g_d;
 

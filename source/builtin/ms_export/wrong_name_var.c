@@ -1,24 +1,41 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   init_t_g_sig.c                                     :+:      :+:    :+:   */
+/*   wrong_name_var.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tda-silv <tda-silv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/11/21 12:07:15 by tda-silv          #+#    #+#             */
-/*   Updated: 2022/11/24 14:01:11 by tda-silv         ###   ########.fr       */
+/*   Created: 2022/11/24 19:34:31 by tda-silv          #+#    #+#             */
+/*   Updated: 2022/11/24 19:49:22 by tda-silv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <header.h>
 
-/* ************************************************************************** */
-/*																			  */
-/*	Initialise la structure t_gd											  */
-/*																			  */
-/* ************************************************************************** */
-void	init_t_g_sig(void)
+
+int	wrong_name_var(char *var)
 {
-	g_d.signal = -1;
-	g_d.export = NULL;
+	int	equal;
+	int	i;
+
+	i = 0;
+	equal = my_strchr_pos(var, '=');
+	if (equal > -1)
+		var[equal] = 0;
+	if (equal == 0)
+		return (1);
+	while (var[i])
+	{
+		if (!ft_isalnum(var[i]) && var[i] != '_')
+		{
+			if (equal > -1)
+				var[equal] = '=';
+			return (1);
+		}
+		i++;
+	}
+	if (equal > -1)
+		var[equal] = '=';
+	return (0);
 }
+

@@ -1,24 +1,40 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   init_t_g_sig.c                                     :+:      :+:    :+:   */
+/*   my_strdup_until.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tda-silv <tda-silv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/11/21 12:07:15 by tda-silv          #+#    #+#             */
-/*   Updated: 2022/11/24 14:01:11 by tda-silv         ###   ########.fr       */
+/*   Created: 2021/12/01 13:31:35 by tda-silv          #+#    #+#             */
+/*   Updated: 2022/11/24 17:49:01 by tda-silv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <header.h>
+#include "libft.h"
 
 /* ************************************************************************** */
 /*																			  */
-/*	Initialise la structure t_gd											  */
+/*   Duplique s jusqu'au premier caractère c inclu.							  */
 /*																			  */
 /* ************************************************************************** */
-void	init_t_g_sig(void)
+char	*my_strdup_until(const char *s, char c)
 {
-	g_d.signal = -1;
-	g_d.export = NULL;
+	char	*copy;
+	int		i;
+
+	i = 0;
+	while (s[i])
+	{
+		if (s[i] == c)
+		{
+			i++;
+			break ;
+		}
+		i++;
+	}
+	copy = ft_calloc(i + 1, sizeof(char));
+	if (!copy)
+		return (NULL);
+	ft_strlcpy(copy, s, i + 1);
+	return (copy);
 }
