@@ -6,12 +6,11 @@
 /*   By: tda-silv <tda-silv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/24 19:34:31 by tda-silv          #+#    #+#             */
-/*   Updated: 2022/11/24 19:49:22 by tda-silv         ###   ########.fr       */
+/*   Updated: 2022/11/25 06:20:45 by tda-silv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <header.h>
-
 
 int	wrong_name_var(char *var)
 {
@@ -38,4 +37,3 @@ int	wrong_name_var(char *var)
 		var[equal] = '=';
 	return (0);
 }
-

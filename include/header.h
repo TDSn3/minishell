@@ -6,7 +6,7 @@
 /*   By: tda-silv <tda-silv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/17 14:29:18 by tda-silv          #+#    #+#             */
-/*   Updated: 2022/11/24 20:15:10 by tda-silv         ###   ########.fr       */
+/*   Updated: 2022/11/25 09:58:51 by tda-silv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,7 @@
 /*																			  */
 /* ************************************************************************** */
 
+int		copy_env(char **strd);
 void	init_input(t_input *input, char *line);
 void	free_input(t_input *input);
 void	lexer(t_input *input, char *line);
@@ -85,6 +86,7 @@ int		remove_last(char **copy);
 
 /*   EXPORT   *************************************************************** */
 int		ms_export(char *var);
+int		copy_env_in_export(void);
 int		wrong_name_var(char *var);
 int		get_export(char *strchr);
 int		show_export(void);

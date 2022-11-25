@@ -1,18 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   my_strdcpy.c                                       :+:      :+:    :+:   */
+/*   copy_env.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tda-silv <tda-silv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/21 22:27:43 by tda-silv          #+#    #+#             */
-/*   Updated: 2022/11/25 09:56:33 by tda-silv         ###   ########.fr       */
+/*   Updated: 2022/11/25 10:01:35 by tda-silv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include <header.h>
 
-char	**my_strdcpy(char **strd)
+int	copy_env(char **strd)
 {
 	int		i;
 	int		x;
@@ -20,21 +20,22 @@ char	**my_strdcpy(char **strd)
 	char	**copy;
 
 	if (!strd || !*strd || !**strd)
-		return (NULL);
+		return (0);
 	x = my_strdlen(strd);
 	copy = calloc(x + 1, sizeof(char *));
 	if (!copy)
-		return (NULL);
+		return (1);
 	i = 0;
 	while (i < x)
 	{
 		y = ft_strlen(strd[i]);
 		copy[i] = calloc(y + 1, sizeof(char));
 		if (!copy[i])
-			return (NULL);
+			return (1);
 		ft_strlcpy(copy[i], strd[i], y + 1);
 		i++;
 	}
 	copy[x] = NULL;
-	return (copy);
+	g_d.env = copy;
+	return (0);
 }

@@ -6,7 +6,7 @@
 #    By: tda-silv <tda-silv@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/10/17 14:32:32 by tda-silv          #+#    #+#              #
-#    Updated: 2022/11/24 20:09:17 by tda-silv         ###   ########.fr        #
+#    Updated: 2022/11/25 09:59:28 by tda-silv         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -60,6 +60,7 @@ NAME_FILE	= $(addprefix t_map/,												\
 					)															\
 					$(addprefix	  ms_export/,									\
 			  								ms_export							\
+											copy_env_in_export					\
 											wrong_name_var						\
 											get_export							\
 											show_export							\
@@ -67,6 +68,7 @@ NAME_FILE	= $(addprefix t_map/,												\
 																				\
 			  )																	\
 			  minishell															\
+			  copy_env															\
 			  lexer																\
 			  init_input														\
 			  free_input														\

@@ -1,40 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   my_strdcpy.c                                       :+:      :+:    :+:   */
+/*   copy_env_in_export.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tda-silv <tda-silv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/11/21 22:27:43 by tda-silv          #+#    #+#             */
-/*   Updated: 2022/11/25 09:56:33 by tda-silv         ###   ########.fr       */
+/*   Created: 2022/11/25 09:47:36 by tda-silv          #+#    #+#             */
+/*   Updated: 2022/11/25 10:37:55 by tda-silv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include <header.h>
 
-char	**my_strdcpy(char **strd)
+int	copy_env_in_export(void)
 {
-	int		i;
-	int		x;
-	int		y;
-	char	**copy;
+	int	i;
 
-	if (!strd || !*strd || !**strd)
-		return (NULL);
-	x = my_strdlen(strd);
-	copy = calloc(x + 1, sizeof(char *));
-	if (!copy)
-		return (NULL);
 	i = 0;
-	while (i < x)
+	if (!g_d.env)
+		return (0);
+	while (g_d.env[i])
 	{
-		y = ft_strlen(strd[i]);
-		copy[i] = calloc(y + 1, sizeof(char));
-		if (!copy[i])
-			return (NULL);
-		ft_strlcpy(copy[i], strd[i], y + 1);
+		if (ls_add_back(&(g_d.export), ls_new(ft_strdup(g_d.env[i]))))
+			return (1);
 		i++;
 	}
-	copy[x] = NULL;
-	return (copy);
+	return (0);
 }

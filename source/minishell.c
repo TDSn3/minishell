@@ -6,7 +6,7 @@
 /*   By: tda-silv <tda-silv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/19 13:33:37 by tda-silv          #+#    #+#             */
-/*   Updated: 2022/11/24 18:22:38 by tda-silv         ###   ########.fr       */
+/*   Updated: 2022/11/25 10:40:12 by tda-silv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,23 +28,8 @@ int	main(int argc, char **argv, char **env)
 	sigaction(SIGINT, &ssa, 0);
 	sigaction(SIGQUIT, &ssa, 0);
 	init_t_g_sig();
-	g_d.env = my_strdcpy(env);
-/******************/
-	ms_show_env();
-	printf("\n\n");
-
-	ms_export("TEST=test");
-	ms_export("TEST2=");
-	ms_export("TEST3");
-	ms_export("TEST4==");
-	ms_export("=");
-	ms_export("=test");
-	ms_export("?=test");
-	ms_show_env();
-	printf("\n\n");
-
-	ms_export(NULL);
-/******************/
+	if (copy_env(env) || copy_env_in_export())
+		return (1);
 	while (1)
 	{
 		if (g_d.signal > -1)

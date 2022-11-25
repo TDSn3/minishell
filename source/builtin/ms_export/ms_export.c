@@ -6,7 +6,7 @@
 /*   By: tda-silv <tda-silv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/24 12:58:37 by tda-silv          #+#    #+#             */
-/*   Updated: 2022/11/24 20:16:13 by tda-silv         ###   ########.fr       */
+/*   Updated: 2022/11/25 10:37:20 by tda-silv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 static void	free_env(void);
 static int	check_dollar(char **var);
-static int	print_error(void);
+static int	print_error(char *var);
 
 int	ms_export(char *var)
 {
@@ -23,17 +23,21 @@ int	ms_export(char *var)
 
 	if (!var || !*var)
 		return (show_export());
+	new_env = NULL;
 	copy_var = ft_strdup(var);
 	if (!copy_var)
-		return (print_error());
+		return (print_error(copy_var));
 	if (check_dollar(&copy_var) || wrong_name_var(copy_var))
-		return (print_error());
-	new_env = my_strdjoin(g_d.env, copy_var);
-	if (!new_env)
-		return (print_error());
+		return (print_error(copy_var));
+	if (my_strchr_pos(copy_var, '=') > -1)
+	{
+		new_env = my_strdjoin(g_d.env, copy_var);
+		if (!new_env)
+			return (print_error(copy_var));
+		free_env();
+		g_d.env = new_env;
+	}
 	ls_add_back(&(g_d.export), ls_new(copy_var));
-	free_env();
-	g_d.env = new_env;
 	return (0);
 }
 
@@ -78,8 +82,36 @@ static void	free_env(void)
 	}
 }
 
-static int	print_error(void)
+static int	print_error(char *var)
 {
 	perror("export");
+	if (var)
+		free(var);
 	return (1);
 }
+
+/*	Tests pour le main
+	ms_show_env();
+	printf("\n\n");
+
+	ms_export("");
+	ms_export("TEST=test");
+	ms_export("TEST2=");
+	ms_export("TEST3");
+	ms_export("TEST4==");
+	ms_export("=");
+	ms_export("=test");
+	ms_export("?=test");
+	ms_export("t$est5=error");
+	printf("--\n");
+	ms_export("$test6=test");
+	ms_export("$==$");
+	printf("--\n");
+	ms_export("test7=test");
+	ms_export("$test7=OKOK");
+	ms_export("TEST?8=error");
+	ms_show_env();
+	printf("\n\n");
+
+	ms_export("");
+*/
