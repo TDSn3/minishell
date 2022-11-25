@@ -6,7 +6,7 @@
 /*   By: tda-silv <tda-silv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/19 13:33:37 by tda-silv          #+#    #+#             */
-/*   Updated: 2022/11/25 10:40:12 by tda-silv         ###   ########.fr       */
+/*   Updated: 2022/11/25 16:13:03 by tda-silv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,41 @@ int	main(int argc, char **argv, char **env)
 	init_t_g_sig();
 	if (copy_env(env) || copy_env_in_export())
 		return (1);
+/**********************************/
+
+	printf("\033[36;01m$> \033[00mexport\n");
+	ms_export("");
+	printf("----------\n\033[36m");
+	ms_show_env();
+
+	printf("\033[00m\n\n");
+
+	printf("\033[36;01m$> \033[00mexport TEST=test1\n");
+	ms_export("TEST=test1");
+
+	printf("\n\n");
+
+	printf("\033[36;01m$> \033[00mexport\n");
+	ms_export("");
+	printf("----------\n\033[36m");
+	ms_show_env();
+
+	printf("\033[00m\n\n");
+	
+	printf("\033[36;01m$> \033[00munset TEST\n");
+	ms_unset("TEST");
+	ms_unset("USER");
+	
+	printf("\n\n");
+	
+	printf("\033[36;01m$> \033[00mexport\n");
+	ms_export("");
+	printf("----------\n\033[36m");
+	ms_show_env();
+	printf("\033[00m\n\n");
+
+/**********************************/
+
 	while (1)
 	{
 		if (g_d.signal > -1)

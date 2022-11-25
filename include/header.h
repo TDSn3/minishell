@@ -6,7 +6,7 @@
 /*   By: tda-silv <tda-silv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/17 14:29:18 by tda-silv          #+#    #+#             */
-/*   Updated: 2022/11/25 09:58:51 by tda-silv         ###   ########.fr       */
+/*   Updated: 2022/11/25 16:00:50 by tda-silv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,7 @@ char	*ms_get_env(char *strchr);
 char	**ms_get_env_start(char *strchr);
 char	*ms_show_env(void);
 
+
 /* ************************************************************************** */
 /*																			  */
 /*   ../source/t_map/                            							  */
@@ -90,5 +91,10 @@ int		copy_env_in_export(void);
 int		wrong_name_var(char *var);
 int		get_export(char *strchr);
 int		show_export(void);
+
+/*   UNSET   **************************************************************** */
+int		ms_unset(const char *var);
+void	ls_clear_one_export(t_ls **lst, char *content);
+char	**del_one_env(char *var);
 
 #endif

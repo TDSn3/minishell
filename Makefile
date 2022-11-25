@@ -6,7 +6,7 @@
 #    By: tda-silv <tda-silv@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/10/17 14:32:32 by tda-silv          #+#    #+#              #
-#    Updated: 2022/11/25 09:59:28 by tda-silv         ###   ########.fr        #
+#    Updated: 2022/11/25 16:01:06 by tda-silv         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -64,6 +64,11 @@ NAME_FILE	= $(addprefix t_map/,												\
 											wrong_name_var						\
 											get_export							\
 											show_export							\
+					)															\
+					$(addprefix	  ms_unset/,									\
+			  								ms_unset							\
+											ls_clear_one_export					\
+											del_one_env							\
 					)															\
 																				\
 			  )																	\
