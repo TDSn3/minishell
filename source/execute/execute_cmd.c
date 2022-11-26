@@ -1,29 +1,44 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ms_show_env.c                                      :+:      :+:    :+:   */
+/*   execute_cmd.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tda-silv <tda-silv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/11/21 20:42:02 by tda-silv          #+#    #+#             */
-/*   Updated: 2022/11/25 06:18:22 by tda-silv         ###   ########.fr       */
+/*   Created: 2022/11/26 21:37:10 by tda-silv          #+#    #+#             */
+/*   Updated: 2022/11/26 21:50:49 by tda-silv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <header.h>
 
-/* ************************************************************************** */
-/*																			  */
-/*   Affiche env**.															  */
-/*																			  */
-/* ************************************************************************** */
-char	*ms_show_env(void)
+void	execute_cmd(char *cmd)
 {
-	int	i;
+	pid_t	pid;
+	char	*cmd_path;
 
-	i = 0;
-	if (g_d.env)
-		while (g_d.env[i])
-			printf("%s\n", g_d.env[i++]);
-	return (NULL);
+	pid = 0;
+	if (cmd && *cmd)
+	{
+		cmd_path = cmd_path_chr(cmd);
+		if (cmd_path)
+		{
+			pid = fork();
+			if (pid == -1)
+			{
+				perror("fork");
+				return ;
+			}
+			else if (pid > 0)
+			{
+				waitpid(pid, NULL, 0);
+				kill(pid, SIGTERM);
+			}
+			else
+			{
+				printf("execve %s\n", cmd_path);
+				execve(cmd_path, NULL, g_d.env);
+			}
+		}
+	}
 }

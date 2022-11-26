@@ -6,7 +6,7 @@
 /*   By: tda-silv <tda-silv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/19 13:33:37 by tda-silv          #+#    #+#             */
-/*   Updated: 2022/11/26 15:10:19 by tda-silv         ###   ########.fr       */
+/*   Updated: 2022/11/26 21:37:24 by tda-silv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,12 +30,6 @@ int	main(int argc, char **argv, char **env)
 	init_t_g_sig();
 	if (copy_env(env) || copy_env_in_export())
 		return (1);
-/**********************************/
-
-
-
-/**********************************/
-
 	while (1)
 	{
 		if (g_d.signal > -1)
@@ -48,6 +42,11 @@ int	main(int argc, char **argv, char **env)
 		init_input(&input, readline("\033[36;01m$> \033[00m"));
 		if (!input.raw)
 			continue ;
+/**********************************/
+
+		execute_cmd(input.raw);
+
+/**********************************/
 		lexer(&input, input.raw);
 		print_map(input.lexer);
 		free_input(&input);

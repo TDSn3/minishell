@@ -6,7 +6,7 @@
 #    By: tda-silv <tda-silv@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/10/17 14:32:32 by tda-silv          #+#    #+#              #
-#    Updated: 2022/11/25 16:01:06 by tda-silv         ###   ########.fr        #
+#    Updated: 2022/11/26 21:37:49 by tda-silv         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -48,6 +48,10 @@ NAME_FILE	= $(addprefix t_map/,												\
 			  $(addprefix t_gd/,												\
 			  				   init_t_g_sig										\
 			  )																	\
+			  $(addprefix execute/,												\
+			  					  cmd_path_chr									\
+								  execute_cmd									\
+			  )																	\
 			  $(addprefix builtin/,												\
 					$(addprefix	  ms_cd/,										\
 			  							ms_cd									\
@@ -70,6 +74,7 @@ NAME_FILE	= $(addprefix t_map/,												\
 											ls_clear_one_export					\
 											del_one_env							\
 					)															\
+					ms_env														\
 																				\
 			  )																	\
 			  minishell															\
@@ -79,7 +84,6 @@ NAME_FILE	= $(addprefix t_map/,												\
 			  free_input														\
 			  ms_get_env														\
 			  ms_get_env_start													\
-			  ms_show_env														\
 
 SRC			= $(addsuffix .c, $(addprefix $(SRC_DIR), $(NAME_FILE)))
 OBJ			= $(addsuffix .o, $(addprefix $(OBJ_DIR), $(NAME_FILE)))

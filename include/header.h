@@ -6,7 +6,7 @@
 /*   By: tda-silv <tda-silv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/17 14:29:18 by tda-silv          #+#    #+#             */
-/*   Updated: 2022/11/25 16:00:50 by tda-silv         ###   ########.fr       */
+/*   Updated: 2022/11/26 21:37:36 by tda-silv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,6 @@ void	free_input(t_input *input);
 void	lexer(t_input *input, char *line);
 char	*ms_get_env(char *strchr);
 char	**ms_get_env_start(char *strchr);
-char	*ms_show_env(void);
 
 
 /* ************************************************************************** */
@@ -76,6 +75,8 @@ void	init_t_g_sig(void);
 /*																			  */
 /* ************************************************************************** */
 
+int		ms_env(void);
+
 /*   CD   ******************************************************************* */
 int		ms_cd(const char *path);
 int		update_env(const char *str);
@@ -96,5 +97,14 @@ int		show_export(void);
 int		ms_unset(const char *var);
 void	ls_clear_one_export(t_ls **lst, char *content);
 char	**del_one_env(char *var);
+
+/* ************************************************************************** */
+/*																			  */
+/*   ../source/execute/                             						  */
+/*																			  */
+/* ************************************************************************** */
+
+char	*cmd_path_chr(char *cmd);
+void	execute_cmd(char *cmd);
 
 #endif
