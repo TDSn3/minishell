@@ -6,11 +6,13 @@
 /*   By: tda-silv <tda-silv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/26 21:37:10 by tda-silv          #+#    #+#             */
-/*   Updated: 2022/11/26 21:50:49 by tda-silv         ###   ########.fr       */
+/*   Updated: 2022/11/27 11:16:56 by tda-silv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <header.h>
+
+static void	child_exec(char *cmd_path);
 
 void	execute_cmd(char *cmd)
 {
@@ -35,10 +37,13 @@ void	execute_cmd(char *cmd)
 				kill(pid, SIGTERM);
 			}
 			else
-			{
-				printf("execve %s\n", cmd_path);
-				execve(cmd_path, NULL, g_d.env);
-			}
+				child_exec(cmd_path);
 		}
 	}
+}
+
+static void	child_exec(char *cmd_path)
+{
+	printf("execve %s\n", cmd_path);
+	execve(cmd_path, NULL, g_d.env);
 }
