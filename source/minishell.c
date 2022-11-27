@@ -6,14 +6,16 @@
 /*   By: tda-silv <tda-silv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/19 13:33:37 by tda-silv          #+#    #+#             */
-/*   Updated: 2022/11/26 21:37:24 by tda-silv         ###   ########.fr       */
+/*   Updated: 2022/11/27 18:23:13 by tda-silv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <header.h>
 
-static void	print_map(t_map *map);
+//static void	print_map(t_map *map);
 static void	handler(int sig, siginfo_t *x, void *y);
+
+t_gd	g_d;
 
 int	main(int argc, char **argv, char **env)
 {
@@ -32,24 +34,27 @@ int	main(int argc, char **argv, char **env)
 		return (1);
 	while (1)
 	{
-		if (g_d.signal > -1)
-		{
-			write(1, "\n", 1);
-			free_input(&input);
-			exit (1);
-			g_d.signal = -1;
-		}
+//		if (g_d.signal > -1)
+//		{
+//			printf("\n");
+//			free_input(&input);
+//			exit (1);
+//			g_d.signal = -1;
+//		}
 		init_input(&input, readline("\033[36;01m$> \033[00m"));
 		if (!input.raw)
-			continue ;
+		{
+			printf("exit\n");
+			exit (0);
+		}
 /**********************************/
 
-		execute_cmd(input.raw);
+//		execute_cmd(input.raw);
 
 /**********************************/
-		lexer(&input, input.raw);
-		print_map(input.lexer);
-		free_input(&input);
+//		lexer(&input, input.raw);
+//		print_map(input.lexer);
+//		free_input(&input);
 	}
 	return (0);
 }
@@ -66,6 +71,10 @@ static void	handler(int sig, siginfo_t *x, void *y)
 	(void) y;
 	if (sig == 2)
 	{
+		printf("\n");
+		rl_on_new_line();
+		rl_replace_line("", 0);	
+		rl_redisplay();
 		g_d.signal = 2;
 	}
 	if (sig == 3)
@@ -74,27 +83,27 @@ static void	handler(int sig, siginfo_t *x, void *y)
 	}
 }
 
-static void	print_map(t_map *map)
-{
-	t_map	*tmp;
-
-	tmp = map;
-	while (tmp)
-	{
-		ft_printf("%d - ", tmp->key);
-		if (tmp->key == WORD)
-			ft_printf("WORD :", tmp->key);
-		else if (tmp->key == SQUOTE)
-			ft_printf("SQUOTE :", tmp->key);
-		else if (tmp->key == DQUOTE)
-			ft_printf("DQUOTE :", tmp->key);
-		else if (tmp->key == CMD)
-			ft_printf("CMD :", tmp->key);
-		else if (tmp->key == DELIM)
-			ft_printf("DELIM :", tmp->key);
-		else
-			ft_printf("NONE :", tmp->key);
-		ft_printf("%s\n", tmp->content);
-		tmp = tmp->next;
-	}
-}
+//static void	print_map(t_map *map)
+//{
+//	t_map	*tmp;
+//
+//	tmp = map;
+//	while (tmp)
+//	{
+//		ft_printf("%d - ", tmp->key);
+//		if (tmp->key == WORD)
+//			ft_printf("WORD :", tmp->key);
+//		else if (tmp->key == SQUOTE)
+//			ft_printf("SQUOTE :", tmp->key);
+//		else if (tmp->key == DQUOTE)
+//			ft_printf("DQUOTE :", tmp->key);
+//		else if (tmp->key == CMD)
+//			ft_printf("CMD :", tmp->key);
+//		else if (tmp->key == DELIM)
+//			ft_printf("DELIM :", tmp->key);
+//		else
+//			ft_printf("NONE :", tmp->key);
+//		ft_printf("%s\n", tmp->content);
+//		tmp = tmp->next;
+//	}
+//}

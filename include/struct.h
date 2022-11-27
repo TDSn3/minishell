@@ -6,7 +6,7 @@
 /*   By: tda-silv <tda-silv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/18 15:11:18 by tda-silv          #+#    #+#             */
-/*   Updated: 2022/11/24 14:00:07 by tda-silv         ###   ########.fr       */
+/*   Updated: 2022/11/27 17:45:22 by tda-silv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,6 @@ typedef struct s_global_data {
 	t_ls	*export;
 }	t_gd;
 
-t_gd	g_d;
+extern t_gd	g_d;
 
 #endif
