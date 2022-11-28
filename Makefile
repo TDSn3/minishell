@@ -6,7 +6,7 @@
 #    By: tda-silv <tda-silv@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/10/17 14:32:32 by tda-silv          #+#    #+#              #
-#    Updated: 2022/11/26 21:37:49 by tda-silv         ###   ########.fr        #
+#    Updated: 2022/11/28 09:59:02 by tda-silv         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,7 +21,7 @@ CC			= gcc
 
 CFLAGS		= -Wall -Wextra -Werror
 LDFLAGS_1	= -fsanitize=address -g
-LDFLAGS_2	= -fsanitize=address -g -fsanitize=leak
+LDFLAGS_2	= -fsanitize=address -g -static-libasan -fsanitize=leak
 VFLAGS		= valgrind --leak-check=full --show-leak-kinds=all --track-origins=yes --tool=helgrind
 
 # **************************************************************************** #
@@ -30,8 +30,8 @@ VFLAGS		= valgrind --leak-check=full --show-leak-kinds=all --track-origins=yes -
 # -l | Nom du .a sans le préfixe "lib"										   #
 # **************************************************************************** #
 
-I_HEADERS	= -I $(INC_DIR) -I $(LIB_DIR)
-L_LIB		= -L $(LIB_DIR) -l ft -l readline
+I_HEADERS	= -I $(INC_DIR) -I $(LIB_DIR) -I /opt/homebrew/opt/readline/include
+L_LIB		= -L $(LIB_DIR) -l ft -l readline -L /opt/homebrew/opt/readline/lib
 
 ################################################################################
 
@@ -46,7 +46,7 @@ NAME_FILE	= $(addprefix t_map/,												\
 								map_clear										\
 			  )																	\
 			  $(addprefix t_gd/,												\
-			  				   init_t_g_sig										\
+			  				   init_t_gd										\
 			  )																	\
 			  $(addprefix execute/,												\
 			  					  cmd_path_chr									\
@@ -92,13 +92,13 @@ OBJ			= $(addsuffix .o, $(addprefix $(OBJ_DIR), $(NAME_FILE)))
 
 $(OBJ_DIR)%.o: $(SRC_DIR)%.c
 	mkdir -p $(dir $@)
-	$(CC) $(CFLAGS) $(I_HEADERS) -O3 -c $< -o $@
+	$(CC) $(CFLAGS) $(I_HEADERS) -O3 -c $< -o $@  -fsanitize=address -g
 
 all: $(NAME) $(HEADERS)
 
 $(NAME): $(OBJ)
 	@cd libft; make; cd ..
-	$(CC) $(OBJ) $(I_HEADERS) $(L_LIB) -o $(NAME)
+	$(CC) $(OBJ) $(I_HEADERS) $(L_LIB) -o $(NAME)  -fsanitize=address -g
 
 ################################################################################
 

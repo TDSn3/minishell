@@ -1,16 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   update_pwd.c                                       :+:      :+:    :+:   */
+/*   update_path.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tda-silv <tda-silv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/23 18:09:20 by tda-silv          #+#    #+#             */
-/*   Updated: 2022/11/25 12:07:05 by tda-silv         ###   ########.fr       */
+/*   Updated: 2022/11/28 10:31:49 by tda-silv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <header.h>
+
+static int	free_function_all(char **stock);
 
 int	update_path(const char *path, char **path_update)
 {
@@ -25,8 +27,14 @@ int	update_path(const char *path, char **path_update)
 		return (1);
 	*path_update = ft_strjoin(pwd_sans, stock);
 	if (!*path_update)
-		return (1);
+		return (free_function_all(&stock));
 	*path_update = remove_point(*path_update);
 	free(save_for_free);
 	return (0);
+}
+
+static int	free_function_all(char **stock)
+{
+	free(*stock);
+	return (1);
 }

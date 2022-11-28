@@ -6,7 +6,7 @@
 /*   By: tda-silv <tda-silv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/17 14:29:18 by tda-silv          #+#    #+#             */
-/*   Updated: 2022/11/27 17:44:44 by tda-silv         ###   ########.fr       */
+/*   Updated: 2022/11/28 10:25:46 by tda-silv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ void	map_clear(t_map **lst, void (*del)(void *));
 /*																			  */
 /* ************************************************************************** */
 
-void	init_t_g_sig(void);
+void	init_t_gd(void);
 
 /* ************************************************************************** */
 /*																			  */
@@ -82,7 +82,7 @@ int		ms_cd(const char *path);
 int		update_env(const char *str);
 int		update_env_home(const char *str);
 int		update_path(const char *path, char **path_update);
-void	get_oldpwd(char *str);
+int		get_oldpwd(char *str);
 char	*remove_point(char *str);
 int		remove_last(char **copy);
 

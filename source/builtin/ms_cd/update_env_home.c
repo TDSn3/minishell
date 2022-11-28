@@ -6,11 +6,13 @@
 /*   By: tda-silv <tda-silv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/23 18:08:39 by tda-silv          #+#    #+#             */
-/*   Updated: 2022/11/23 20:39:58 by tda-silv         ###   ########.fr       */
+/*   Updated: 2022/11/28 10:24:39 by tda-silv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <header.h>
+
+static int	free_function_all(char **new_pwd);
 
 int	update_env_home(const char *str)
 {
@@ -26,10 +28,16 @@ int	update_env_home(const char *str)
 		return (1);
 	stock = ft_strjoin("PWD=", str);
 	if (!stock)
-		return (1);
+		return (free_function_all(&new_pwd));
 	ft_strlcpy(new_pwd, stock, ft_strlen(str) + 5);
 	*pwd = new_pwd;
 	free(stock);
 	free(save_for_free);
 	return (0);
+}
+
+static int	free_function_all(char **new_pwd)
+{
+	free(*new_pwd);
+	return (1);
 }

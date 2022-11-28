@@ -6,7 +6,7 @@
 /*   By: tda-silv <tda-silv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/19 13:33:37 by tda-silv          #+#    #+#             */
-/*   Updated: 2022/11/27 18:23:13 by tda-silv         ###   ########.fr       */
+/*   Updated: 2022/11/28 10:21:19 by tda-silv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,9 +29,15 @@ int	main(int argc, char **argv, char **env)
 	sigemptyset(&ssa.sa_mask);
 	sigaction(SIGINT, &ssa, 0);
 	sigaction(SIGQUIT, &ssa, 0);
-	init_t_g_sig();
+	init_t_gd();
 	if (copy_env(env) || copy_env_in_export())
 		return (1);
+//	errno = 2;
+//	perror("---------------->");
+	ms_cd("source");
+	ms_env();
+	ms_export("");
+	ms_unset("PWD");
 	while (1)
 	{
 //		if (g_d.signal > -1)
