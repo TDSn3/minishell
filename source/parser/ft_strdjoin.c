@@ -1,23 +1,37 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   init_input.c                                       :+:      :+:    :+:   */
+/*   ft_strdjoin.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tda-silv <tda-silv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/11/19 17:18:52 by tda-silv          #+#    #+#             */
-/*   Updated: 2022/11/29 20:50:25 by tda-silv         ###   ########.fr       */
+/*   Created: 2022/11/30 00:34:16 by tda-silv          #+#    #+#             */
+/*   Updated: 2022/11/30 00:34:31 by tda-silv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <header.h>
 
-void	init_input(t_input *input, char *line)
+char	**ft_strdjoin(char **strd, char *s)
 {
-	input->env = g_d.env;
-	input->raw = line;
-	input->lexer = NULL;
-	input->parser = NULL;
-	input->ast = NULL;
-	input->line = NULL;
+	char	**newd;
+	int		strdlen;
+	int		count;
+
+	strdlen = 0;
+	if (strd)
+		strdlen = ft_strdlen(strd);
+	newd = ft_calloc(strdlen + 2, sizeof(char *));
+	if (!newd)
+		return (NULL);
+	count = 0;
+	while (strd && strd[count])
+	{
+		newd[count] = ft_strdup(strd[count]);
+		count ++;
+	}
+	newd[count] = ft_strdup(s);
+	if (strd)
+		ft_strdfree(strd);
+	return (newd);
 }

@@ -6,7 +6,7 @@
 #    By: tda-silv <tda-silv@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/10/17 14:32:32 by tda-silv          #+#    #+#              #
-#    Updated: 2022/11/28 09:59:02 by tda-silv         ###   ########.fr        #
+#    Updated: 2022/11/30 19:26:38 by tda-silv         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -48,6 +48,22 @@ NAME_FILE	= $(addprefix t_map/,												\
 			  $(addprefix t_gd/,												\
 			  				   init_t_gd										\
 			  )																	\
+			  $(addprefix lexer/,												\
+			  				   lexer											\
+							   switch_type										\
+							   is_break											\
+							   lexer_char_error									\
+			  )																	\
+			  $(addprefix parser/,												\
+			  					 parser											\
+								 ft_streplace									\
+								 ft_strdjoin									\
+								 ft_strdlen										\
+								 ft_strdfree									\
+								 check_syntax									\
+								 check_expand									\
+								 ft_strjoin_free								\
+			  )																	\
 			  $(addprefix execute/,												\
 			  					  cmd_path_chr									\
 								  execute_cmd									\
@@ -79,7 +95,6 @@ NAME_FILE	= $(addprefix t_map/,												\
 			  )																	\
 			  minishell															\
 			  copy_env															\
-			  lexer																\
 			  init_input														\
 			  free_input														\
 			  ms_get_env														\
@@ -92,26 +107,26 @@ OBJ			= $(addsuffix .o, $(addprefix $(OBJ_DIR), $(NAME_FILE)))
 
 $(OBJ_DIR)%.o: $(SRC_DIR)%.c
 	mkdir -p $(dir $@)
-	$(CC) $(CFLAGS) $(I_HEADERS) -O3 -c $< -o $@  -fsanitize=address -g
+	$(CC) $(CFLAGS) $(I_HEADERS) -O3 -c $< -o $@
 
 all: $(NAME) $(HEADERS)
 
 $(NAME): $(OBJ)
-	@cd libft; make; cd ..
-	$(CC) $(OBJ) $(I_HEADERS) $(L_LIB) -o $(NAME)  -fsanitize=address -g
+	@cd libft; make bonus; cd ..
+	$(CC) $(OBJ) $(I_HEADERS) $(L_LIB) -o $(NAME)
 
 ################################################################################
 
 valgrind: $(OBJ)
-	@cd libft; make; cd ..
+	@cd libft; make bonus; cd ..
 	$(CC) $(VFLAGS) $(OBJ) $(I_HEADERS) $(L_LIB) -o $(NAME)
 
 fsanitize1: $(OBJ)
-	@cd libft; make; cd ..
+	@cd libft; make bonus; cd ..
 	$(CC) $(LDFLAGS_1) $(OBJ) $(I_HEADERS) $(L_LIB) -o $(NAME)
 
 fsanitize2: $(OBJ)
-	@cd libft; make; cd ..
+	@cd libft; make bonus; cd ..
 	$(CC) $(LDFLAGS_2) $(OBJ) $(I_HEADERS) $(L_LIB) -o $(NAME)
 
 ################################################################################

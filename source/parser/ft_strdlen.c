@@ -1,23 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   init_input.c                                       :+:      :+:    :+:   */
+/*   ft_strdlen.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tda-silv <tda-silv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/11/19 17:18:52 by tda-silv          #+#    #+#             */
-/*   Updated: 2022/11/29 20:50:25 by tda-silv         ###   ########.fr       */
+/*   Created: 2022/11/30 00:35:47 by tda-silv          #+#    #+#             */
+/*   Updated: 2022/11/30 00:35:58 by tda-silv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <header.h>
 
-void	init_input(t_input *input, char *line)
+size_t	ft_strdlen(char **strd)
 {
-	input->env = g_d.env;
-	input->raw = line;
-	input->lexer = NULL;
-	input->parser = NULL;
-	input->ast = NULL;
-	input->line = NULL;
+	int	count;
+
+	count = 0;
+	if (!strd || !strd[0])
+		return (0);
+	while (strd && strd[count])
+		count ++;
+	return (count);
 }

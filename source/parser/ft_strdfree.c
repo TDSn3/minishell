@@ -1,23 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   init_input.c                                       :+:      :+:    :+:   */
+/*   ft_strdfree.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tda-silv <tda-silv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/11/19 17:18:52 by tda-silv          #+#    #+#             */
-/*   Updated: 2022/11/29 20:50:25 by tda-silv         ###   ########.fr       */
+/*   Created: 2022/11/30 00:37:26 by tda-silv          #+#    #+#             */
+/*   Updated: 2022/11/30 00:37:38 by tda-silv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <header.h>
 
-void	init_input(t_input *input, char *line)
+void	ft_strdfree(char **strd)
 {
-	input->env = g_d.env;
-	input->raw = line;
-	input->lexer = NULL;
-	input->parser = NULL;
-	input->ast = NULL;
-	input->line = NULL;
+	int	count;
+
+	count = 0;
+	while (strd[count])
+	{
+		free(strd[count]);
+		count ++;
+	}
+	free(strd);
 }

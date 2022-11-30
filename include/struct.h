@@ -6,19 +6,24 @@
 /*   By: tda-silv <tda-silv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/18 15:11:18 by tda-silv          #+#    #+#             */
-/*   Updated: 2022/11/27 17:45:22 by tda-silv         ###   ########.fr       */
+/*   Updated: 2022/11/29 20:47:03 by tda-silv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef STRUCT_H
 # define STRUCT_H
 
-typedef enum e_type{
+typedef enum e_type {
 	WORD,
 	SQUOTE,
 	DQUOTE,
-	CMD,
-	DELIM
+	DOLLAR,
+	PIPE,
+	ESPACE,
+	DREDIR,
+	DRREDIR,
+	GREDIR,
+	GRREDIR
 }	t_type;
 
 typedef struct s_map {
@@ -28,11 +33,21 @@ typedef struct s_map {
 	struct s_map	*next;
 }	t_map;
 
+typedef struct s_node {
+	int		status;
+	char	*file;
+	char	**args;
+}	t_node;
+
 typedef struct s_input {
-	char	**env;
-	char	*raw;
-	char	*line;
-	t_map	*lexer;
+	char		**env;
+	char		*raw;
+	char		*line;
+	int			fdin;
+	int			fdout;
+	t_map		*lexer;
+	t_map		*parser;
+	t_list		*ast;
 }	t_input;
 
 typedef struct s_global_data {
