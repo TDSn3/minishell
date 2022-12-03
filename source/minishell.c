@@ -6,7 +6,7 @@
 /*   By: tda-silv <tda-silv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/19 13:33:37 by tda-silv          #+#    #+#             */
-/*   Updated: 2022/11/30 20:00:42 by tda-silv         ###   ########.fr       */
+/*   Updated: 2022/12/02 16:21:01 by tda-silv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,20 @@ void	print_ast(t_list *ast);
 static void	handler(int sig, siginfo_t *x, void *y);
 
 t_gd	g_d;
+
+void	test_lexer(t_input *input)
+{
+	lexer(input, input->raw);
+	check_syntax(input);
+	check_expand(input);
+	print_map(input->parser);
+}
+
+void	test_ast(t_input *input)
+{
+	parser(input);
+	print_ast(input->ast);
+}
 
 int	main(int argc, char **argv, char **env)
 {
@@ -38,23 +52,46 @@ int	main(int argc, char **argv, char **env)
 	tcgetattr(0, &termios_new);
 	termios_new.c_lflag &= ~ECHOCTL;
 	tcsetattr(0, 0, &termios_new);
-	while (1)
-	{
-		init_input(&input, readline("\033[36;01m$> \033[00m"));
-		if (!input.raw)
-		{
-			printf("exit\n");
-			exit (0);
-		}
-//		execute_cmd(input.raw);
-		lexer(&input, input.raw);
-		check_syntax(&input);
-		check_expand(&input);
-		// parser(&input)
-		// print_ast(input.ast);
-		print_map(input.lexer);
-		free_input(&input);
-	}
+	ms_pwd();
+	ms_cd("../test name dir espace");
+	ms_pwd();
+	(void) input;
+//	while (1)
+//	{
+//		init_input(&input, readline("\033[36;01m$> \033[00m"));
+//		if (!input.raw)
+//		{
+//			printf("exit\n");
+//			exit (0);
+//		}
+////		execute_cmd(input.raw);
+//		lexer(&input, input.raw);
+//		check_syntax(&input);
+//		check_expand(&input);
+//		// parser(&input)
+//		// print_ast(input.ast);
+//		print_map(input.lexer);
+//		free_input(&input);
+//	}
+
+
+//	MAIN D'EMILIE
+//	while (1)
+//	{
+//		init_input(&input, readline("minishell: "), env);
+//		if (!input.raw)
+//		{
+//			printf("exit\n");
+//			exit (0);
+//		}
+//		if (ft_strlen(input.raw) > 0)
+//		{
+//			test_lexer(&input);
+//			test_ast(&input);
+//			printf("\n");
+//		}
+////	free_input(&input);
+//	}
 	return (0);
 }
 
@@ -128,14 +165,19 @@ void	print_map(t_map *map)
 void	print_ast(t_list *ast)
 {
 	t_list	*tmp;
+	t_node	*node;
 
 	tmp = ast;
 	if (!ast)
 		return ;
 	while (tmp)
-	{	
-		for (int i = 0; ((t_node *)(tmp->content))->args[i]; i++)
-			printf("->%s\n", ((t_node *)(tmp->content))->args[i]);
+	{
+		printf("NEW COMMAND\n");
+		node = tmp->content;
+		for (size_t i = 0; node->args[i]; i++)
+		{
+				printf("%ld: %s\n", i, node->args[i]);
+		}
 		tmp = tmp->next;
 	}
 }

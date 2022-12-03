@@ -6,7 +6,7 @@
 /*   By: tda-silv <tda-silv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/21 20:42:02 by tda-silv          #+#    #+#             */
-/*   Updated: 2022/11/23 20:37:58 by tda-silv         ###   ########.fr       */
+/*   Updated: 2022/12/02 16:06:25 by tda-silv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,8 @@ static int	str_chr_start_str(char *str, char *strchr);
 
 /* ************************************************************************** */
 /*																			  */
-/*   Cherche strchr au début de chaque env*. Si strchr n'est trouvée dans	  */
-/*   aucune str d'env*, retourne NULL, sinon, retourne la ligne débutant	  */
+/*   Cherche strchr au début de chaque *env. Si strchr n'est trouvée dans	  */
+/*   aucune str d'*env, retourne NULL, sinon, retourne la ligne débutant	  */
 /*   par strchr après celui-ci.												  */
 /*																			  */
 /* ************************************************************************** */

@@ -6,7 +6,7 @@
 /*   By: tda-silv <tda-silv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/30 00:19:45 by tda-silv          #+#    #+#             */
-/*   Updated: 2022/11/30 18:56:36 by tda-silv         ###   ########.fr       */
+/*   Updated: 2022/11/30 20:23:57 by tda-silv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,6 @@ void	parser(t_input *input)
 	ft_lstadd_back(&input->ast, ft_lstnew(new_node()));
 	while (tmp)
 	{
-		printf("->\n");
 		if (tmp->type == WORD)
 		{
 			node = ft_lstlast(input->ast)->content;

@@ -6,7 +6,7 @@
 /*   By: tda-silv <tda-silv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/17 14:29:18 by tda-silv          #+#    #+#             */
-/*   Updated: 2022/11/30 19:26:01 by tda-silv         ###   ########.fr       */
+/*   Updated: 2022/12/02 16:08:59 by tda-silv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@
 /* ************************************************************************** */
 
 int		copy_env(char **strd);
-void	init_input(t_input *input, char *line);
+void	init_input(t_input *input, char *line, char **env);
 void	free_input(t_input *input);
 char	*ms_get_env(char *strchr);
 char	**ms_get_env_start(char *strchr);
@@ -76,6 +76,7 @@ void	init_t_gd(void);
 /* ************************************************************************** */
 
 int		ms_env(void);
+int		ms_pwd(void);
 
 /*   CD   ******************************************************************* */
 int		ms_cd(const char *path);

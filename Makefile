@@ -6,7 +6,7 @@
 #    By: tda-silv <tda-silv@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/10/17 14:32:32 by tda-silv          #+#    #+#              #
-#    Updated: 2022/11/30 19:26:38 by tda-silv         ###   ########.fr        #
+#    Updated: 2022/12/02 16:09:20 by tda-silv         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -91,6 +91,7 @@ NAME_FILE	= $(addprefix t_map/,												\
 											del_one_env							\
 					)															\
 					ms_env														\
+					ms_pwd														\
 																				\
 			  )																	\
 			  minishell															\

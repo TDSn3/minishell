@@ -6,7 +6,7 @@
 /*   By: tda-silv <tda-silv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/19 17:50:14 by tda-silv          #+#    #+#             */
-/*   Updated: 2022/11/29 21:23:40 by tda-silv         ###   ########.fr       */
+/*   Updated: 2022/11/30 20:13:30 by tda-silv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ void	lexer(t_input *input, char *line)
 
 	count = 0;
 	start = 0;
-	while (line[count] && line[count] != '\n')
+	while (line[count])
 	{
 		type = switch_type(line[count]);
 		if (type != WORD)
