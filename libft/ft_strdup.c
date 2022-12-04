@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strdup.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tda-silv <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: tda-silv <tda-silv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/01 13:31:35 by tda-silv          #+#    #+#             */
-/*   Updated: 2022/03/16 12:40:52 by tda-silv         ###   ########.fr       */
+/*   Updated: 2022/12/03 21:42:21 by tda-silv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,8 @@ char	*ft_strdup(const char *s)
 {
 	char	*copy;
 
+	if (!s)
+		return (NULL);
 	copy = malloc((ft_strlen(s) + 1) * sizeof(char));
 	if (!copy)
 		return (NULL);

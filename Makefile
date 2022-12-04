@@ -6,7 +6,7 @@
 #    By: tda-silv <tda-silv@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/10/17 14:32:32 by tda-silv          #+#    #+#              #
-#    Updated: 2022/12/02 16:09:20 by tda-silv         ###   ########.fr        #
+#    Updated: 2022/12/04 15:30:54 by tda-silv         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,7 +22,6 @@ CC			= gcc
 CFLAGS		= -Wall -Wextra -Werror
 LDFLAGS_1	= -fsanitize=address -g
 LDFLAGS_2	= -fsanitize=address -g -static-libasan -fsanitize=leak
-VFLAGS		= valgrind --leak-check=full --show-leak-kinds=all --track-origins=yes --tool=helgrind
 
 # **************************************************************************** #
 # -I | Chemin du dossier où trouver un .h									   #
@@ -100,6 +99,7 @@ NAME_FILE	= $(addprefix t_map/,												\
 			  free_input														\
 			  ms_get_env														\
 			  ms_get_env_start													\
+			  free_all															\
 
 SRC			= $(addsuffix .c, $(addprefix $(SRC_DIR), $(NAME_FILE)))
 OBJ			= $(addsuffix .o, $(addprefix $(OBJ_DIR), $(NAME_FILE)))
@@ -119,8 +119,7 @@ $(NAME): $(OBJ)
 ################################################################################
 
 valgrind: $(OBJ)
-	@cd libft; make bonus; cd ..
-	$(CC) $(VFLAGS) $(OBJ) $(I_HEADERS) $(L_LIB) -o $(NAME)
+	valgrind --track-origins=yes --leak-check=full --show-leak-kinds=all --suppressions=readline_leaks ./$(NAME)
 
 fsanitize1: $(OBJ)
 	@cd libft; make bonus; cd ..

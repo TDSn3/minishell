@@ -1,28 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   map_clear.c                                        :+:      :+:    :+:   */
+/*   free_all.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tda-silv <tda-silv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/11/21 19:49:45 by tda-silv          #+#    #+#             */
-/*   Updated: 2022/12/04 16:46:19 by tda-silv         ###   ########.fr       */
+/*   Created: 2022/12/03 20:56:49 by tda-silv          #+#    #+#             */
+/*   Updated: 2022/12/03 21:05:35 by tda-silv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <header.h>
 
-void	map_clear(t_map **lst, void (*del)(void *))
+int	free_all(void)
 {
-	t_map	*tmp;
-	
-	if (!*lst)
-		return ;
-	while (*lst)
-	{
-		tmp = (*lst)->next;
-		map_delone(*lst, del);
-		*lst = tmp;
-	}
-	*lst = NULL;
+	int	i;
+
+	i = 0;
+	while (g_d.env[i])
+		free(g_d.env[i++]);
+	free(g_d.env);
+	ls_clear(&(g_d.export));
+	return (0);
 }

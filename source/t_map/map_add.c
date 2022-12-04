@@ -6,34 +6,12 @@
 /*   By: tda-silv <tda-silv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/19 18:16:33 by tda-silv          #+#    #+#             */
-/*   Updated: 2022/12/02 15:50:59 by tda-silv         ###   ########.fr       */
+/*   Updated: 2022/12/04 16:50:11 by tda-silv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <header.h>
 
-void	map_add(t_map **lst, t_map *new)
-{
-	t_map	*copy;
-
-	if (!new)
-		return ;
-	if (lst)
-	{
-		if (!*lst)
-		{
-			*lst = new;
-			(*lst)->key = 0;
-		}
-		else
-		{
-			copy = map_last(*lst);
-			copy->next = new;
-			copy->next->key = copy->key + 1;
-		}
-	}
-}
-/*
 void	map_add(t_map **lst, t_map *new)
 {
 	t_map	*tmp;
@@ -50,4 +28,3 @@ void	map_add(t_map **lst, t_map *new)
 	tmp->next = new;
 	tmp->next->key = tmp->key + 1;
 }
-*/

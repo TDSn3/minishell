@@ -6,18 +6,18 @@
 /*   By: tda-silv <tda-silv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/19 17:18:52 by tda-silv          #+#    #+#             */
-/*   Updated: 2022/11/30 20:31:38 by tda-silv         ###   ########.fr       */
+/*   Updated: 2022/12/04 17:12:25 by tda-silv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <header.h>
 
-static char	**ft_strdcpy(char **strd);
+//static char	**ft_path(void);
 
-void	init_input(t_input *input, char *line, char **env)
+void	init_input(t_input *input, char *line)
 {
-//	input->env = g_d.env;
-	input->env = ft_strdcpy(env);
+	input->env = g_d.env;
+//	input->paths = ft_path();
 	input->raw = line;
 	input->lexer = NULL;
 	input->parser = NULL;
@@ -25,19 +25,12 @@ void	init_input(t_input *input, char *line, char **env)
 	input->line = NULL;
 }
 
-static char	**ft_strdcpy(char **strd)
-{
-	char	**newstrd;
-	int		count;
-
-	newstrd = (char **) calloc(ft_strdlen(strd) + 1, sizeof(char *));
-	if (!strd)
-		return (NULL);
-	count = 0;
-	while (strd[count])
-	{
-		newstrd[count] = ft_strdup(strd[count]);
-		count ++;
-	}
-	return (newstrd);
-}
+//static char	**ft_path(void)
+//{
+//	char	**all_path;
+//
+//	all_path = ft_split(ms_get_env("PATH") + 1, ':');
+//	if (all_path)
+//		return (all_path);
+//	return (NULL);
+//}

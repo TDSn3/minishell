@@ -1,0 +1,13 @@
+{
+	<Readline Malloc Leaks>
+	Memcheck:Leak
+	...
+	fun:rl_*
+}
+
+{
+	<Readline Realoc Leaks>
+	Memcheck:Leak
+	...
+	obj:/usr/lib/x86_64-linux-gnu/libreadline.so.8.2
+}
