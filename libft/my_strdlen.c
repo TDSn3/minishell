@@ -6,7 +6,7 @@
 /*   By: tda-silv <tda-silv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/21 22:25:01 by tda-silv          #+#    #+#             */
-/*   Updated: 2022/11/26 15:11:52 by tda-silv         ###   ########.fr       */
+/*   Updated: 2022/12/05 15:12:38 by tda-silv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,6 @@ size_t	my_strdlen(char **strd)
 	if (!strd || !*strd)
 		return (0);
 	while (strd[size])
-	{
 		size++;
-	}
 	return (size);
 }

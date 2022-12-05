@@ -6,7 +6,7 @@
 /*   By: tda-silv <tda-silv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/19 11:52:44 by tda-silv          #+#    #+#             */
-/*   Updated: 2022/10/25 15:18:05 by tda-silv         ###   ########.fr       */
+/*   Updated: 2022/12/05 14:02:16 by tda-silv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,14 +14,13 @@
 
 void	ft_lstiter(t_list *lst, void (*f)(void *))
 {
-	if (lst)
+	if (!lst || !f)
+		return ;
+	while (lst && f)
 	{
-		while (lst && f)
-		{
-			if (f)
-				(*f)(lst->content);
-			lst = lst->next;
-		}
+		if (f)
+			(*f)(lst->content);
+		lst = lst->next;
 	}
 }
 /*

@@ -6,7 +6,7 @@
 /*   By: tda-silv <tda-silv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/30 08:41:02 by tda-silv          #+#    #+#             */
-/*   Updated: 2022/12/03 20:36:47 by tda-silv         ###   ########.fr       */
+/*   Updated: 2022/12/05 14:15:30 by tda-silv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,6 @@ void	check_expand(t_input *input)
 				s = expand_dollar(input, &tmp);
 			if (tmp->type == SQUOTE || tmp->type == DQUOTE)
 				s = remove_quote(input, &tmp, tmp->type);
-			printf("Ce printf stop le seqfault\n");
 			map_add(&input->parser, map_new(s, WORD));
 		}
 		tmp = tmp->next;

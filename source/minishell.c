@@ -6,7 +6,7 @@
 /*   By: tda-silv <tda-silv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/19 13:33:37 by tda-silv          #+#    #+#             */
-/*   Updated: 2022/12/04 17:05:06 by tda-silv         ###   ########.fr       */
+/*   Updated: 2022/12/05 14:08:20 by tda-silv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 static void	handler(int sig, siginfo_t *x, void *y);
 static int	ctrl_d(t_input *input);
 static void	print_ast(t_list *ast);
+static void	exec_all(t_input *input, t_list *ast);
 
 t_gd	g_d;
 
@@ -49,8 +50,8 @@ int	main(int argc, char **argv, char **env)
 			check_expand(&input);
 			parser(&input);
 			print_ast(input.ast);
+			exec_all(&input, input.ast);
 		}
-		execute_cmd(input.raw);
 		free_input(&input);
 	}
 	return (0);
@@ -109,8 +110,24 @@ static void	print_ast(t_list *ast)
 		node = tmp->content;
 		for (size_t i = 0; node->args[i]; i++)
 		{
-				printf("%ld: %s\n", i, node->args[i]);
+			printf("%ld: %s\n", i, node->args[i]);
 		}
+		tmp = tmp->next;
+	}
+}
+
+static void	exec_all(t_input *input, t_list *ast)
+{
+	t_list	*tmp;
+	t_node	*node;
+
+	tmp = ast;
+	if (!ast)
+		return ;
+	while (tmp)
+	{
+		node = tmp->content;
+		execute_cmd(input->raw, node->args);
 		tmp = tmp->next;
 	}
 }

@@ -6,7 +6,7 @@
 #    By: tda-silv <tda-silv@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/10/17 14:32:32 by tda-silv          #+#    #+#              #
-#    Updated: 2022/12/04 15:30:54 by tda-silv         ###   ########.fr        #
+#    Updated: 2022/12/05 14:42:34 by tda-silv         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,7 +19,8 @@ LIB_DIR		= libft/
 
 CC			= gcc
 
-CFLAGS		= -Wall -Wextra -Werror
+CFLAGS		=
+#CFLAGS		= -Wall -Wextra -Werror
 LDFLAGS_1	= -fsanitize=address -g
 LDFLAGS_2	= -fsanitize=address -g -static-libasan -fsanitize=leak
 
@@ -91,6 +92,7 @@ NAME_FILE	= $(addprefix t_map/,												\
 					)															\
 					ms_env														\
 					ms_pwd														\
+					builtin_chr													\
 																				\
 			  )																	\
 			  minishell															\
