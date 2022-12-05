@@ -6,7 +6,7 @@
 /*   By: tda-silv <tda-silv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/25 10:49:59 by tda-silv          #+#    #+#             */
-/*   Updated: 2022/11/26 15:10:06 by tda-silv         ###   ########.fr       */
+/*   Updated: 2022/12/05 20:25:09 by tda-silv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@ int	ms_unset(const char *var)
 		return (print_error(copy_var, -1));
 	if (update_env_and_export(copy_var))
 		return (print_error(copy_var, 12));
+	printf("-->%s\n", var);
 	free(copy_var);
 	return (0);
 }
@@ -57,6 +58,7 @@ static int	update_env_and_export(char *var)
 	if (!new_env)
 		return (1);
 	free_env();
+	printf("ok\n");
 	g_d.env = new_env;
 	return (0);
 }

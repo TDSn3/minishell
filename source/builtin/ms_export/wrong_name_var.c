@@ -6,11 +6,13 @@
 /*   By: tda-silv <tda-silv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/24 19:34:31 by tda-silv          #+#    #+#             */
-/*   Updated: 2022/11/25 06:20:45 by tda-silv         ###   ########.fr       */
+/*   Updated: 2022/12/05 20:12:22 by tda-silv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <header.h>
+
+static int	all_digit(char *var);
 
 int	wrong_name_var(char *var)
 {
@@ -22,6 +24,8 @@ int	wrong_name_var(char *var)
 	if (equal > -1)
 		var[equal] = 0;
 	if (equal == 0)
+		return (1);
+	if (all_digit(var))
 		return (1);
 	while (var[i])
 	{
@@ -35,5 +39,17 @@ int	wrong_name_var(char *var)
 	}
 	if (equal > -1)
 		var[equal] = '=';
+	return (0);
+}
+
+static int	all_digit(char *var)
+{
+	int i;
+
+	i = 0;
+	while (var[i] && ft_isdigit(var[i]))
+		i++;
+	if (i > 0 && !var[i])
+		return (1);
 	return (0);
 }

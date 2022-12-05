@@ -6,7 +6,7 @@
 /*   By: tda-silv <tda-silv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/25 15:41:15 by tda-silv          #+#    #+#             */
-/*   Updated: 2022/11/26 15:22:16 by tda-silv         ###   ########.fr       */
+/*   Updated: 2022/12/05 20:20:03 by tda-silv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@ char	**del_one_env(char *var)
 	{
 		if (cmp_var_and_env(g_d.env[i], var))
 		{
+			printf("fuck\n");
 			new_env = creat_new_env(i, 0, my_strdlen(g_d.env) - 1);
 			if (!new_env)
 				return (NULL);

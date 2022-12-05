@@ -6,7 +6,7 @@
 /*   By: tda-silv <tda-silv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/23 19:20:55 by tda-silv          #+#    #+#             */
-/*   Updated: 2022/11/23 20:27:12 by tda-silv         ###   ########.fr       */
+/*   Updated: 2022/12/05 17:41:34 by tda-silv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,15 +15,17 @@
 int	remove_last(char **copy)
 {
 	char	*save;
+	size_t	size;
 
+	size = ft_strlen(*copy);
 	save = *copy;
-	if ((*copy)[ft_strlen(*copy) - 1] == '/')
+	if (size > 0 && (*copy)[size - 1] == '/')
 	{
-		(*copy)[ft_strlen(*copy) - 1] = 0;
+		(*copy)[size - 1] = 0;
 		*copy = ft_strdup(*copy);
+		free(save);
 		if (!*copy)
 			return (1);
-		free(save);
 	}
 	return (0);
 }

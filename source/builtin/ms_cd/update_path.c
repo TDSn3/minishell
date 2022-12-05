@@ -6,7 +6,7 @@
 /*   By: tda-silv <tda-silv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/23 18:09:20 by tda-silv          #+#    #+#             */
-/*   Updated: 2022/11/28 10:31:49 by tda-silv         ###   ########.fr       */
+/*   Updated: 2022/12/05 17:24:06 by tda-silv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@ int	update_path(const char *path, char **path_update)
 	if (!*path_update)
 		return (free_function_all(&stock));
 	*path_update = remove_point(*path_update);
+	free(stock);
 	free(save_for_free);
 	return (0);
 }

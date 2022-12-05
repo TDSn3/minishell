@@ -6,7 +6,7 @@
 #    By: tda-silv <tda-silv@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/10/17 14:32:32 by tda-silv          #+#    #+#              #
-#    Updated: 2022/12/05 14:42:34 by tda-silv         ###   ########.fr        #
+#    Updated: 2022/12/05 18:35:46 by tda-silv         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,8 +19,7 @@ LIB_DIR		= libft/
 
 CC			= gcc
 
-CFLAGS		=
-#CFLAGS		= -Wall -Wextra -Werror
+CFLAGS		= -Wall -Wextra -Werror
 LDFLAGS_1	= -fsanitize=address -g
 LDFLAGS_2	= -fsanitize=address -g -static-libasan -fsanitize=leak
 
@@ -77,6 +76,8 @@ NAME_FILE	= $(addprefix t_map/,												\
 										get_oldpwd								\
 										remove_point							\
 										remove_last								\
+										one_point								\
+										two_point								\
 					)															\
 					$(addprefix	  ms_export/,									\
 			  								ms_export							\

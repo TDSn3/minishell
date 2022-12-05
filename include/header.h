@@ -6,7 +6,7 @@
 /*   By: tda-silv <tda-silv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/17 14:29:18 by tda-silv          #+#    #+#             */
-/*   Updated: 2022/12/05 14:52:04 by tda-silv         ###   ########.fr       */
+/*   Updated: 2022/12/05 20:18:29 by tda-silv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,6 +88,8 @@ int		update_path(const char *path, char **path_update);
 int		get_oldpwd(char *str);
 char	*remove_point(char *str);
 int		remove_last(char **copy);
+int		one_point(char **copy, int i);
+int		two_point(char **copy, int i);
 
 /*   EXPORT   *************************************************************** */
 int		ms_export(char *var);

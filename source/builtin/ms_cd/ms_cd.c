@@ -6,7 +6,7 @@
 /*   By: tda-silv <tda-silv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/21 19:17:38 by tda-silv          #+#    #+#             */
-/*   Updated: 2022/11/28 10:32:45 by tda-silv         ###   ########.fr       */
+/*   Updated: 2022/12/05 19:17:09 by tda-silv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 static int	empty_path(char *stock_pwd);
 static int	rev_pwd_oldpwd(char *stock_pwd);
-static int	print_error(int nb_error);
+static int	print_error(int nb_error, char *path_update);
 
 int	ms_cd(const char *path)
 {
@@ -22,23 +22,27 @@ int	ms_cd(const char *path)
 	char		*path_update;
 	char		*stock_pwd;
 
+	path_update = NULL;
+	if (path && !*path)
+		printf("NON\n");
 	stock_pwd = ft_strdup(ms_get_env("PWD="));
 	if (!stock_pwd)
-		return (print_error(12));
+		return (print_error(12, path_update));
 	path_update = NULL;
 	if (!path || !*path)
 		return (empty_path(stock_pwd));
 	if (ft_strlen(path) == 1 && path[0] == '-')
 		return (rev_pwd_oldpwd(stock_pwd));
 	if (update_path(path, &path_update))
-		return (print_error(12));
+		return (print_error(12, path_update));
 	res = chdir(path_update);
 	if (res < 0)
-		return (print_error(2));
+		return (print_error(2, path_update));
 	if (update_env(path_update))
-		return (print_error(12));
+		return (print_error(12, path_update));
 	if (get_oldpwd(stock_pwd))
-		return (print_error(12));
+		return (print_error(12, path_update));
+	free(path_update);
 	return (0);
 }
 
@@ -48,12 +52,12 @@ static int	rev_pwd_oldpwd(char *stock_pwd)
 
 	res = chdir(ms_get_env("OLDPWD="));
 	if (res < 0)
-		return (print_error(2));
+		return (print_error(2, NULL));
 	if (update_env(ms_get_env("OLDPWD=")))
-		return (print_error(12));
+		return (print_error(12, NULL));
 	printf("%s\n", ms_get_env("PWD="));
 	if (get_oldpwd(stock_pwd))
-		return (print_error(12));
+		return (print_error(12, NULL));
 	return (0);
 }
 
@@ -67,19 +71,21 @@ static int	empty_path(char *stock_pwd)
 	{
 		res = chdir(str);
 		if (res < 0)
-			return (print_error(2));
+			return (print_error(2, NULL));
 		if (update_env_home(str))
-			return (print_error(12));
+			return (print_error(12, NULL));
 	}
 	if (get_oldpwd(stock_pwd))
-		return (print_error(12));
+		return (print_error(12, NULL));
 	return (0);
 }
 
-static int	print_error(int nb_error)
+static int	print_error(int nb_error, char *path_update)
 {
 	errno = nb_error;
 	perror("cd");
+	if (path_update)
+		free(path_update);
 	return (1);
 }
 
