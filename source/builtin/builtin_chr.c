@@ -6,7 +6,7 @@
 /*   By: tda-silv <tda-silv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/05 14:40:40 by tda-silv          #+#    #+#             */
-/*   Updated: 2022/12/06 21:37:31 by tda-silv         ###   ########.fr       */
+/*   Updated: 2022/12/06 23:17:32 by tda-silv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 static int	print_error(char *cmd, int nb_error);
 
-int	builtin_chr(char **argv)
+int	builtin_chr(char **argv, t_input *input)
 {
 	int		i;
 	size_t	size_argv;
@@ -63,33 +63,12 @@ int	builtin_chr(char **argv)
 	}
 	if (!my_strcmp(argv[0], "echo"))
 	{
-		if (argv[1])
-		{
-			if (!my_strcmp(argv[1], "-n"))
-			{
-				if (argv[2])
-				{
-					while (argv[++i])
-					{
-						ms_echo(argv[i]);
-						if (argv[i + 1])
-							printf(" ");
-					}
-				}
-			}
-			else
-			{
-				while (argv[i])
-				{
-					ms_echo(argv[i++]);
-					if (argv[i])
-						printf(" ");
-				}
-				printf("\n");
-			}
-		}
-		else
-			printf("\n");
+		ms_echo(argv);
+		return (1);
+	}
+	if (!my_strcmp(argv[0], "exit"))
+	{
+		ms_exit(input);
 		return (1);
 	}
 	return (0);

@@ -6,7 +6,7 @@
 /*   By: tda-silv <tda-silv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/17 14:29:18 by tda-silv          #+#    #+#             */
-/*   Updated: 2022/12/06 20:57:31 by tda-silv         ###   ########.fr       */
+/*   Updated: 2022/12/06 23:17:58 by tda-silv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,10 +76,11 @@ void	init_t_gd(void);
 /*																			  */
 /* ************************************************************************** */
 
-int		builtin_chr(char **argv);
+int		builtin_chr(char **argv, t_input *input);
 int		ms_env(void);
 int		ms_pwd(void);
-int		ms_echo(const char *str);
+int		ms_echo(char **str);
+void	ms_exit(t_input *input);
 
 /*   CD   ******************************************************************* */
 int		ms_cd(const char *path);
@@ -111,7 +112,7 @@ char	**del_one_env(char *var);
 /* ************************************************************************** */
 
 char	*cmd_path_chr(char *cmd);
-void	execute_cmd(char *cmd, char **argv);
+void	execute_cmd(char *cmd, char **argv, t_input *input);
 
 /* ************************************************************************** */
 /*																			  */
