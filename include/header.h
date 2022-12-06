@@ -6,7 +6,7 @@
 /*   By: tda-silv <tda-silv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/17 14:29:18 by tda-silv          #+#    #+#             */
-/*   Updated: 2022/12/05 20:18:29 by tda-silv         ###   ########.fr       */
+/*   Updated: 2022/12/06 13:34:09 by tda-silv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,7 +95,7 @@ int		two_point(char **copy, int i);
 int		ms_export(char *var);
 int		copy_env_in_export(void);
 int		wrong_name_var(char *var);
-int		get_export(char *strchr);
+char	*get_export(char *strchr);
 int		show_export(void);
 
 /*   UNSET   **************************************************************** */

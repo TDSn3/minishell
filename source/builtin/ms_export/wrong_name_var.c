@@ -6,7 +6,7 @@
 /*   By: tda-silv <tda-silv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/24 19:34:31 by tda-silv          #+#    #+#             */
-/*   Updated: 2022/12/05 20:12:22 by tda-silv         ###   ########.fr       */
+/*   Updated: 2022/12/06 13:57:38 by tda-silv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ int	wrong_name_var(char *var)
 
 static int	all_digit(char *var)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (var[i] && ft_isdigit(var[i]))
@@ -53,3 +53,4 @@ static int	all_digit(char *var)
 		return (1);
 	return (0);
 }
+
