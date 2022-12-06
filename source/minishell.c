@@ -6,7 +6,7 @@
 /*   By: tda-silv <tda-silv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/19 13:33:37 by tda-silv          #+#    #+#             */
-/*   Updated: 2022/12/05 19:29:26 by tda-silv         ###   ########.fr       */
+/*   Updated: 2022/12/06 22:42:07 by tda-silv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@ int	main(int argc, char **argv, char **env)
 
 	(void) argc;
 	(void) argv;
+	printf("--<>%s\n", argv[1]);
 	ssa.sa_sigaction = &handler;
 	ssa.sa_flags = SA_SIGINFO;
 	sigemptyset(&ssa.sa_mask);

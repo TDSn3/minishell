@@ -6,7 +6,7 @@
 /*   By: tda-silv <tda-silv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/05 14:40:40 by tda-silv          #+#    #+#             */
-/*   Updated: 2022/12/05 15:28:50 by tda-silv         ###   ########.fr       */
+/*   Updated: 2022/12/06 21:37:31 by tda-silv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,37 @@ int	builtin_chr(char **argv)
 		if (argv[1])
 			while (argv[i])
 				ms_unset(argv[i++]);
+		return (1);
+	}
+	if (!my_strcmp(argv[0], "echo"))
+	{
+		if (argv[1])
+		{
+			if (!my_strcmp(argv[1], "-n"))
+			{
+				if (argv[2])
+				{
+					while (argv[++i])
+					{
+						ms_echo(argv[i]);
+						if (argv[i + 1])
+							printf(" ");
+					}
+				}
+			}
+			else
+			{
+				while (argv[i])
+				{
+					ms_echo(argv[i++]);
+					if (argv[i])
+						printf(" ");
+				}
+				printf("\n");
+			}
+		}
+		else
+			printf("\n");
 		return (1);
 	}
 	return (0);

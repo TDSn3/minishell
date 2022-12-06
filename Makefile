@@ -6,7 +6,7 @@
 #    By: tda-silv <tda-silv@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/10/17 14:32:32 by tda-silv          #+#    #+#              #
-#    Updated: 2022/12/05 18:35:46 by tda-silv         ###   ########.fr        #
+#    Updated: 2022/12/06 20:50:39 by tda-silv         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -91,6 +91,7 @@ NAME_FILE	= $(addprefix t_map/,												\
 											ls_clear_one_export					\
 											del_one_env							\
 					)															\
+					ms_echo														\
 					ms_env														\
 					ms_pwd														\
 					builtin_chr													\

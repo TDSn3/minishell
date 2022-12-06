@@ -6,7 +6,7 @@
 /*   By: tda-silv <tda-silv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/17 14:29:18 by tda-silv          #+#    #+#             */
-/*   Updated: 2022/12/06 13:34:09 by tda-silv         ###   ########.fr       */
+/*   Updated: 2022/12/06 20:57:31 by tda-silv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,6 +79,7 @@ void	init_t_gd(void);
 int		builtin_chr(char **argv);
 int		ms_env(void);
 int		ms_pwd(void);
+int		ms_echo(const char *str);
 
 /*   CD   ******************************************************************* */
 int		ms_cd(const char *path);
