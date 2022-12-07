@@ -6,7 +6,7 @@
 /*   By: tda-silv <tda-silv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/19 13:33:37 by tda-silv          #+#    #+#             */
-/*   Updated: 2022/12/07 10:24:40 by tda-silv         ###   ########.fr       */
+/*   Updated: 2022/12/07 11:27:46 by tda-silv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,8 @@ int	main(int argc, char **argv, char **env)
 	tcgetattr(0, &termios_new);
 	termios_new.c_lflag &= ~ECHOCTL;
 	tcsetattr(0, 0, &termios_new);
-	printf("\n\033[36mThe default interactive shell is now \033[36;01mminishell.\033[00m\n");
+	printf("\n\033[36mThe default interactive shell is now");
+	printf(" \033[36;01mminishell.\033[00m\n");
 	while (1)
 	{
 		init_input(&input, readline("\033[36;01m$> \033[00m"));

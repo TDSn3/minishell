@@ -6,43 +6,82 @@
 /*   By: tda-silv <tda-silv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/06 18:46:28 by tda-silv          #+#    #+#             */
-/*   Updated: 2022/12/06 23:06:41 by tda-silv         ###   ########.fr       */
+/*   Updated: 2022/12/07 12:16:45 by tda-silv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <header.h>
 
+static int	multiple_option(char **argv);
+static int	option_n(char *str);
+static void	print_argv(char **argv, int i);
+
 int	ms_echo(char **argv)
 {
 	int	i;
 
-	i = 1;
+	if (!argv || !*argv || !**argv)
+		return (1);
 	if (argv[1])
 	{
-		if (!my_strcmp(argv[1], "-n"))
+		i = multiple_option(argv);
+		if (i > 1)
 		{
-			if (argv[2])
-			{
-				while (argv[++i])
-				{
-					printf("%s", argv[i]);
-					if (argv[i + 1])
-						printf(" ");
-				}
-			}
+			if (argv[i])
+				print_argv(argv, i);
 		}
 		else
 		{
-			while (argv[i])
-			{
-				printf("%s", argv[i++]);
-				if (argv[i])
-					printf(" ");
-			}
+			print_argv(argv, i);
 			printf("\n");
 		}
 	}
 	else
 		printf("\n");
 	return (0);
+}
+
+static int	multiple_option(char **argv)
+{
+	int	i;
+
+	i = 1;
+	while (argv[i])
+	{
+		if (!option_n(argv[i]))
+			return (i);
+		i++;
+	}
+	return (i);
+}
+
+static int	option_n(char *str)
+{
+	int	i;
+
+	i = 1;
+	if (str && *str && *str == '-')
+	{
+		if (*(str + 1))
+		{
+			while (str[i])
+			{
+				if (str[i] != 'n')
+					return (0);
+				i++;
+			}
+			return (1);
+		}
+	}
+	return (0);
+}
+
+static void	print_argv(char **argv, int i)
+{
+	while (argv[i])
+	{
+		printf("%s", argv[i++]);
+		if (argv[i])
+			printf(" ");
+	}
 }
