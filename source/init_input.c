@@ -6,7 +6,7 @@
 /*   By: tda-silv <tda-silv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/19 17:18:52 by tda-silv          #+#    #+#             */
-/*   Updated: 2022/12/04 17:12:25 by tda-silv         ###   ########.fr       */
+/*   Updated: 2022/12/07 15:24:23 by tda-silv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,8 @@
 
 void	init_input(t_input *input, char *line)
 {
-	input->env = g_d.env;
+	input->env = NULL;
+	input->export = NULL;
 //	input->paths = ft_path();
 	input->raw = line;
 	input->lexer = NULL;

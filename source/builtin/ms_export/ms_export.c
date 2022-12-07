@@ -6,56 +6,56 @@
 /*   By: tda-silv <tda-silv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/24 12:58:37 by tda-silv          #+#    #+#             */
-/*   Updated: 2022/12/06 14:44:22 by tda-silv         ###   ########.fr       */
+/*   Updated: 2022/12/07 15:39:10 by tda-silv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <header.h>
 
-static int	check_doublon(char *var);
-static int	update_var(char *var);
-static void	free_env(void);
+static int	check_doublon(char *var, t_input *input);
+static int	update_var(char *var, t_input *input);
+static void	free_env(t_input *input);
 static int	print_error(char *var, int nb_error);
 
-int	ms_export(char *var)
+int	ms_export(char *var, t_input *input)
 {
 	char	*copy_var;
 	char	**new_env;
 
 	if (!var || !*var)
-		return (show_export());
+		return (show_export(input));
 	new_env = NULL;
 	copy_var = ft_strdup(var);
 	if (!copy_var)
 		return (print_error(copy_var, 12));
 	if (wrong_name_var(copy_var))
 		return (print_error(copy_var, -1));
-	if (check_doublon(var))
+	if (check_doublon(var, input))
 	{
-		if (update_var(var))
+		if (update_var(var, input))
 			return (print_error(copy_var, 12));
 		return (0);
 	}
 	if (my_strchr_pos(copy_var, '=') > -1)
 	{
-		new_env = my_strdjoin(g_d.env, copy_var);
+		new_env = my_strdjoin(input->env, copy_var);
 		if (!new_env)
 			return (print_error(copy_var, 12));
-		free_env();
-		g_d.env = new_env;
+		free_env(input);
+		input->env = new_env;
 	}
-	ls_add_back(&(g_d.export), ls_new(copy_var));
+	ls_add_back(&(input->export), ls_new(copy_var));
 	return (0);
 }
 
-static int	check_doublon(char *var)
+static int	check_doublon(char *var, t_input *input)
 {
 	int		equal;
 
 	equal = my_strchr_pos(var, '=');
 	if (equal > -1)
 		var[equal] = 0;
-	if (get_export(var))
+	if (get_export(var, input))
 	{
 		if (equal > -1)
 			var[equal] = '=';
@@ -66,11 +66,11 @@ static int	check_doublon(char *var)
 	return (0);
 }
 
-static int	update_var(char *var)
+static int	update_var(char *var, t_input *input)
 {
 	int		equal;
 
-	if (!my_strcmp(var, get_export(var)))
+	if (!my_strcmp(var, get_export(var, input)))
 		return (0);
 	equal = my_strchr_pos(var, '=');
 	if (equal > -1)
@@ -90,16 +90,16 @@ static int	update_var(char *var)
 	return (0);
 }
 
-static void	free_env(void)
+static void	free_env(t_input *input)
 {
 	int	i;
 
 	i = 0;
-	if (g_d.env)
+	if (input->env)
 	{
-		while (g_d.env[i])
-			free(g_d.env[i++]);
-		free(g_d.env);
+		while ((input->env)[i])
+			free((input->env)[i++]);
+		free(input->env);
 	}
 }
 

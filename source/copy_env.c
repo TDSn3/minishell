@@ -6,7 +6,7 @@
 /*   By: tda-silv <tda-silv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/21 22:27:43 by tda-silv          #+#    #+#             */
-/*   Updated: 2022/11/28 10:08:41 by tda-silv         ###   ########.fr       */
+/*   Updated: 2022/12/07 15:27:14 by tda-silv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 static int	free_function_all(char ***copy);
 
-int	copy_env(char **strd)
+int	copy_env(char **strd, t_input *input)
 {
 	int		i;
 	int		x;
@@ -38,7 +38,7 @@ int	copy_env(char **strd)
 		i++;
 	}
 	copy[x] = NULL;
-	g_d.env = copy;
+	input->env = copy;
 	return (0);
 }
 

@@ -6,7 +6,7 @@
 /*   By: tda-silv <tda-silv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/17 14:29:18 by tda-silv          #+#    #+#             */
-/*   Updated: 2022/12/07 08:57:42 by tda-silv         ###   ########.fr       */
+/*   Updated: 2022/12/07 15:56:01 by tda-silv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,13 +42,14 @@
 /*																			  */
 /* ************************************************************************** */
 
-int		copy_env(char **strd);
+int		copy_env(char **strd, t_input *input);
+int		shlvl(t_input *input);
 void	init_input(t_input *input, char *line);
 void	free_input(t_input *input);
-char	*ms_get_env(char *strchr);
-char	**ms_get_env_start(char *strchr);
-int		ms_path_var(char **argv);
-int		free_all(void);
+char	*ms_get_env(char *strchr, t_input *input);
+char	**ms_get_env_start(char *strchr, t_input *input);
+int		ms_path_var(char **argv, t_input *input);
+int		free_all(t_input *input);
 
 /* ************************************************************************** */
 /*																			  */
@@ -64,20 +65,12 @@ void	map_clear(t_map **lst, void (*del)(void *));
 
 /* ************************************************************************** */
 /*																			  */
-/*   ../source/t_gd/                             							  */
-/*																			  */
-/* ************************************************************************** */
-
-void	init_t_gd(void);
-
-/* ************************************************************************** */
-/*																			  */
 /*   ../source/builtin/                            							  */
 /*																			  */
 /* ************************************************************************** */
 
 int		builtin_chr(char **argv, t_input *input);
-int		ms_env(void);
+int		ms_env(t_input *input);
 int		ms_pwd(void);
 int		ms_echo(char **str);
 void	ms_exit(t_input *input);
@@ -94,16 +87,16 @@ int		one_point(char **copy, int i);
 int		two_point(char **copy, int i);
 
 /*   EXPORT   *************************************************************** */
-int		ms_export(char *var);
-int		copy_env_in_export(void);
+int		ms_export(char *var, t_input *input);
+int		copy_env_in_export(t_input *input);
 int		wrong_name_var(char *var);
-char	*get_export(char *strchr);
-int		show_export(void);
+char	*get_export(char *strchr, t_input *input);
+int		show_export(t_input *input);
 
 /*   UNSET   **************************************************************** */
-int		ms_unset(const char *var);
+int		ms_unset(const char *var, t_input *input);
 void	ls_clear_one_export(t_ls **lst, char *content);
-char	**del_one_env(char *var);
+char	**del_one_env(char *var, t_input *input);
 
 /* ************************************************************************** */
 /*																			  */
@@ -111,7 +104,7 @@ char	**del_one_env(char *var);
 /*																			  */
 /* ************************************************************************** */
 
-char	*cmd_path_chr(char *cmd);
+char	*cmd_path_chr(char *cmd, t_input *input);
 void	execute_cmd(char *cmd, char **argv, t_input *input);
 
 /* ************************************************************************** */

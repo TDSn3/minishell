@@ -6,7 +6,7 @@
 /*   By: tda-silv <tda-silv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/05 14:40:40 by tda-silv          #+#    #+#             */
-/*   Updated: 2022/12/07 10:59:13 by tda-silv         ###   ########.fr       */
+/*   Updated: 2022/12/07 15:56:51 by tda-silv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ int	builtin_chr(char **argv, t_input *input)
 		if (size_argv > 1)
 			print_error(argv[0], -1);
 		else
-			ms_env();
+			ms_env(input);
 		return (1);
 	}
 	if (!my_strcmp(argv[0], "pwd"))
@@ -88,6 +88,8 @@ static void	execute_minishell(char *cmd, char **argv)
 	pid = 0;
 	if (!argv || !*argv)
 		return ;
+	ms_env();
+	printf("\n\n");
 	pid = fork();
 	if (pid == -1)
 	{
@@ -102,7 +104,10 @@ static void	execute_minishell(char *cmd, char **argv)
 		kill(pid, SIGTERM);
 	}
 	else
+	{
+		ms_env();
 		execve(cmd, argv, g_d.env);
+	}
 }
 
 static int	print_error(char *cmd, int nb_error)

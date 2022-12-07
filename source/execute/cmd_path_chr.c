@@ -6,7 +6,7 @@
 /*   By: tda-silv <tda-silv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/26 21:01:00 by tda-silv          #+#    #+#             */
-/*   Updated: 2022/12/07 10:18:42 by tda-silv         ###   ########.fr       */
+/*   Updated: 2022/12/07 15:50:48 by tda-silv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ static char	*test_path(char ***all_path);
 /*   le path de l'executable, si il est trouvé, sinon, return NULL.			  */
 /*																			  */
 /* ************************************************************************** */
-char	*cmd_path_chr(char *cmd)
+char	*cmd_path_chr(char *cmd, t_input *input)
 {
 	char	**all_path;
 	char	*copy_for_return;
@@ -35,7 +35,7 @@ char	*cmd_path_chr(char *cmd)
 			return (NULL);
 		return (copy_for_return);
 	}
-	all_path = ft_split(ms_get_env("PATH") + 1, ':');
+	all_path = ft_split(ms_get_env("PATH", input) + 1, ':');
 	if (!all_path)
 		return (NULL);
 	if (check_path(&all_path, cmd))

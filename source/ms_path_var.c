@@ -6,7 +6,7 @@
 /*   By: tda-silv <tda-silv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/07 08:53:41 by tda-silv          #+#    #+#             */
-/*   Updated: 2022/12/07 09:26:33 by tda-silv         ###   ########.fr       */
+/*   Updated: 2022/12/07 15:48:03 by tda-silv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,14 +18,14 @@
 /*   Cette variable permet d'executer minishell dans un minishell.			  */
 /*																			  */
 /* ************************************************************************** */
-int	ms_path_var(char **argv)
+int	ms_path_var(char **argv, t_input *input)
 {
 	char	*ms_path;
 	char	*stock;
 
-	if (!get_export("MS_PATH"))
+	if (!ms_get_env("MS_PATH", input))
 	{
-		ms_path = ft_strjoin("MS_PATH", ms_get_env("PWD"));
+		ms_path = ft_strjoin("MS_PATH", ms_get_env("PWD", input));
 		if (!ms_path)
 			return (1);
 		stock = ms_path;
@@ -34,7 +34,7 @@ int	ms_path_var(char **argv)
 		else
 			ms_path = ft_strjoin(ms_path, argv[0]);
 		free(stock);
-		ms_export(ms_path);
+		ms_export(ms_path, input);
 		free(ms_path);
 	}
 	return (0);

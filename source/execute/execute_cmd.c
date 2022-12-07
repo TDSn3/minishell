@@ -6,13 +6,11 @@
 /*   By: tda-silv <tda-silv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/26 21:37:10 by tda-silv          #+#    #+#             */
-/*   Updated: 2022/12/07 10:57:28 by tda-silv         ###   ########.fr       */
+/*   Updated: 2022/12/07 15:52:26 by tda-silv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <header.h>
-
-static void	child_exec(char *cmd_path, char **argv);
 
 void	execute_cmd(char *cmd, char **argv, t_input *input)
 {
@@ -26,7 +24,7 @@ void	execute_cmd(char *cmd, char **argv, t_input *input)
 		return ;
 	if (builtin_chr(argv, input))
 		return ;
-	cmd_path = cmd_path_chr(argv[0]);
+	cmd_path = cmd_path_chr(argv[0], input);
 	if (cmd_path)
 	{
 		pid = fork();
@@ -43,12 +41,7 @@ void	execute_cmd(char *cmd, char **argv, t_input *input)
 			kill(pid, SIGTERM);
 		}
 		else
-			child_exec(cmd_path, argv);
+			execve(cmd_path, argv, input->env);
 		free(cmd_path);
 	}
-}
-
-static void	child_exec(char *cmd_path, char **argv)
-{
-	execve(cmd_path, argv, g_d.env);
 }

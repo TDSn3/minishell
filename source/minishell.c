@@ -6,17 +6,15 @@
 /*   By: tda-silv <tda-silv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/19 13:33:37 by tda-silv          #+#    #+#             */
-/*   Updated: 2022/12/07 11:27:46 by tda-silv         ###   ########.fr       */
+/*   Updated: 2022/12/07 15:54:13 by tda-silv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <header.h>
 
-static void	handler(int sig, siginfo_t *x, void *y);
+static void	handler(int sig);
 static int	ctrl_d(t_input *input);
 static void	exec_all(t_input *input, t_list *ast);
-
-t_gd	g_d;
 
 int	main(int argc, char **argv, char **env)
 {
@@ -26,13 +24,13 @@ int	main(int argc, char **argv, char **env)
 
 	(void) argc;
 	(void) argv;
-	ssa.sa_sigaction = &handler;
-	ssa.sa_flags = SA_SIGINFO;
+	ssa.sa_handler = &handler;
+	ssa.sa_flags = 0;
 	sigemptyset(&ssa.sa_mask);
 	sigaction(SIGINT, &ssa, 0);
 	sigaction(SIGQUIT, &ssa, 0);
-	init_t_gd();
-	if (copy_env(env) || copy_env_in_export() || ms_path_var(argv))
+	if (copy_env(env, &input) || copy_env_in_export(&input)
+		|| shlvl(&input) || ms_path_var(argv, &input))
 		return (1);
 	tcgetattr(0, &termios_new);
 	termios_new.c_lflag &= ~ECHOCTL;
@@ -63,13 +61,11 @@ int	main(int argc, char **argv, char **env)
 /*   sig == 3 | SIGQUIT	| ctrl+\											  */
 /*																			  */
 /* ************************************************************************** */
-static void	handler(int sig, siginfo_t *x, void *y)
+static void	handler(int sig)
 {
 	int	return_write;
 
 	return_write = 0;
-	(void) x;
-	(void) y;
 	(void) return_write;
 	if (sig == 2)
 	{
@@ -77,21 +73,19 @@ static void	handler(int sig, siginfo_t *x, void *y)
 		rl_on_new_line();
 		rl_replace_line("", 0);
 		rl_redisplay();
-		g_d.signal = 2;
 	}
 	if (sig == 3)
 	{
 		rl_on_new_line();
 		rl_redisplay();
 		rl_replace_line("", 0);
-		g_d.signal = 3;
 	}
 }
 
 static int	ctrl_d(t_input *input)
 {
 	printf("exit\n");
-	free_all();
+	free_all(input);
 	free_input(input);
 	return (0);
 }

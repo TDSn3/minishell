@@ -6,7 +6,7 @@
 #    By: tda-silv <tda-silv@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/10/17 14:32:32 by tda-silv          #+#    #+#              #
-#    Updated: 2022/12/07 09:09:36 by tda-silv         ###   ########.fr        #
+#    Updated: 2022/12/07 15:25:04 by tda-silv         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -43,9 +43,6 @@ NAME_FILE	= $(addprefix t_map/,												\
 			  					map_new											\
 								map_delone										\
 								map_clear										\
-			  )																	\
-			  $(addprefix t_gd/,												\
-			  				   init_t_gd										\
 			  )																	\
 			  $(addprefix lexer/,												\
 			  				   lexer											\
@@ -100,6 +97,7 @@ NAME_FILE	= $(addprefix t_map/,												\
 			  )																	\
 			  minishell															\
 			  copy_env															\
+			  shlvl																\
 			  init_input														\
 			  free_input														\
 			  ms_get_env														\

@@ -6,19 +6,19 @@
 /*   By: tda-silv <tda-silv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/24 18:32:24 by tda-silv          #+#    #+#             */
-/*   Updated: 2022/11/25 10:38:22 by tda-silv         ###   ########.fr       */
+/*   Updated: 2022/12/07 15:36:03 by tda-silv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <header.h>
 
-int	show_export(void)
+int	show_export(t_input *input)
 {
 	t_ls	*copy;
 	char	*after_equal;
 	int		pos;
 
-	copy = g_d.export;
+	copy = input->export;
 	if (!copy || !(copy->content_one) || !*(copy->content_one))
 		return (0);
 	while (copy)

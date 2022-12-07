@@ -6,7 +6,7 @@
 /*   By: tda-silv <tda-silv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/21 20:42:02 by tda-silv          #+#    #+#             */
-/*   Updated: 2022/12/06 14:19:04 by tda-silv         ###   ########.fr       */
+/*   Updated: 2022/12/07 15:36:59 by tda-silv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,14 +16,14 @@ static int	str_chr_start_str(char *str, char *strchr);
 
 /* ************************************************************************** */
 /*																			  */
-/*   Cherche strchr dans la struct "t_ls g_d.export".						  */
+/*   Cherche strchr dans la struct "t_ls".									  */
 /*																			  */
 /* ************************************************************************** */
-char	*get_export(char *strchr)
+char	*get_export(char *strchr, t_input *input)
 {
 	t_ls	*copy;
 
-	copy = g_d.export;
+	copy = input->export;
 	while (copy)
 	{
 		if (str_chr_start_str(copy->content_one, strchr))
