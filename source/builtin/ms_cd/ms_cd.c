@@ -6,17 +6,17 @@
 /*   By: tda-silv <tda-silv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/21 19:17:38 by tda-silv          #+#    #+#             */
-/*   Updated: 2022/12/05 19:17:09 by tda-silv         ###   ########.fr       */
+/*   Updated: 2022/12/07 20:54:30 by tda-silv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <header.h>
 
-static int	empty_path(char *stock_pwd);
-static int	rev_pwd_oldpwd(char *stock_pwd);
+static int	empty_path(char *stock_pwd, t_input *input);
+static int	rev_pwd_oldpwd(char *stock_pwd, t_input *input);
 static int	print_error(int nb_error, char *path_update);
 
-int	ms_cd(const char *path)
+int	ms_cd(const char *path, t_input *input)
 {
 	int			res;
 	char		*path_update;
@@ -25,57 +25,57 @@ int	ms_cd(const char *path)
 	path_update = NULL;
 	if (path && !*path)
 		printf("NON\n");
-	stock_pwd = ft_strdup(ms_get_env("PWD="));
+	stock_pwd = ft_strdup(ms_get_env("PWD=", input));
 	if (!stock_pwd)
 		return (print_error(12, path_update));
 	path_update = NULL;
 	if (!path || !*path)
-		return (empty_path(stock_pwd));
+		return (empty_path(stock_pwd, input));
 	if (ft_strlen(path) == 1 && path[0] == '-')
-		return (rev_pwd_oldpwd(stock_pwd));
-	if (update_path(path, &path_update))
+		return (rev_pwd_oldpwd(stock_pwd, input));
+	if (update_path(path, &path_update, input))
 		return (print_error(12, path_update));
 	res = chdir(path_update);
 	if (res < 0)
 		return (print_error(2, path_update));
-	if (update_env(path_update))
+	if (update_env(path_update, input))
 		return (print_error(12, path_update));
-	if (get_oldpwd(stock_pwd))
+	if (get_oldpwd(stock_pwd, input))
 		return (print_error(12, path_update));
 	free(path_update);
 	return (0);
 }
 
-static int	rev_pwd_oldpwd(char *stock_pwd)
+static int	rev_pwd_oldpwd(char *stock_pwd, t_input *input)
 {
 	int	res;
 
-	res = chdir(ms_get_env("OLDPWD="));
+	res = chdir(ms_get_env("OLDPWD=", input));
 	if (res < 0)
 		return (print_error(2, NULL));
-	if (update_env(ms_get_env("OLDPWD=")))
+	if (update_env(ms_get_env("OLDPWD=", input), input))
 		return (print_error(12, NULL));
-	printf("%s\n", ms_get_env("PWD="));
-	if (get_oldpwd(stock_pwd))
+	printf("%s\n", ms_get_env("PWD=", input));
+	if (get_oldpwd(stock_pwd, input))
 		return (print_error(12, NULL));
 	return (0);
 }
 
-static int	empty_path(char *stock_pwd)
+static int	empty_path(char *stock_pwd, t_input *input)
 {
 	const char	*str;
 	int			res;
 
-	str = (const char *)ms_get_env("HOME=");
+	str = (const char *)ms_get_env("HOME=", input);
 	if (str)
 	{
 		res = chdir(str);
 		if (res < 0)
 			return (print_error(2, NULL));
-		if (update_env_home(str))
+		if (update_env_home(str, input))
 			return (print_error(12, NULL));
 	}
-	if (get_oldpwd(stock_pwd))
+	if (get_oldpwd(stock_pwd, input))
 		return (print_error(12, NULL));
 	return (0);
 }

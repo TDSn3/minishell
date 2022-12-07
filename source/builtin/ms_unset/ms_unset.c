@@ -6,7 +6,7 @@
 /*   By: tda-silv <tda-silv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/25 10:49:59 by tda-silv          #+#    #+#             */
-/*   Updated: 2022/12/07 15:42:07 by tda-silv         ###   ########.fr       */
+/*   Updated: 2022/12/07 19:53:10 by tda-silv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ static int	update_env_and_export(char *var, t_input *input)
 	ls_clear_one_export(&(input->export), var);
 	if (ms_get_env(var, input))
 	{
-		new_env = del_one_env(var);
+		new_env = del_one_env(var, input);
 		if (!new_env)
 			return (1);
 		free_env(input);

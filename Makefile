@@ -6,7 +6,7 @@
 #    By: tda-silv <tda-silv@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/10/17 14:32:32 by tda-silv          #+#    #+#              #
-#    Updated: 2022/12/07 15:25:04 by tda-silv         ###   ########.fr        #
+#    Updated: 2022/12/07 21:40:14 by tda-silv         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -78,7 +78,6 @@ NAME_FILE	= $(addprefix t_map/,												\
 					)															\
 					$(addprefix	  ms_export/,									\
 			  								ms_export							\
-											copy_env_in_export					\
 											wrong_name_var						\
 											get_export							\
 											show_export							\
@@ -95,14 +94,17 @@ NAME_FILE	= $(addprefix t_map/,												\
 					ms_exit														\
 																				\
 			  )																	\
+			  $(addprefix start_main/,											\
+			  						 copy_env_in_export							\
+									 copy_env									\
+									 init_input									\
+									 shlvl										\
+									 ms_path_var								\
+			  )																	\
 			  minishell															\
-			  copy_env															\
-			  shlvl																\
-			  init_input														\
 			  free_input														\
 			  ms_get_env														\
 			  ms_get_env_start													\
-			  ms_path_var														\
 			  free_all															\
 
 SRC			= $(addsuffix .c, $(addprefix $(SRC_DIR), $(NAME_FILE)))

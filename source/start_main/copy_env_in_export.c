@@ -6,7 +6,7 @@
 /*   By: tda-silv <tda-silv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/25 09:47:36 by tda-silv          #+#    #+#             */
-/*   Updated: 2022/12/07 15:29:59 by tda-silv         ###   ########.fr       */
+/*   Updated: 2022/12/07 20:14:37 by tda-silv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ int	copy_env_in_export(t_input *input)
 	while ((input->env)[i])
 	{
 		if (ls_add_back(&(input->export), ls_new(ft_strdup((input->env)[i]))))
-			return (free_function_all(input)); // A TESTER // ERROR MALLOC
+			return (free_function_all(input));
 		i++;
 	}
 	return (0);

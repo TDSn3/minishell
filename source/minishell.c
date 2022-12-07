@@ -6,7 +6,7 @@
 /*   By: tda-silv <tda-silv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/19 13:33:37 by tda-silv          #+#    #+#             */
-/*   Updated: 2022/12/07 15:54:13 by tda-silv         ###   ########.fr       */
+/*   Updated: 2022/12/07 22:01:22 by tda-silv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,13 @@ int	main(int argc, char **argv, char **env)
 	struct sigaction	ssa;
 	struct termios		termios_new;
 
+	for(int i = 0; env[i]; i++)
+		printf("%s\n", env[i]);
+	printf("----\n");
 	(void) argc;
 	(void) argv;
+	input.env = NULL;
+	input.export = NULL;
 	ssa.sa_handler = &handler;
 	ssa.sa_flags = 0;
 	sigemptyset(&ssa.sa_mask);
@@ -48,6 +53,7 @@ int	main(int argc, char **argv, char **env)
 			check_syntax(&input);
 			check_expand(&input);
 			parser(&input);
+			(void) exec_all;
 			exec_all(&input, input.ast);
 		}
 		free_input(&input);

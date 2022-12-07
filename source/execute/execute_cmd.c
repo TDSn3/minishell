@@ -6,11 +6,13 @@
 /*   By: tda-silv <tda-silv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/26 21:37:10 by tda-silv          #+#    #+#             */
-/*   Updated: 2022/12/07 15:52:26 by tda-silv         ###   ########.fr       */
+/*   Updated: 2022/12/07 21:33:35 by tda-silv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <header.h>
+
+static void	fork_error(char	*cmd_path);
 
 void	execute_cmd(char *cmd, char **argv, t_input *input)
 {
@@ -29,19 +31,23 @@ void	execute_cmd(char *cmd, char **argv, t_input *input)
 	{
 		pid = fork();
 		if (pid == -1)
-		{
-			perror("fork");
-			if (cmd_path)
-				free(cmd_path);
-			return ;
-		}
+			return (fork_error(cmd_path));
 		else if (pid > 0)
 		{
 			waitpid(pid, &status, 0);
 			kill(pid, SIGTERM);
 		}
 		else
-			execve(cmd_path, argv, input->env);
+			if (execve(cmd_path, argv, input->env) == -1)
+				perror("fork");
 		free(cmd_path);
 	}
+}
+
+static void	fork_error(char	*cmd_path)
+{
+	perror("fork");
+	if (cmd_path)
+		free(cmd_path);
+	return ;
 }

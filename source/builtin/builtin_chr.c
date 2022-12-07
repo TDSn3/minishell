@@ -6,13 +6,13 @@
 /*   By: tda-silv <tda-silv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/05 14:40:40 by tda-silv          #+#    #+#             */
-/*   Updated: 2022/12/07 15:56:51 by tda-silv         ###   ########.fr       */
+/*   Updated: 2022/12/07 21:54:09 by tda-silv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <header.h>
 
-static void	execute_minishell(char *cmd, char **argv);
+static void	execute_minishell(char *cmd, char **argv, t_input *input);
 static int	print_error(char *cmd, int nb_error);
 
 int	builtin_chr(char **argv, t_input *input)
@@ -35,7 +35,7 @@ int	builtin_chr(char **argv, t_input *input)
 		if (size_argv > 1)
 			print_error(argv[0], -1);
 		else
-			ms_pwd();
+			ms_pwd(input);
 		return (1);
 	}
 	if (!my_strcmp(argv[0], "cd"))
@@ -43,23 +43,23 @@ int	builtin_chr(char **argv, t_input *input)
 		if (size_argv > 2)
 			print_error(argv[0], -1);
 		else
-			ms_cd(argv[1]);
+			ms_cd(argv[1], input);
 		return (1);
 	}
 	if (!my_strcmp(argv[0], "export"))
 	{
 		if (argv[1])
 			while (argv[i])
-				ms_export(argv[i++]);
+				ms_export(argv[i++], input);
 		if (!argv[1])
-			ms_export(NULL);
+			ms_export(NULL, input);
 		return (1);
 	}
 	if (!my_strcmp(argv[0], "unset"))
 	{
 		if (argv[1])
 			while (argv[i])
-				ms_unset(argv[i++]);
+				ms_unset(argv[i++], input);
 		return (1);
 	}
 	if (!my_strcmp(argv[0], "echo"))
@@ -74,13 +74,13 @@ int	builtin_chr(char **argv, t_input *input)
 	}
 	if (!my_strcmp(argv[0], "minishell"))
 	{
-		execute_minishell(ms_get_env("MS_PATH") + 1, argv);
+		execute_minishell(ms_get_env("MS_PATH", input) + 1, argv, input);
 		return (1);
 	}
 	return (0);
 }
 
-static void	execute_minishell(char *cmd, char **argv)
+static void	execute_minishell(char *cmd, char **argv, t_input *input)
 {
 	pid_t	pid;
 	int		status;
@@ -88,8 +88,9 @@ static void	execute_minishell(char *cmd, char **argv)
 	pid = 0;
 	if (!argv || !*argv)
 		return ;
-	ms_env();
-	printf("\n\n");
+	printf("--->%s\n", cmd);
+	if (access(cmd, F_OK | X_OK) == -1)
+		return (perror("execute_minishell"));
 	pid = fork();
 	if (pid == -1)
 	{
@@ -105,8 +106,8 @@ static void	execute_minishell(char *cmd, char **argv)
 	}
 	else
 	{
-		ms_env();
-		execve(cmd, argv, g_d.env);
+		if (execve(cmd, argv, input->env) == -1)
+			ms_exit(input);
 	}
 }
 

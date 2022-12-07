@@ -6,7 +6,7 @@
 /*   By: tda-silv <tda-silv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/21 19:48:38 by tda-silv          #+#    #+#             */
-/*   Updated: 2022/12/04 16:27:22 by tda-silv         ###   ########.fr       */
+/*   Updated: 2022/12/07 19:56:56 by tda-silv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,6 @@ void	free_input(t_input *input)
 	ft_lstclear(&input->ast, free);
 	if (input->line)
 		free(input->line);
-//	if (input->paths)
-//		ft_strdfree(input->paths);
 }
 
 static void	ft_freenode(void *n)

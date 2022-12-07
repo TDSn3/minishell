@@ -6,7 +6,7 @@
 /*   By: tda-silv <tda-silv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/06 23:08:30 by tda-silv          #+#    #+#             */
-/*   Updated: 2022/12/06 23:15:32 by tda-silv         ###   ########.fr       */
+/*   Updated: 2022/12/07 20:55:23 by tda-silv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,6 @@
 void	ms_exit(t_input *input)
 {
 	free_input(input);
-	free_all();
+	free_all(input);
 	exit(0);
 }

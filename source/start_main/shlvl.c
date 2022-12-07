@@ -6,7 +6,7 @@
 /*   By: tda-silv <tda-silv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/07 14:24:47 by tda-silv          #+#    #+#             */
-/*   Updated: 2022/12/07 15:47:11 by tda-silv         ###   ########.fr       */
+/*   Updated: 2022/12/07 21:01:51 by tda-silv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,6 @@ int	shlvl(t_input *input)
 	stock_str = ms_get_env("SHLVL", input);
 	if (stock_str && *stock_str && *(stock_str + 1))
 	{
-		printf("%s\n", *ms_get_env_start("SHLVL", input));
 		stock_i = ft_atoi(ms_get_env("SHLVL", input) + 1) + 1;
 		stock_for_free = ft_itoa(stock_i);
 		stock_str = ft_strjoin("SHLVL=", stock_for_free);

@@ -6,14 +6,14 @@
 /*   By: tda-silv <tda-silv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/25 15:41:15 by tda-silv          #+#    #+#             */
-/*   Updated: 2022/12/07 15:43:02 by tda-silv         ###   ########.fr       */
+/*   Updated: 2022/12/07 19:54:36 by tda-silv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <header.h>
 
 static int	cmp_var_and_env(char *env_line, char *var);
-static char	**creat_new_env(int i, int i_env, int x);
+static char	**creat_new_env(int i, int i_env, int x, t_input *input);
 
 char	**del_one_env(char *var, t_input *input)
 {
@@ -25,7 +25,7 @@ char	**del_one_env(char *var, t_input *input)
 	{
 		if (cmp_var_and_env((input->env)[i], var))
 		{
-			new_env = creat_new_env(i, 0, my_strdlen(input->env) - 1);
+			new_env = creat_new_env(i, 0, my_strdlen(input->env) - 1, input);
 			if (!new_env)
 				return (NULL);
 			return (new_env);
@@ -35,7 +35,7 @@ char	**del_one_env(char *var, t_input *input)
 	return (input->env);
 }
 
-static char	**creat_new_env(int i, int i_env, int x)
+static char	**creat_new_env(int i, int i_env, int x, t_input *input)
 {
 	int		y;
 	int		pos_del;

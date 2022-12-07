@@ -6,7 +6,7 @@
 /*   By: tda-silv <tda-silv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/24 12:58:37 by tda-silv          #+#    #+#             */
-/*   Updated: 2022/12/07 15:39:10 by tda-silv         ###   ########.fr       */
+/*   Updated: 2022/12/07 21:28:52 by tda-silv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,9 +30,9 @@ int	ms_export(char *var, t_input *input)
 		return (print_error(copy_var, 12));
 	if (wrong_name_var(copy_var))
 		return (print_error(copy_var, -1));
-	if (check_doublon(var, input))
+	if (check_doublon(copy_var, input))
 	{
-		if (update_var(var, input))
+		if (update_var(copy_var, input))
 			return (print_error(copy_var, 12));
 		return (0);
 	}
@@ -54,7 +54,9 @@ static int	check_doublon(char *var, t_input *input)
 
 	equal = my_strchr_pos(var, '=');
 	if (equal > -1)
+	{
 		var[equal] = 0;
+	}
 	if (get_export(var, input))
 	{
 		if (equal > -1)
@@ -77,7 +79,7 @@ static int	update_var(char *var, t_input *input)
 		var[equal] = 0;
 	if (equal == -1)
 		return (0);
-	if (ms_unset(var))
+	if (ms_unset(var, input))
 	{
 		if (equal > -1)
 			var[equal] = '=';
@@ -85,7 +87,7 @@ static int	update_var(char *var, t_input *input)
 	}
 	if (equal > -1)
 		var[equal] = '=';
-	if (ms_export(var))
+	if (ms_export(var, input))
 		return (1);
 	return (0);
 }
