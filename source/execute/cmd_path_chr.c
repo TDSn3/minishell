@@ -6,7 +6,7 @@
 /*   By: tda-silv <tda-silv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/26 21:01:00 by tda-silv          #+#    #+#             */
-/*   Updated: 2022/12/03 22:01:44 by tda-silv         ###   ########.fr       */
+/*   Updated: 2022/12/07 10:18:42 by tda-silv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,13 @@ char	*cmd_path_chr(char *cmd)
 	int		i;
 
 	i = 0;
+	if (access(cmd, F_OK | X_OK) > -1)
+	{
+		copy_for_return = ft_strdup(cmd);
+		if (!copy_for_return)
+			return (NULL);
+		return (copy_for_return);
+	}
 	all_path = ft_split(ms_get_env("PATH") + 1, ':');
 	if (!all_path)
 		return (NULL);
