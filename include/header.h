@@ -6,7 +6,7 @@
 /*   By: tda-silv <tda-silv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/17 14:29:18 by tda-silv          #+#    #+#             */
-/*   Updated: 2022/12/06 23:17:58 by tda-silv         ###   ########.fr       */
+/*   Updated: 2022/12/07 08:57:42 by tda-silv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,8 +47,8 @@ void	init_input(t_input *input, char *line);
 void	free_input(t_input *input);
 char	*ms_get_env(char *strchr);
 char	**ms_get_env_start(char *strchr);
-int	    free_all(void);
-
+int		ms_path_var(char **argv);
+int		free_all(void);
 
 /* ************************************************************************** */
 /*																			  */

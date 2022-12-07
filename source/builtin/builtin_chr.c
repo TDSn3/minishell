@@ -6,12 +6,13 @@
 /*   By: tda-silv <tda-silv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/05 14:40:40 by tda-silv          #+#    #+#             */
-/*   Updated: 2022/12/06 23:17:32 by tda-silv         ###   ########.fr       */
+/*   Updated: 2022/12/07 09:24:56 by tda-silv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <header.h>
 
+static void	execute_minishell(char *cmd, char **argv);
 static int	print_error(char *cmd, int nb_error);
 
 int	builtin_chr(char **argv, t_input *input)
@@ -71,7 +72,37 @@ int	builtin_chr(char **argv, t_input *input)
 		ms_exit(input);
 		return (1);
 	}
+	if (!my_strcmp(argv[0], "minishell"))
+	{
+		execute_minishell(ms_get_env("MS_PATH") + 1, argv);
+		return (1);
+	}
 	return (0);
+}
+
+static void	execute_minishell(char *cmd, char **argv)
+{
+	pid_t	pid;
+	int		status;
+
+	pid = 0;
+	if (!argv || !*argv)
+		return ;
+	pid = fork();
+	if (pid == -1)
+	{
+		perror("fork");
+		if (cmd)
+			free(cmd);
+		return ;
+	}
+	else if (pid > 0)
+	{
+		waitpid(pid, &status, 0);
+		kill(pid, SIGTERM);
+	}
+	else
+		execve(cmd, argv, g_d.env);
 }
 
 static int	print_error(char *cmd, int nb_error)

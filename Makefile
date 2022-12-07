@@ -6,7 +6,7 @@
 #    By: tda-silv <tda-silv@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/10/17 14:32:32 by tda-silv          #+#    #+#              #
-#    Updated: 2022/12/06 23:13:42 by tda-silv         ###   ########.fr        #
+#    Updated: 2022/12/07 09:09:36 by tda-silv         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -104,6 +104,7 @@ NAME_FILE	= $(addprefix t_map/,												\
 			  free_input														\
 			  ms_get_env														\
 			  ms_get_env_start													\
+			  ms_path_var														\
 			  free_all															\
 
 SRC			= $(addsuffix .c, $(addprefix $(SRC_DIR), $(NAME_FILE)))
