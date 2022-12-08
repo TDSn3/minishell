@@ -6,13 +6,11 @@
 /*   By: tda-silv <tda-silv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/21 20:42:02 by tda-silv          #+#    #+#             */
-/*   Updated: 2022/12/07 15:34:17 by tda-silv         ###   ########.fr       */
+/*   Updated: 2022/12/08 09:08:06 by tda-silv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <header.h>
-
-static int	str_chr_start_str(char *str, char *strchr);
 
 /* ************************************************************************** */
 /*																			  */
@@ -32,29 +30,4 @@ char	**ms_get_env_start(char *strchr, t_input *input)
 		i++;
 	}
 	return (NULL);
-}
-
-/* ************************************************************************** */
-/*																			  */
-/*   Cherche strchr au début de str. Si strchr n'est pas imédiatement		  */
-/*   trouvé, retounre 0, sinon, retourn 1.									  */
-/*																			  */
-/* ************************************************************************** */
-static int	str_chr_start_str(char *str, char *strchr)
-{
-	int	i;
-
-	i = 0;
-	if (!str || !strchr)
-		return (0);
-	while (str[i] && strchr[i])
-	{
-		if (str[i] == strchr[i])
-			i++;
-		else
-			return (0);
-	}
-	if (!strchr[i])
-		return (1);
-	return (0);
 }

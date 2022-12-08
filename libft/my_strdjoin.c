@@ -6,7 +6,7 @@
 /*   By: tda-silv <tda-silv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/21 22:27:43 by tda-silv          #+#    #+#             */
-/*   Updated: 2022/11/24 13:27:52 by tda-silv         ###   ########.fr       */
+/*   Updated: 2022/12/08 08:38:52 by tda-silv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@ char	**my_strdjoin(char **strd, char *s)
 	if (!strd || !*strd || !**strd)
 		return (NULL);
 	x = my_strdlen(strd) + 1;
+	printf("size_env = %d\n", x);
 	copy = calloc(x + 1, sizeof(char *));
 	if (!copy)
 		return (NULL);

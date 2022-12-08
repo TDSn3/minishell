@@ -6,7 +6,7 @@
 /*   By: tda-silv <tda-silv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/19 13:33:37 by tda-silv          #+#    #+#             */
-/*   Updated: 2022/12/07 22:01:22 by tda-silv         ###   ########.fr       */
+/*   Updated: 2022/12/08 08:34:17 by tda-silv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,9 +22,6 @@ int	main(int argc, char **argv, char **env)
 	struct sigaction	ssa;
 	struct termios		termios_new;
 
-	for(int i = 0; env[i]; i++)
-		printf("%s\n", env[i]);
-	printf("----\n");
 	(void) argc;
 	(void) argv;
 	input.env = NULL;

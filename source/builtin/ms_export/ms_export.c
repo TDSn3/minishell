@@ -6,7 +6,7 @@
 /*   By: tda-silv <tda-silv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/24 12:58:37 by tda-silv          #+#    #+#             */
-/*   Updated: 2022/12/07 21:28:52 by tda-silv         ###   ########.fr       */
+/*   Updated: 2022/12/08 08:52:59 by tda-silv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,13 +32,17 @@ int	ms_export(char *var, t_input *input)
 		return (print_error(copy_var, -1));
 	if (check_doublon(copy_var, input))
 	{
+		printf("doublon\n");
 		if (update_var(copy_var, input))
 			return (print_error(copy_var, 12));
 		return (0);
 	}
 	if (my_strchr_pos(copy_var, '=') > -1)
 	{
+		printf("update env\n");
 		new_env = my_strdjoin(input->env, copy_var);
+		for (int j = 0; new_env[j]; j++)
+			printf("\033[36m%s\033[00m\n", new_env[j]);
 		if (!new_env)
 			return (print_error(copy_var, 12));
 		free_env(input);
@@ -57,6 +61,7 @@ static int	check_doublon(char *var, t_input *input)
 	{
 		var[equal] = 0;
 	}
+	printf("check_doublon var = %s\n", var);
 	if (get_export(var, input))
 	{
 		if (equal > -1)
@@ -74,6 +79,7 @@ static int	update_var(char *var, t_input *input)
 
 	if (!my_strcmp(var, get_export(var, input)))
 		return (0);
+	printf("update_var part 1\n");
 	equal = my_strchr_pos(var, '=');
 	if (equal > -1)
 		var[equal] = 0;
