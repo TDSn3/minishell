@@ -6,7 +6,7 @@
 /*   By: tda-silv <tda-silv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/24 12:58:37 by tda-silv          #+#    #+#             */
-/*   Updated: 2022/12/08 08:52:59 by tda-silv         ###   ########.fr       */
+/*   Updated: 2022/12/08 13:05:04 by tda-silv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,7 @@ static int	check_doublon(char *var, t_input *input)
 		var[equal] = 0;
 	}
 	printf("check_doublon var = %s\n", var);
+	printf("get_export(var, input) = %s\n", get_export(var, input));
 	if (get_export(var, input))
 	{
 		if (equal > -1)

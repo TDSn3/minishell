@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_split.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tda-silv <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: tda-silv <tda-silv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/03 16:44:13 by tda-silv          #+#    #+#             */
-/*   Updated: 2022/04/02 11:57:01 by tda-silv         ###   ########.fr       */
+/*   Updated: 2022/12/08 12:37:38 by tda-silv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,7 +92,7 @@ char	**ft_split(char const *s, char c)
 	x = 0;
 	y = 0;
 	i = 0;
-	if (!s)
+	if (!s || !*s)
 		return (NULL);
 	ssplit = (char **) malloc(sizeof (char *) * ft_nbc(s, c));
 	if (!ssplit)

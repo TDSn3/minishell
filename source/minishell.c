@@ -6,7 +6,7 @@
 /*   By: tda-silv <tda-silv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/19 13:33:37 by tda-silv          #+#    #+#             */
-/*   Updated: 2022/12/08 08:34:17 by tda-silv         ###   ########.fr       */
+/*   Updated: 2022/12/08 17:57:15 by tda-silv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,8 +74,8 @@ static void	handler(int sig)
 	{
 		return_write = write(1, "\n", 1);
 		rl_on_new_line();
-		rl_replace_line("", 0);
 		rl_redisplay();
+		rl_replace_line("", 0);
 	}
 	if (sig == 3)
 	{

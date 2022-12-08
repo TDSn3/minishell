@@ -6,7 +6,7 @@
 /*   By: tda-silv <tda-silv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/21 19:17:38 by tda-silv          #+#    #+#             */
-/*   Updated: 2022/12/07 20:54:30 by tda-silv         ###   ########.fr       */
+/*   Updated: 2022/12/08 18:08:33 by tda-silv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ int	ms_cd(const char *path, t_input *input)
 	path_update = NULL;
 	if (path && !*path)
 		printf("NON\n");
-	stock_pwd = ft_strdup(ms_get_env("PWD=", input));
+	stock_pwd = ft_strdup(ms_get_env("PWD", input));
 	if (!stock_pwd)
 		return (print_error(12, path_update));
 	path_update = NULL;
@@ -35,6 +35,7 @@ int	ms_cd(const char *path, t_input *input)
 		return (rev_pwd_oldpwd(stock_pwd, input));
 	if (update_path(path, &path_update, input))
 		return (print_error(12, path_update));
+	printf("path_update = %s\n", path_update);
 	res = chdir(path_update);
 	if (res < 0)
 		return (print_error(2, path_update));
@@ -50,12 +51,12 @@ static int	rev_pwd_oldpwd(char *stock_pwd, t_input *input)
 {
 	int	res;
 
-	res = chdir(ms_get_env("OLDPWD=", input));
+	res = chdir(ms_get_env("OLDPWD", input));
 	if (res < 0)
 		return (print_error(2, NULL));
-	if (update_env(ms_get_env("OLDPWD=", input), input))
+	if (update_env(ms_get_env("OLDPWD", input), input))
 		return (print_error(12, NULL));
-	printf("%s\n", ms_get_env("PWD=", input));
+	printf("%s\n", ms_get_env("PWD", input));
 	if (get_oldpwd(stock_pwd, input))
 		return (print_error(12, NULL));
 	return (0);
@@ -66,7 +67,7 @@ static int	empty_path(char *stock_pwd, t_input *input)
 	const char	*str;
 	int			res;
 
-	str = (const char *)ms_get_env("HOME=", input);
+	str = (const char *)ms_get_env("HOME", input);
 	if (str)
 	{
 		res = chdir(str);

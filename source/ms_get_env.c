@@ -6,7 +6,7 @@
 /*   By: tda-silv <tda-silv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/21 20:42:02 by tda-silv          #+#    #+#             */
-/*   Updated: 2022/12/08 09:08:00 by tda-silv         ###   ########.fr       */
+/*   Updated: 2022/12/08 18:22:51 by tda-silv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,13 +21,20 @@
 /* ************************************************************************** */
 char	*ms_get_env(char *strchr, t_input *input)
 {
-	int	i;
+	int		i;
+	char	*stock;
 
 	i = 0;
 	while ((input->env)[i])
 	{
 		if (str_chr_start_str((input->env)[i], strchr))
-			return ((input->env)[i] + ft_strlen(strchr));
+		{
+			stock = (input->env)[i] + ft_strlen(strchr);
+			if (stock && stock[0] && stock[0] == '=')
+				return (stock + 1);
+			else
+				return (stock);
+		}
 		i++;
 	}
 	return (NULL);

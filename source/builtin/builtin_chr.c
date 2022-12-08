@@ -6,7 +6,7 @@
 /*   By: tda-silv <tda-silv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/05 14:40:40 by tda-silv          #+#    #+#             */
-/*   Updated: 2022/12/07 21:54:09 by tda-silv         ###   ########.fr       */
+/*   Updated: 2022/12/08 18:23:28 by tda-silv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,7 @@ int	builtin_chr(char **argv, t_input *input)
 	}
 	if (!my_strcmp(argv[0], "minishell"))
 	{
-		execute_minishell(ms_get_env("MS_PATH", input) + 1, argv, input);
+		execute_minishell(ms_get_env("MS_PATH", input), argv, input);
 		return (1);
 	}
 	return (0);

@@ -6,7 +6,7 @@
 /*   By: tda-silv <tda-silv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/23 18:08:39 by tda-silv          #+#    #+#             */
-/*   Updated: 2022/12/07 20:52:37 by tda-silv         ###   ########.fr       */
+/*   Updated: 2022/12/08 18:42:29 by tda-silv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ int	update_env_home(const char *str, t_input *input)
 	char	*new_pwd;
 	char	*stock;
 
-	pwd = ms_get_env_start("PWD=", input);
+	pwd = ms_get_env_start("PWD", input);
 	save_for_free = *pwd;
 	new_pwd = calloc(ft_strlen(str) + 5, sizeof(char));
 	if (!new_pwd)
