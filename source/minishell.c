@@ -6,7 +6,7 @@
 /*   By: tda-silv <tda-silv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/19 13:33:37 by tda-silv          #+#    #+#             */
-/*   Updated: 2022/12/09 05:36:14 by tda-silv         ###   ########.fr       */
+/*   Updated: 2022/12/09 14:39:01 by tda-silv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,8 @@ static void	handler_off(int sig);
 static int	ctrl_d(t_input *input);
 static void	exec_all(t_input *input, t_list *ast);
 
+int	g_pid_child[1024];
+
 int	main(int argc, char **argv, char **env)
 {
 	t_input				input;
@@ -25,6 +27,7 @@ int	main(int argc, char **argv, char **env)
 
 	(void) argc;
 	(void) argv;
+	ft_bzero(g_pid_child, 1024 * sizeof(int));
 	input.env = NULL;
 	input.export = NULL;
 	ssa.sa_handler = &handler;
@@ -81,12 +84,18 @@ static void	handler(int sig)
 	if (sig == 2)
 	{
 		return_write = write(1, "\n", 1);
+		if (g_pid_child[0] > 0)
+			printf("kill: %d\n", kill(g_pid_child[0], SIGINT));
+		ft_bzero(g_pid_child, 1024 * sizeof(int));
 		rl_on_new_line();
 		rl_redisplay();
 		rl_replace_line("", 0);
 	}
 	if (sig == 3)
 	{
+		if (g_pid_child[0] > 0)
+			printf("kill: %d\n", kill(g_pid_child[0], SIGQUIT));
+		ft_bzero(g_pid_child, 1024 * sizeof(int));
 		rl_on_new_line();
 		rl_redisplay();
 		rl_replace_line("", 0);
@@ -95,10 +104,25 @@ static void	handler(int sig)
 
 static void	handler_off(int sig)
 {
+	int	return_write;
+
+	return_write = 0;
+	(void) return_write;
 	if (sig == 2)
+	{
+		return_write = write(1, "\n", 1);
+		if (g_pid_child[0] > 0)
+			printf("kill: %d\n", kill(g_pid_child[0], SIGINT));
+		ft_bzero(g_pid_child, 1024 * sizeof(int));
 		return ;
+	}
 	if (sig == 3)
+	{
+		if (g_pid_child[0] > 0)
+			printf("kill: %d\n", kill(g_pid_child[0], SIGQUIT));
+		ft_bzero(g_pid_child, 1024 * sizeof(int));
 		return ;
+	}
 }
 
 static int	ctrl_d(t_input *input)

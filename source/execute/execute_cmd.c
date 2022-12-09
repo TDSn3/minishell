@@ -6,27 +6,27 @@
 /*   By: tda-silv <tda-silv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/26 21:37:10 by tda-silv          #+#    #+#             */
-/*   Updated: 2022/12/09 05:56:13 by tda-silv         ###   ########.fr       */
+/*   Updated: 2022/12/09 14:35:33 by tda-silv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <header.h>
 
 static void	fork_error(char	*cmd_path);
-static void	handler(int sig);
+//static void	handler(int sig);
 
 void	execute_cmd(char *cmd, char **argv, t_input *input)
 {
 	pid_t	pid;
-	struct sigaction	ssa;
+//	struct sigaction	ssa;
 	int		status;
 	char	*cmd_path;
 
-	ssa.sa_handler = &handler;
-	ssa.sa_flags = 0;
-	sigemptyset(&ssa.sa_mask);
-	sigaction(SIGINT, &ssa, 0);
-	sigaction(SIGQUIT, &ssa, 0);
+//	ssa.sa_handler = &handler;
+//	ssa.sa_flags = 0;
+//	sigemptyset(&ssa.sa_mask);
+//	sigaction(SIGINT, &ssa, 0);
+//	sigaction(SIGQUIT, &ssa, 0);
 	(void) cmd;
 	pid = 0;
 	if (!argv || !*argv)
@@ -41,6 +41,7 @@ void	execute_cmd(char *cmd, char **argv, t_input *input)
 			return (fork_error(cmd_path));
 		else if (pid > 0)
 		{
+			g_pid_child[0] = pid;
 			waitpid(pid, &status, 0);
 			kill(pid, SIGTERM);
 		}
@@ -58,11 +59,29 @@ static void	fork_error(char	*cmd_path)
 		free(cmd_path);
 	return ;
 }
-
+/*
 static void	handler(int sig)
 {
+	int	return_write;
+
+	return_write = 0;
+	(void) return_write;
+	printf("->%d\n", g_pid_child[0]);
 	if (sig == 2)
+	{
+		return_write = write(1, "\n", 1);
+		if (g_pid_child[0] > 0)
+			printf("kill: %d\n", kill(g_pid_child[0], SIGINT));
+		ft_bzero(g_pid_child, 1024 * sizeof(int));
 		return ;
+	}
 	if (sig == 3)
+	{
+		return_write = write(1, "\n", 1);
+		if (g_pid_child[0] > 0)
+			printf("kill: %d\n", kill(g_pid_child[0], SIGQUIT));
+		ft_bzero(g_pid_child, 1024 * sizeof(int));
 		return ;
+	}
 }
+*/

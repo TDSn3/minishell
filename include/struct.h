@@ -6,7 +6,7 @@
 /*   By: tda-silv <tda-silv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/18 15:11:18 by tda-silv          #+#    #+#             */
-/*   Updated: 2022/12/07 20:23:27 by tda-silv         ###   ########.fr       */
+/*   Updated: 2022/12/09 13:07:24 by tda-silv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,5 +50,7 @@ typedef struct s_input {
 	t_map		*parser;
 	t_list		*ast;
 }	t_input;
+
+extern int	g_pid_child[1024];
 
 #endif
