@@ -6,7 +6,7 @@
 /*   By: tda-silv <tda-silv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/07 08:58:51 by tda-silv          #+#    #+#             */
-/*   Updated: 2022/11/25 14:58:12 by tda-silv         ###   ########.fr       */
+/*   Updated: 2022/12/09 03:59:17 by tda-silv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ void	ls_clear_one_export(t_ls **lst, char *content)
 			if (pos > -1)
 				ls_cpy->content_one[pos] = '=';
 			break ;
-		}	
+		}
 		if (pos > -1)
 			ls_cpy->content_one[pos] = '=';
 		ls_cpy = ls_cpy->next;

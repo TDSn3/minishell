@@ -6,7 +6,7 @@
 /*   By: tda-silv <tda-silv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/07 08:53:41 by tda-silv          #+#    #+#             */
-/*   Updated: 2022/12/08 18:25:32 by tda-silv         ###   ########.fr       */
+/*   Updated: 2022/12/08 23:36:50 by tda-silv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ int	ms_path_var(char **argv, t_input *input)
 	char	*ms_path;
 	char	*stock;
 
-	if (!ms_get_env("MS_PATH", input))
+	if (!ms_get_env("MS_PATH", input) && input->env)
 	{
 		ms_path = ft_strjoin("MS_PATH=", ms_get_env("PWD", input));
 		if (!ms_path)

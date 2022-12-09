@@ -6,7 +6,7 @@
 /*   By: tda-silv <tda-silv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/25 15:41:15 by tda-silv          #+#    #+#             */
-/*   Updated: 2022/12/08 15:55:59 by tda-silv         ###   ########.fr       */
+/*   Updated: 2022/12/09 01:33:31 by tda-silv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,6 @@ char	**del_one_env(char *var, t_input *input)
 	{
 		if (cmp_var_and_env((input->env)[i], var))
 		{
-			printf("unset this line : %s\n", (input->env)[i]);
 			new_env = creat_new_env(i, 0, my_strdlen(input->env), input);
 			if (!new_env)
 				return (NULL);

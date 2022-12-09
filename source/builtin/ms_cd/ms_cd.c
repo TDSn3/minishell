@@ -6,7 +6,7 @@
 /*   By: tda-silv <tda-silv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/21 19:17:38 by tda-silv          #+#    #+#             */
-/*   Updated: 2022/12/08 18:08:33 by tda-silv         ###   ########.fr       */
+/*   Updated: 2022/12/09 02:23:22 by tda-silv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,6 @@ int	ms_cd(const char *path, t_input *input)
 	char		*stock_pwd;
 
 	path_update = NULL;
-	if (path && !*path)
-		printf("NON\n");
 	stock_pwd = ft_strdup(ms_get_env("PWD", input));
 	if (!stock_pwd)
 		return (print_error(12, path_update));
@@ -35,7 +33,6 @@ int	ms_cd(const char *path, t_input *input)
 		return (rev_pwd_oldpwd(stock_pwd, input));
 	if (update_path(path, &path_update, input))
 		return (print_error(12, path_update));
-	printf("path_update = %s\n", path_update);
 	res = chdir(path_update);
 	if (res < 0)
 		return (print_error(2, path_update));

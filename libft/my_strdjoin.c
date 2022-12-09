@@ -6,11 +6,13 @@
 /*   By: tda-silv <tda-silv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/21 22:27:43 by tda-silv          #+#    #+#             */
-/*   Updated: 2022/12/08 08:38:52 by tda-silv         ###   ########.fr       */
+/*   Updated: 2022/12/09 00:05:40 by tda-silv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
+
+static char	**creat_or_no(char *s);
 
 char	**my_strdjoin(char **strd, char *s)
 {
@@ -20,9 +22,8 @@ char	**my_strdjoin(char **strd, char *s)
 	char	**copy;
 
 	if (!strd || !*strd || !**strd)
-		return (NULL);
+		return (creat_or_no(s));
 	x = my_strdlen(strd) + 1;
-	printf("size_env = %d\n", x);
 	copy = calloc(x + 1, sizeof(char *));
 	if (!copy)
 		return (NULL);
@@ -38,5 +39,19 @@ char	**my_strdjoin(char **strd, char *s)
 	}
 	copy[i] = ft_strdup(s);
 	copy[x] = NULL;
+	return (copy);
+}
+
+static char	**creat_or_no(char *s)
+{
+	char	**copy;
+
+	if (!s)
+		return (NULL);
+	copy = calloc(2, sizeof(char *));
+	if (!copy)
+		return (NULL);
+	copy[0] = ft_strdup(s);
+	copy[1] = NULL;
 	return (copy);
 }

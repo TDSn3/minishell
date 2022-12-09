@@ -6,7 +6,7 @@
 /*   By: tda-silv <tda-silv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/03 20:56:49 by tda-silv          #+#    #+#             */
-/*   Updated: 2022/12/07 15:35:23 by tda-silv         ###   ########.fr       */
+/*   Updated: 2022/12/09 01:30:23 by tda-silv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,9 +17,12 @@ int	free_all(t_input *input)
 	int	i;
 
 	i = 0;
-	while ((input->env)[i])
-		free((input->env)[i++]);
-	free(input->env);
+	if (input->env && *(input->env))
+		while ((input->env)[i])
+			free((input->env)[i++]);
+	if (input->env)
+		free(input->env);
 	ls_clear(&(input->export));
+	rl_clear_history();
 	return (0);
 }

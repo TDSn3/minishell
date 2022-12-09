@@ -6,7 +6,7 @@
 /*   By: tda-silv <tda-silv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/19 13:33:37 by tda-silv          #+#    #+#             */
-/*   Updated: 2022/12/08 17:57:15 by tda-silv         ###   ########.fr       */
+/*   Updated: 2022/12/09 01:30:05 by tda-silv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,8 @@ int	main(int argc, char **argv, char **env)
 			(void) exec_all;
 			exec_all(&input, input.ast);
 		}
+		if (input.raw && input.raw[0])
+			add_history(input.raw);
 		free_input(&input);
 	}
 	return (0);

@@ -6,7 +6,7 @@
 /*   By: tda-silv <tda-silv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/05 14:40:40 by tda-silv          #+#    #+#             */
-/*   Updated: 2022/12/08 18:23:28 by tda-silv         ###   ########.fr       */
+/*   Updated: 2022/12/09 02:20:42 by tda-silv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,7 +88,6 @@ static void	execute_minishell(char *cmd, char **argv, t_input *input)
 	pid = 0;
 	if (!argv || !*argv)
 		return ;
-	printf("--->%s\n", cmd);
 	if (access(cmd, F_OK | X_OK) == -1)
 		return (perror("execute_minishell"));
 	pid = fork();

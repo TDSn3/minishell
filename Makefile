@@ -6,7 +6,7 @@
 #    By: tda-silv <tda-silv@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/10/17 14:32:32 by tda-silv          #+#    #+#              #
-#    Updated: 2022/12/08 09:07:40 by tda-silv         ###   ########.fr        #
+#    Updated: 2022/12/09 01:26:38 by tda-silv         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -96,6 +96,7 @@ NAME_FILE	= $(addprefix t_map/,												\
 			  )																	\
 			  $(addprefix start_main/,											\
 			  						 copy_env_in_export							\
+									 creat_pwd									\
 									 copy_env									\
 									 init_input									\
 									 shlvl										\

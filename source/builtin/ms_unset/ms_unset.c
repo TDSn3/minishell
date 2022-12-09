@@ -6,7 +6,7 @@
 /*   By: tda-silv <tda-silv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/25 10:49:59 by tda-silv          #+#    #+#             */
-/*   Updated: 2022/12/07 19:53:10 by tda-silv         ###   ########.fr       */
+/*   Updated: 2022/12/09 00:12:35 by tda-silv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 static int	update_env_and_export(char *var, t_input *input);
 static void	free_env(t_input *input);
-static int	print_error(char *var, int nb_error);
+static int	print_error(char *var);
 
 int	ms_unset(const char *var, t_input *input)
 {
@@ -24,11 +24,11 @@ int	ms_unset(const char *var, t_input *input)
 		return (0);
 	copy_var = ft_strdup(var);
 	if (!copy_var)
-		return (print_error(copy_var, 12));
+		return (print_error(copy_var));
 	if (!get_export(copy_var, input))
-		return (print_error(copy_var, -1));
+		return (print_error(copy_var));
 	if (update_env_and_export(copy_var, input))
-		return (print_error(copy_var, 12));
+		return (print_error(copy_var));
 	free(copy_var);
 	return (0);
 }
@@ -62,15 +62,8 @@ static void	free_env(t_input *input)
 	}
 }
 
-static int	print_error(char *var, int nb_error)
+static int	print_error(char *var)
 {
-	if (nb_error == -1)
-		printf("unset: `%s': not a valid identifier\n", var);
-	else
-	{
-		errno = nb_error;
-		perror("unset");
-	}
 	if (var)
 		free(var);
 	return (1);
