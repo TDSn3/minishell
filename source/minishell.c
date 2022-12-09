@@ -6,13 +6,14 @@
 /*   By: tda-silv <tda-silv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/19 13:33:37 by tda-silv          #+#    #+#             */
-/*   Updated: 2022/12/09 01:30:05 by tda-silv         ###   ########.fr       */
+/*   Updated: 2022/12/09 05:36:14 by tda-silv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <header.h>
 
 static void	handler(int sig);
+static void	handler_off(int sig);
 static int	ctrl_d(t_input *input);
 static void	exec_all(t_input *input, t_list *ast);
 
@@ -50,8 +51,13 @@ int	main(int argc, char **argv, char **env)
 			check_syntax(&input);
 			check_expand(&input);
 			parser(&input);
-			(void) exec_all;
+			ssa.sa_handler = &handler_off;
+			sigaction(SIGINT, &ssa, 0);
+			sigaction(SIGQUIT, &ssa, 0);
 			exec_all(&input, input.ast);
+			ssa.sa_handler = &handler;
+			sigaction(SIGINT, &ssa, 0);
+			sigaction(SIGQUIT, &ssa, 0);
 		}
 		if (input.raw && input.raw[0])
 			add_history(input.raw);
@@ -85,6 +91,14 @@ static void	handler(int sig)
 		rl_redisplay();
 		rl_replace_line("", 0);
 	}
+}
+
+static void	handler_off(int sig)
+{
+	if (sig == 2)
+		return ;
+	if (sig == 3)
+		return ;
 }
 
 static int	ctrl_d(t_input *input)

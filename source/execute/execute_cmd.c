@@ -6,20 +6,27 @@
 /*   By: tda-silv <tda-silv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/26 21:37:10 by tda-silv          #+#    #+#             */
-/*   Updated: 2022/12/07 21:33:35 by tda-silv         ###   ########.fr       */
+/*   Updated: 2022/12/09 05:56:13 by tda-silv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <header.h>
 
 static void	fork_error(char	*cmd_path);
+static void	handler(int sig);
 
 void	execute_cmd(char *cmd, char **argv, t_input *input)
 {
 	pid_t	pid;
+	struct sigaction	ssa;
 	int		status;
 	char	*cmd_path;
 
+	ssa.sa_handler = &handler;
+	ssa.sa_flags = 0;
+	sigemptyset(&ssa.sa_mask);
+	sigaction(SIGINT, &ssa, 0);
+	sigaction(SIGQUIT, &ssa, 0);
 	(void) cmd;
 	pid = 0;
 	if (!argv || !*argv)
@@ -50,4 +57,12 @@ static void	fork_error(char	*cmd_path)
 	if (cmd_path)
 		free(cmd_path);
 	return ;
+}
+
+static void	handler(int sig)
+{
+	if (sig == 2)
+		return ;
+	if (sig == 3)
+		return ;
 }

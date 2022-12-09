@@ -6,7 +6,7 @@
 /*   By: tda-silv <tda-silv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/21 22:27:43 by tda-silv          #+#    #+#             */
-/*   Updated: 2022/12/09 03:58:14 by tda-silv         ###   ########.fr       */
+/*   Updated: 2022/12/09 04:16:56 by tda-silv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ int	copy_env(char **strd, t_input *input)
 	char	**copy;
 
 	if (!strd || !*strd || !**strd)
-		return (creat_pwd(input));
+		return (0);
 	x = my_strdlen(strd);
 	copy = calloc(x + 1, sizeof(char *));
 	if (!copy)
@@ -39,7 +39,6 @@ int	copy_env(char **strd, t_input *input)
 	}
 	copy[x] = NULL;
 	input->env = copy;
-	creat_pwd(input);
 	return (0);
 }
 

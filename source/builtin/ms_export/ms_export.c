@@ -6,7 +6,7 @@
 /*   By: tda-silv <tda-silv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/24 12:58:37 by tda-silv          #+#    #+#             */
-/*   Updated: 2022/12/09 04:10:29 by tda-silv         ###   ########.fr       */
+/*   Updated: 2022/12/09 04:25:26 by tda-silv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,7 @@ int	ms_export(char *var, t_input *input)
 		printf("doublon\n");
 		if (update_var(copy_var, input))
 			return (print_error(copy_var, 12));
+		free(copy_var);
 		return (0);
 	}
 	if (my_strchr_pos(copy_var, '=') > -1)

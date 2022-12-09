@@ -6,7 +6,7 @@
 /*   By: tda-silv <tda-silv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/21 19:17:38 by tda-silv          #+#    #+#             */
-/*   Updated: 2022/12/09 02:23:22 by tda-silv         ###   ########.fr       */
+/*   Updated: 2022/12/09 04:53:19 by tda-silv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,8 @@ int	ms_cd(const char *path, t_input *input)
 	char		*path_update;
 	char		*stock_pwd;
 
+	if ((!path || !*path) && !ms_get_env("HOME", input))
+		return (print_error(-1, NULL));
 	path_update = NULL;
 	stock_pwd = ft_strdup(ms_get_env("PWD", input));
 	if (!stock_pwd)
@@ -72,16 +74,20 @@ static int	empty_path(char *stock_pwd, t_input *input)
 			return (print_error(2, NULL));
 		if (update_env_home(str, input))
 			return (print_error(12, NULL));
+		if (get_oldpwd(stock_pwd, input))
+			return (print_error(12, NULL));
+		return (0);
 	}
-	if (get_oldpwd(stock_pwd, input))
-		return (print_error(12, NULL));
-	return (0);
+	return (print_error(-1, NULL));
 }
 
 static int	print_error(int nb_error, char *path_update)
 {
 	errno = nb_error;
-	perror("cd");
+	if (nb_error == -1)
+		printf("cd: HOME not set\n");
+	else
+		perror("cd");
 	if (path_update)
 		free(path_update);
 	return (1);
