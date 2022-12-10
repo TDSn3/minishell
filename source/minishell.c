@@ -6,7 +6,7 @@
 /*   By: tda-silv <tda-silv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/19 13:33:37 by tda-silv          #+#    #+#             */
-/*   Updated: 2022/12/10 12:24:18 by tda-silv         ###   ########.fr       */
+/*   Updated: 2022/12/10 16:13:07 by tda-silv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,9 +53,16 @@ int	main(int argc, char **argv, char **env)
 			check_syntax(&input);
 			check_expand(&input);
 			parser(&input);
+//			redir(&input);
 			ssa.sa_handler = &handler_off;
 			sigaction(SIGINT, &ssa, 0);
 			sigaction(SIGQUIT, &ssa, 0);
+
+//			if (input.paths)
+//				ft_exec(&input);
+//			else
+//				perror("PATH");
+
 			exec_all(&input, input.ast);
 			ssa.sa_handler = &handler;
 			sigaction(SIGINT, &ssa, 0);
@@ -102,10 +109,7 @@ static void	handler_off(int sig)
 	return_write = 0;
 	(void) return_write;
 	if (sig == 2)
-	{
-		return_write = write(1, "\n", 1);
 		return ;
-	}
 	if (sig == 3)
 		return ;
 }

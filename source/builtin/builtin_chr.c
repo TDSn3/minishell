@@ -6,7 +6,7 @@
 /*   By: tda-silv <tda-silv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/05 14:40:40 by tda-silv          #+#    #+#             */
-/*   Updated: 2022/12/09 02:20:42 by tda-silv         ###   ########.fr       */
+/*   Updated: 2022/12/10 15:54:54 by tda-silv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ int	builtin_chr(char **argv, t_input *input)
 		if (size_argv > 1)
 			print_error(argv[0], -1);
 		else
-			ms_env(input);
+			g_status = ms_env(input);
 		return (1);
 	}
 	if (!my_strcmp(argv[0], "pwd"))
@@ -35,7 +35,7 @@ int	builtin_chr(char **argv, t_input *input)
 		if (size_argv > 1)
 			print_error(argv[0], -1);
 		else
-			ms_pwd(input);
+			g_status = ms_pwd(input);
 		return (1);
 	}
 	if (!my_strcmp(argv[0], "cd"))
@@ -43,28 +43,28 @@ int	builtin_chr(char **argv, t_input *input)
 		if (size_argv > 2)
 			print_error(argv[0], -1);
 		else
-			ms_cd(argv[1], input);
+			g_status = ms_cd(argv[1], input);
 		return (1);
 	}
 	if (!my_strcmp(argv[0], "export"))
 	{
 		if (argv[1])
 			while (argv[i])
-				ms_export(argv[i++], input);
+				g_status = ms_export(argv[i++], input);
 		if (!argv[1])
-			ms_export(NULL, input);
+			g_status = ms_export(NULL, input);
 		return (1);
 	}
 	if (!my_strcmp(argv[0], "unset"))
 	{
 		if (argv[1])
 			while (argv[i])
-				ms_unset(argv[i++], input);
+				g_status = ms_unset(argv[i++], input);
 		return (1);
 	}
 	if (!my_strcmp(argv[0], "echo"))
 	{
-		ms_echo(argv);
+		g_status = ms_echo(argv);
 		return (1);
 	}
 	if (!my_strcmp(argv[0], "exit"))
@@ -102,11 +102,21 @@ static void	execute_minishell(char *cmd, char **argv, t_input *input)
 	{
 		waitpid(pid, &status, 0);
 		kill(pid, SIGTERM);
+		if (WCOREDUMP(status))
+			printf("Quit (core dumped)\n");
+		if (WEXITSTATUS(status) == 1)
+			g_status = 1;
+		else if (WIFSIGNALED(status))
+			g_status = WTERMSIG(status) + 128;
+		else
+			g_status = 0;
+		printf("exit_status = %d\n", g_status);
 	}
 	else
 	{
 		if (execve(cmd, argv, input->env) == -1)
 			ms_exit(input);
+		exit(EXIT_FAILURE);
 	}
 }
 

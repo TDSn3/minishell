@@ -6,7 +6,7 @@
 #    By: tda-silv <tda-silv@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/10/17 14:32:32 by tda-silv          #+#    #+#              #
-#    Updated: 2022/12/10 14:22:50 by tda-silv         ###   ########.fr        #
+#    Updated: 2022/12/10 15:33:15 by tda-silv         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -94,9 +94,6 @@ NAME_FILE	= $(addprefix t_map/,												\
 					ms_exit														\
 																				\
 			  )																	\
-			  $(addprefix redirection/,											\
-			  						  ms_redir									\
-			  )																	\
 			  $(addprefix start_main/,											\
 			  						 copy_env_in_export							\
 									 copy_env									\
@@ -110,6 +107,9 @@ NAME_FILE	= $(addprefix t_map/,												\
 			  ms_get_env_start													\
 			  free_all															\
 			  str_chr_start_str													\
+#			  $(addprefix redirection/,											\
+#			  						  ms_redir									\
+#			  )																	
 
 SRC			= $(addsuffix .c, $(addprefix $(SRC_DIR), $(NAME_FILE)))
 OBJ			= $(addsuffix .o, $(addprefix $(OBJ_DIR), $(NAME_FILE)))
