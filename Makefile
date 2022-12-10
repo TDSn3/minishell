@@ -6,7 +6,7 @@
 #    By: tda-silv <tda-silv@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/10/17 14:32:32 by tda-silv          #+#    #+#              #
-#    Updated: 2022/12/10 15:33:15 by tda-silv         ###   ########.fr        #
+#    Updated: 2022/12/10 22:06:03 by tda-silv         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -63,6 +63,8 @@ NAME_FILE	= $(addprefix t_map/,												\
 			  $(addprefix execute/,												\
 			  					  cmd_path_chr									\
 								  execute_cmd									\
+								  execute_em									\
+								  ft_cmd_error									\
 			  )																	\
 			  $(addprefix builtin/,												\
 					$(addprefix	  ms_cd/,										\
@@ -101,15 +103,15 @@ NAME_FILE	= $(addprefix t_map/,												\
 									 shlvl										\
 									 ms_path_var								\
 			  )																	\
+			  $(addprefix redirection/,											\
+			  						  ms_redir									\
+			  )																	\
 			  minishell															\
 			  free_input														\
 			  ms_get_env														\
 			  ms_get_env_start													\
 			  free_all															\
 			  str_chr_start_str													\
-#			  $(addprefix redirection/,											\
-#			  						  ms_redir									\
-#			  )																	
 
 SRC			= $(addsuffix .c, $(addprefix $(SRC_DIR), $(NAME_FILE)))
 OBJ			= $(addsuffix .o, $(addprefix $(OBJ_DIR), $(NAME_FILE)))

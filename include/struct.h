@@ -6,7 +6,7 @@
 /*   By: tda-silv <tda-silv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/18 15:11:18 by tda-silv          #+#    #+#             */
-/*   Updated: 2022/12/10 15:32:59 by tda-silv         ###   ########.fr       */
+/*   Updated: 2022/12/10 21:35:51 by tda-silv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,8 +27,8 @@ typedef enum e_type {
 }	t_type;
 
 typedef struct s_redir {
-	int		type;
-	char	*file;
+	int				type;
+	char			*file;
 }	t_redir;
 
 typedef struct s_map {
@@ -39,21 +39,20 @@ typedef struct s_map {
 }	t_map;
 
 typedef struct s_node {
-	int		status;
-	char	*file;
-	char	**args;
+	char			**args;
+	t_list			*redir;
 }	t_node;
 
 typedef struct s_input {
-	char		**env;
-	t_ls		*export;
-	char		*raw;
-	char		*line;
-	int			fdin;
-	int			fdout;
-	t_map		*lexer;
-	t_map		*parser;
-	t_list		*ast;
+	char			**env;
+	t_ls			*export;
+	char			**paths;
+	char			*raw;
+	int				fdin;
+	int				fdout;
+	t_map			*lexer;
+	t_map			*parser;
+	t_list			*ast;
 }	t_input;
 
 extern int	g_status;

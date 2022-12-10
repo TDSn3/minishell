@@ -1,23 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   init_input.c                                       :+:      :+:    :+:   */
+/*   cmd_error.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tda-silv <tda-silv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/11/19 17:18:52 by tda-silv          #+#    #+#             */
-/*   Updated: 2022/12/10 21:57:57 by tda-silv         ###   ########.fr       */
+/*   Created: 2022/12/10 20:56:55 by tda-silv          #+#    #+#             */
+/*   Updated: 2022/12/10 20:58:35 by tda-silv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <header.h>
 
-void	init_input(t_input *input, char *line)
+int	ft_cmd_error(t_input *input, t_list *cmd, char *message)
 {
-	input->raw = line;
-	input->lexer = NULL;
-	input->parser = NULL;
-	input->ast = NULL;
-	input->fdin = 0;
-	input->fdout = 1;
+	t_node	*node;
+
+	if (cmd)
+	{
+		node = cmd->content;
+		printf("%s", node->args[0]);
+	}
+	if (message)
+		perror(message);
+	(void) input;
+	return (0);
 }

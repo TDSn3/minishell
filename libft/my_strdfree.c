@@ -1,23 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   init_input.c                                       :+:      :+:    :+:   */
+/*   my_strdfree.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tda-silv <tda-silv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/11/19 17:18:52 by tda-silv          #+#    #+#             */
-/*   Updated: 2022/12/10 21:57:57 by tda-silv         ###   ########.fr       */
+/*   Created: 2022/12/10 20:47:00 by tda-silv          #+#    #+#             */
+/*   Updated: 2022/12/10 20:51:54 by tda-silv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <header.h>
+#include "libft.h"
 
-void	init_input(t_input *input, char *line)
+int	my_strdfree(char ***strd)
 {
-	input->raw = line;
-	input->lexer = NULL;
-	input->parser = NULL;
-	input->ast = NULL;
-	input->fdin = 0;
-	input->fdout = 1;
+	int	i;
+
+	i = 0;
+	if (strd && *strd && **strd)
+		while ((*strd)[i])
+			free((*strd)[i++]);
+	if (strd && *strd)
+		free(*strd);
+	return (1);
 }

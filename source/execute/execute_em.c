@@ -6,30 +6,57 @@
 /*   By: tda-silv <tda-silv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/10 15:08:00 by tda-silv          #+#    #+#             */
-/*   Updated: 2022/12/10 15:08:40 by tda-silv         ###   ########.fr       */
+/*   Updated: 2022/12/10 22:08:55 by tda-silv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <header.h>
 
-void	execute_em(t_input *input)
-{
-	t_list	*cmds;
-	size_t	size;
+int    exit_cmd;
 
-	cmds = input->ast;
-	size = ft_lstsize(cmds);
-	if (size  == 1)
-		exec_cmd(input, cmds);
-	else if (size > 1)
-		ft_pipe(input, cmds, size);
+static size_t	ft_strlen2(const char *s)
+{
+	size_t	count;
+
+	count = 0;
+	if (!s || s[count] == '\0')
+		return (0);
+	while (s[count])
+		count++;
+	return (count);
 }
 
-static int	execute(t_input *input, t_list *cmds)
+static char	*ft_strjoin2(char *s1, char const *s2)
 {
-	int	count;
-	char	*command;
-	t_node	*node;
+	size_t	count;
+	size_t	copy;
+	size_t	len;
+	char	*all;
+
+	count = 0;
+	copy = 0;
+	len = ft_strlen2(s1);
+	if (!s1 && !s2)
+		return (NULL);
+	all = (char *) ft_calloc(len + ft_strlen2(s2) + 1, sizeof(char));
+	if (!all)
+		return (NULL);
+	while (count < len)
+		all[copy++] = s1[count++];
+	count = 0;
+	while (count < ft_strlen2(s2))
+		all[copy++] = s2[count++];
+	all[copy] = '\0';
+	if (len > 0)
+		free(s1);
+	return (all);
+}
+
+static int    execute(t_input *input, t_list *cmds)
+{
+	int    count;
+	char    *command;
+	t_node    *node;
 
 	count = 0;
 	node = cmds->content;
@@ -40,7 +67,7 @@ static int	execute(t_input *input, t_list *cmds)
 		command = ft_strjoin(input->paths[count++], "/");
 		command = ft_strjoin2(command, node->args[0]);
 		if (access(command, F_OK | X_OK) == 0)
-		{	
+		{    
 			if (execve(command, node->args, NULL) == -1)
 				return (ft_cmd_error(input, NULL, node->args[0]));
 		}
@@ -51,10 +78,10 @@ static int	execute(t_input *input, t_list *cmds)
 	return (1);
 }
 
-static void	exec_cmd(t_input *input, t_list *cmds)
+static void    exec_cmd(t_input *input, t_list *cmds)
 {
-	int	pid;
-	int	status;
+	int    pid;
+	int    status;
 
 	pid = fork();
 	if (pid < 0)
@@ -69,18 +96,14 @@ static void	exec_cmd(t_input *input, t_list *cmds)
 	}
 	else
 	{
-		wait(&status);			// papa
+		wait(&status);            // papa
 		if (WIFEXITED(status))
 			exit_cmd = WEXITSTATUS(status);
 	}
 }
 
-static void	create_pipes(t_input *input, t_list *cmds, int *pids, int count)
+static void    create_pipes(t_input *input, t_list *cmds, int *pids, size_t count, int fd[2])
 {
-	int	fd[2];
-	
-	if (pipe(fd) < 0)
-		return ;
 	pids[count] = fork();
 	if (pids[count] < 0)
 	{
@@ -89,64 +112,101 @@ static void	create_pipes(t_input *input, t_list *cmds, int *pids, int count)
 	}
 	else if (pids[count] == 0) // papa
 	{
-		close(fd[0]);
-		if (dup2(fd[1], STDOUT_FILENO) == -1)
-			return ;
-		close(fd[1]);
+		if (fd[0] != 0 && dup2(fd[0], STDIN_FILENO) == -1)
+			return;
+		if (fd[1] != 1 && dup2(fd[1], STDOUT_FILENO) == -1)
+			return;
 		exec_cmd(input, cmds);
 		exit(exit_cmd);
 	}
-	else
-	{
-		close(fd[1]);
-		if (dup2(fd[0], STDIN_FILENO) == -1)
-			return ;
-		close(fd[0]);
-	}
 }
 
-static void	wait_pipes(int *pids, size_t size)
+static void kill_all(int *pids, size_t size, int except)
 {
-	size_t	count;
-	int	status;
-	int	ret;
+	size_t i;
 
-	count = 0;
-	while (count < size)
+	i = 0;
+	while (i < size)
 	{
-		ret = waitpid(pids[count], &status, 0);
-		if (ret != 0)
+		if (except == pids[i])
 		{
-			if (WIFEXITED(status))
-				exit_cmd = WEXITSTATUS(status);
+			i++;
+			continue;
 		}
-		count ++;
+		if (kill(pids[i], SIGTERM) == -1)
+			kill(pids[i], SIGKILL);
+		i++;
 	}
 }
 
-void	ft_pipe(t_input *input, t_list *cmds, size_t size)
+static void    wait_pipes(int *pids, size_t size)
 {
-	int	*pids;
-	size_t	count;
-	int	fd[2];
+	size_t    count;
+	int    status;
+	int    ret;
 
-	fd[0] = dup(input->fdin);
-	fd[1] = dup(input->fdout);
+	while (1)
+	{
+		count = 0;
+		while (count < size)
+		{
+			ret = waitpid(pids[count], &status, WNOHANG | WUNTRACED);
+			if (ret != 0)
+			{
+				if (WIFEXITED(status))
+					exit_cmd = WEXITSTATUS(status);
+				kill_all(pids, size, ret);
+				return;
+			}
+			count ++;
+		}
+	}
+}
+
+static void    ft_pipe(t_input *input, t_list *cmds, size_t size)
+{
+	int    *pids;
+	size_t    count;
+	int in = 0;
+
 	pids = (int *) ft_calloc(ft_lstsize(cmds), sizeof(int));
 	if (!pids)
 		return ;
 	count = 0;
-	while (cmds && count < size - 1)
+	while (cmds && count < size)
 	{
-		create_pipes(input, cmds, pids, count);
-		close(1);
+		int    fd[2];
+
+		if (pipe(fd) < 0)
+		{
+			kill_all(pids, count, -1);
+			return ;
+		}
+		int tmp = fd[0];
+		fd[0] = in;
+		if (count == size - 1)
+			fd[1] = 1;
+		create_pipes(input, cmds, pids, count, fd);
+		if (fd[1] != STDOUT_FILENO)
+			close(fd[1]);
+		if (fd[0] != STDIN_FILENO)
+			close(fd[0]);
+		in = tmp;
 		cmds = cmds->next;
 		count ++;
 	}
-	if (dup2(fd[0], STDIN_FILENO) == -1)
-		return ;
-	if (dup2(fd[1], STDOUT_FILENO) == -1)
-		return ;
-	exec_cmd(input, cmds);
 	wait_pipes(pids, size);
+}
+
+void	execute_em(t_input *input)
+{
+	t_list	*cmds;
+	size_t	size;
+
+	cmds = input->ast;
+	size = ft_lstsize(cmds);
+	if (size == 1)
+		exec_cmd(input, cmds);
+	else if (size > 1)
+		ft_pipe(input, cmds, size);
 }

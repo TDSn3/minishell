@@ -6,13 +6,14 @@
 /*   By: tda-silv <tda-silv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/21 19:48:38 by tda-silv          #+#    #+#             */
-/*   Updated: 2022/12/07 19:56:56 by tda-silv         ###   ########.fr       */
+/*   Updated: 2022/12/10 22:22:36 by tda-silv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <header.h>
 
 static void	ft_freenode(void *n);
+static void	ft_freeredir(void *r);
 
 void	free_input(t_input *input)
 {
@@ -22,8 +23,6 @@ void	free_input(t_input *input)
 	map_clear(&input->parser, free);
 	ft_lstiter(input->ast, &ft_freenode);
 	ft_lstclear(&input->ast, free);
-	if (input->line)
-		free(input->line);
 }
 
 static void	ft_freenode(void *n)
@@ -33,9 +32,19 @@ static void	ft_freenode(void *n)
 
 	count = 0;
 	node = (t_node *) n;
-	if (node->file)
-		free(node->file);
 	while (node->args && node->args[count])
 		free(node->args[count++]);
 	free(node->args);
+	ft_lstiter(node->redir, &ft_freeredir);
+	ft_lstclear(&node->redir, free);
+}
+
+static void	ft_freeredir(void *r)
+{
+	t_redir	*redir;
+
+	redir = (t_redir *) r;
+	if (redir->file)
+		free(redir->file);
+	redir->file = NULL;
 }

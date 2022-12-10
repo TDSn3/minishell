@@ -6,7 +6,7 @@
 /*   By: tda-silv <tda-silv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/19 13:33:37 by tda-silv          #+#    #+#             */
-/*   Updated: 2022/12/10 16:13:07 by tda-silv         ###   ########.fr       */
+/*   Updated: 2022/12/10 22:10:36 by tda-silv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 static void	handler(int sig);
 static void	handler_off(int sig);
 static int	ctrl_d(t_input *input);
-static void	exec_all(t_input *input, t_list *ast);
+//static void	exec_all(t_input *input, t_list *ast);
 
 int	g_status;
 
@@ -53,17 +53,17 @@ int	main(int argc, char **argv, char **env)
 			check_syntax(&input);
 			check_expand(&input);
 			parser(&input);
-//			redir(&input);
+			ms_redir(&input);
 			ssa.sa_handler = &handler_off;
 			sigaction(SIGINT, &ssa, 0);
 			sigaction(SIGQUIT, &ssa, 0);
 
-//			if (input.paths)
-//				ft_exec(&input);
-//			else
-//				perror("PATH");
+			if (input.paths)
+				execute_em(&input);
+			else
+				perror("PATH");
 
-			exec_all(&input, input.ast);
+//			exec_all(&input, input.ast);
 			ssa.sa_handler = &handler;
 			sigaction(SIGINT, &ssa, 0);
 			sigaction(SIGQUIT, &ssa, 0);
@@ -121,7 +121,7 @@ static int	ctrl_d(t_input *input)
 	free_input(input);
 	return (0);
 }
-
+/*
 static void	exec_all(t_input *input, t_list *ast)
 {
 	t_list	*tmp;
@@ -137,3 +137,4 @@ static void	exec_all(t_input *input, t_list *ast)
 		tmp = tmp->next;
 	}
 }
+*/

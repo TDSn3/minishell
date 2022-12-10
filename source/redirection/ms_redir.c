@@ -6,7 +6,7 @@
 /*   By: tda-silv <tda-silv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/10 14:18:20 by tda-silv          #+#    #+#             */
-/*   Updated: 2022/12/10 14:42:08 by tda-silv         ###   ########.fr       */
+/*   Updated: 2022/12/10 21:01:08 by tda-silv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,25 +89,6 @@ static int	g_redir(t_input *input, t_redir *redir, int status, int todup)
 	return (1);
 }
 
-static void	ft_heredoc(char *file, char *limit)
-{
-	char	*input;
-	int		heredoc;
-
-	heredoc = open(file, O_CREAT | O_WRONLY | O_TRUNC, 0644);
-	while (1)
-	{
-		write(1, "> ", 2);
-		input = get_next_line(0);
-		if (!input || !ft_strncmp(input, limit, ft_strlen(limit) + 1))
-			break ;
-		write(heredoc, input, ft_strlen(input));
-		free(input);
-	}
-	free(input);
-	close(heredoc);
-}
-
 static int	d_redir(t_input *input, char *file, int status, int todup)
 {
 	int	outfile;
@@ -125,4 +106,23 @@ static int	d_redir(t_input *input, char *file, int status, int todup)
 	}
 	close(outfile);
 	return (1);
+}
+
+static void	ft_heredoc(char *file, char *limit)
+{
+	char	*input;
+	int		heredoc;
+
+	heredoc = open(file, O_CREAT | O_WRONLY | O_TRUNC, 0644);
+	while (1)
+	{
+		write(1, "> ", 2);
+		input = get_next_line(0);
+		if (!input || !ft_strncmp(input, limit, ft_strlen(limit) + 1))
+			break ;
+		write(heredoc, input, ft_strlen(input));
+		free(input);
+	}
+	free(input);
+	close(heredoc);
 }
