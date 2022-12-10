@@ -6,7 +6,7 @@
 /*   By: tda-silv <tda-silv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/17 14:29:18 by tda-silv          #+#    #+#             */
-/*   Updated: 2022/12/09 04:15:57 by tda-silv         ###   ########.fr       */
+/*   Updated: 2022/12/10 14:22:36 by tda-silv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -140,5 +140,13 @@ void	ft_strdfree(char **strd);
 void	check_syntax(t_input *input);
 void	check_expand(t_input *input);
 char	*ft_strjoin_free(char *s1, char const *s2);
+
+/* ************************************************************************** */
+/*																			  */
+/*   ../source/redirection/													  */
+/*																			  */
+/* ************************************************************************** */
+
+void	ms_redir(t_input *input);
 
 #endif

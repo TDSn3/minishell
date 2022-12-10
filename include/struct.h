@@ -6,7 +6,7 @@
 /*   By: tda-silv <tda-silv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/18 15:11:18 by tda-silv          #+#    #+#             */
-/*   Updated: 2022/12/09 13:07:24 by tda-silv         ###   ########.fr       */
+/*   Updated: 2022/12/10 14:24:03 by tda-silv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,11 @@ typedef enum e_type {
 	GREDIR,
 	GRREDIR
 }	t_type;
+
+typedef struct s_redir {
+	int		type;
+	char	*file;
+}	t_redir;
 
 typedef struct s_map {
 	int				key;
@@ -51,6 +56,6 @@ typedef struct s_input {
 	t_list		*ast;
 }	t_input;
 
-extern int	g_pid_child[1024];
+extern int	g_status;
 
 #endif
