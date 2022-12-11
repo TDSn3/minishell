@@ -6,7 +6,7 @@
 /*   By: tda-silv <tda-silv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/21 19:17:38 by tda-silv          #+#    #+#             */
-/*   Updated: 2022/12/11 17:55:19 by tda-silv         ###   ########.fr       */
+/*   Updated: 2022/12/11 18:44:38 by tda-silv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ int	ms_cd(const char *path, t_input *input)
 	path_update = NULL;
 	stock_pwd = ft_strdup(ms_get_env("PWD", input));
 	if (!stock_pwd)
-		return (print_error(12, path_update));
+		return (print_error(-2, path_update));
 	if (!path || !*path)
 		return (empty_path(stock_pwd, input));
 	if (ft_strlen(path) == 1 && path[0] == '-')
@@ -85,6 +85,8 @@ static int	print_error(int nb_error, char *path_update)
 	errno = nb_error;
 	if (nb_error == -1)
 		printf("cd: HOME not set\n");
+	else if (nb_error == -2)
+		printf("cd: PWD not set\n");
 	else
 		perror("cd");
 	if (path_update)

@@ -6,7 +6,7 @@
 #    By: tda-silv <tda-silv@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/10/17 14:32:32 by tda-silv          #+#    #+#              #
-#    Updated: 2022/12/11 15:25:16 by tda-silv         ###   ########.fr        #
+#    Updated: 2022/12/11 18:31:51 by tda-silv         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -37,7 +37,38 @@ L_LIB		= -L $(LIB_DIR) -l ft -l readline -L /opt/homebrew/opt/readline/lib
 HEADERS		= ./include/header.h \
 			  ./include/struct.h \
 
-NAME_FILE	= $(addprefix t_map/,												\
+NAME_FILE	= $(addprefix builtin/,												\
+					$(addprefix	  ms_cd/,										\
+			  							ms_cd									\
+										update_env								\
+										update_env_home							\
+										update_path								\
+										get_oldpwd								\
+										remove_point							\
+										remove_last								\
+										one_point								\
+										two_point								\
+					)															\
+					$(addprefix	  ms_export/,									\
+			  								ms_export							\
+											wrong_name_var						\
+											get_export							\
+											show_export							\
+											update_var							\
+					)															\
+					$(addprefix	  ms_unset/,									\
+			  								ms_unset							\
+											ls_clear_one_export					\
+											del_one_env							\
+					)															\
+								  ms_echo										\
+								  ms_env										\
+								  ms_pwd										\
+								  builtin_chr									\
+								  ms_exit										\
+																				\
+			  )																	\
+			  $(addprefix t_map/,												\
 			  					map_add											\
 			  					map_last										\
 			  					map_new											\
@@ -64,46 +95,13 @@ NAME_FILE	= $(addprefix t_map/,												\
 			  					  cmd_path_chr									\
 								  ms_pipe										\
 								  ft_cmd_error									\
-			  )																	\
-			  $(addprefix builtin/,												\
-					$(addprefix	  ms_cd/,										\
-			  							ms_cd									\
-										update_env								\
-										update_env_home							\
-										update_path								\
-										get_oldpwd								\
-										remove_point							\
-										remove_last								\
-										one_point								\
-										two_point								\
-					)															\
-					$(addprefix	  ms_export/,									\
-			  								ms_export							\
-											wrong_name_var						\
-											get_export							\
-											show_export							\
-											update_var							\
-					)															\
-					$(addprefix	  ms_unset/,									\
-			  								ms_unset							\
-											ls_clear_one_export					\
-											del_one_env							\
-					)															\
-					ms_echo														\
-					ms_env														\
-					ms_pwd														\
-					builtin_chr													\
-					ms_exit														\
-																				\
+								  ms_redir										\
 			  )																	\
 			  $(addprefix start_main/,											\
 			  						 copy_env_in_export							\
 									 copy_env									\
 									 init_input									\
 									 shlvl										\
-			  )																	\
-			  $(addprefix redirection/,											\
-			  						  ms_redir									\
 			  )																	\
 			  $(addprefix signal/,												\
 			  					 handler_on										\

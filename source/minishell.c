@@ -6,7 +6,7 @@
 /*   By: tda-silv <tda-silv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/19 13:33:37 by tda-silv          #+#    #+#             */
-/*   Updated: 2022/12/11 15:24:14 by tda-silv         ###   ########.fr       */
+/*   Updated: 2022/12/11 18:40:30 by tda-silv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,8 +26,7 @@ int	main(int argc, char **argv, char **env)
 	(void) argc;
 	(void) argv;
 	init_struct_sigaction(&input, &ssa);
-	if (copy_env(env, &input) || copy_env_in_export(&input)
-		|| shlvl(&input))
+	if (copy_env(env, &input) || copy_env_in_export(&input) || shlvl(&input))
 		ms_exit(&input, 1);
 	prompt(&input);
 	free_all(&input);
@@ -60,6 +59,13 @@ static void	start_execute(t_input *input)
 	sigaction(SIGQUIT, input->ssa, 0);
 }
 
+/* ************************************************************************** */
+/*																			  */
+/*   Terminos et les focntins tc[...] change le comportement du terminal.	  */
+/*   Le flag ECHOCTL est activé pour les nouvelles règles du terminal,		  */
+/*   il permet ne pas afficher les signaux comme "^C".						  */
+/*																			  */
+/* ************************************************************************** */
 static void	prompt(t_input *input)
 {
 	struct termios		termios_new;
