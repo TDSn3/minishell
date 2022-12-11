@@ -6,7 +6,7 @@
 #    By: tda-silv <tda-silv@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/10/17 14:32:32 by tda-silv          #+#    #+#              #
-#    Updated: 2022/12/10 22:06:03 by tda-silv         ###   ########.fr        #
+#    Updated: 2022/12/10 23:39:05 by tda-silv         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -63,7 +63,7 @@ NAME_FILE	= $(addprefix t_map/,												\
 			  $(addprefix execute/,												\
 			  					  cmd_path_chr									\
 								  execute_cmd									\
-								  execute_em									\
+								  ms_pipe										\
 								  ft_cmd_error									\
 			  )																	\
 			  $(addprefix builtin/,												\

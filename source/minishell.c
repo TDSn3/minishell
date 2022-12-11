@@ -6,7 +6,7 @@
 /*   By: tda-silv <tda-silv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/19 13:33:37 by tda-silv          #+#    #+#             */
-/*   Updated: 2022/12/10 22:10:36 by tda-silv         ###   ########.fr       */
+/*   Updated: 2022/12/11 00:20:48 by tda-silv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -124,17 +124,14 @@ static int	ctrl_d(t_input *input)
 /*
 static void	exec_all(t_input *input, t_list *ast)
 {
-	t_list	*tmp;
-	t_node	*node;
+	size_t	size;
 
-	tmp = ast;
 	if (!ast)
 		return ;
-	while (tmp)
-	{
-		node = tmp->content;
-		execute_cmd(input->raw, node->args, input);	
-		tmp = tmp->next;
-	}
+	size = ft_lstsize(input->ast);
+	if (size == 1)
+		execute_cmd(input->raw, ast->content, input);
+	else if (size > 1)
+		ms_pipe(input, input->ast->content, size);
 }
 */

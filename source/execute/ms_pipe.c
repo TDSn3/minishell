@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   execute_em.c                                       :+:      :+:    :+:   */
+/*   ms_pipe.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tda-silv <tda-silv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/10 15:08:00 by tda-silv          #+#    #+#             */
-/*   Updated: 2022/12/10 22:08:55 by tda-silv         ###   ########.fr       */
+/*   Updated: 2022/12/11 01:13:02 by tda-silv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ static int    execute(t_input *input, t_list *cmds)
 		command = ft_strjoin(input->paths[count++], "/");
 		command = ft_strjoin2(command, node->args[0]);
 		if (access(command, F_OK | X_OK) == 0)
-		{    
+		{
 			if (execve(command, node->args, NULL) == -1)
 				return (ft_cmd_error(input, NULL, node->args[0]));
 		}
@@ -99,6 +99,16 @@ static void    exec_cmd(t_input *input, t_list *cmds)
 		wait(&status);            // papa
 		if (WIFEXITED(status))
 			exit_cmd = WEXITSTATUS(status);
+	
+		if (WCOREDUMP(status))
+			printf("Quit (core dumped)\n");
+		if (WEXITSTATUS(status) == 1)
+			g_status = 1;
+		else if (WIFSIGNALED(status))
+			g_status = WTERMSIG(status) + 128;
+		else
+			g_status = 0;
+		printf("exit_status = %d\n", g_status);
 	}
 }
 
@@ -141,29 +151,44 @@ static void kill_all(int *pids, size_t size, int except)
 
 static void    wait_pipes(int *pids, size_t size)
 {
-	size_t    count;
-	int    status;
-	int    ret;
+    size_t    count;
+    int    status;
+    int    ret;
+    int should_stop;
 
-	while (1)
-	{
-		count = 0;
-		while (count < size)
-		{
-			ret = waitpid(pids[count], &status, WNOHANG | WUNTRACED);
-			if (ret != 0)
-			{
-				if (WIFEXITED(status))
-					exit_cmd = WEXITSTATUS(status);
-				kill_all(pids, size, ret);
-				return;
-			}
-			count ++;
-		}
-	}
+    while (1)
+    {
+        should_stop = 1;
+        count = 0;
+        while (count < size)
+        {
+            if (pids[count] == -1)
+            {
+                count++;
+                continue;
+            }
+            should_stop = 0;
+            ret = waitpid(pids[count], &status, WNOHANG | WUNTRACED);
+            if (ret < 0)
+            {
+                perror("wait");
+                continue;
+            }
+            else if (ret > 0)
+            {
+                pids[count] = -1;
+                if (WIFEXITED(status))
+                    exit_cmd = WEXITSTATUS(status);
+            }
+            count ++;
+        }
+
+        if (should_stop)
+            return;
+    }
 }
 
-static void    ft_pipe(t_input *input, t_list *cmds, size_t size)
+void    ms_pipe(t_input *input, t_list *cmds, size_t size)
 {
 	int    *pids;
 	size_t    count;
@@ -198,15 +223,15 @@ static void    ft_pipe(t_input *input, t_list *cmds, size_t size)
 	wait_pipes(pids, size);
 }
 
-void	execute_em(t_input *input)
+void    execute_em(t_input *input)
 {
-	t_list	*cmds;
-	size_t	size;
+    t_list    *cmds;
+    size_t    size;
 
-	cmds = input->ast;
-	size = ft_lstsize(cmds);
-	if (size == 1)
-		exec_cmd(input, cmds);
-	else if (size > 1)
-		ft_pipe(input, cmds, size);
+    cmds = input->ast;
+    size = ft_lstsize(cmds);
+    if (size == 1)
+        exec_cmd(input, cmds);
+    else if (size > 1)
+        ms_pipe(input, cmds, size);
 }
