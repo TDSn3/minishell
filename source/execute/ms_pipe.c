@@ -6,7 +6,7 @@
 /*   By: tda-silv <tda-silv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/10 15:08:00 by tda-silv          #+#    #+#             */
-/*   Updated: 2022/12/11 22:02:02 by tda-silv         ###   ########.fr       */
+/*   Updated: 2022/12/11 23:31:00 by tda-silv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ static int  execute(t_input *input, t_list *cmds)
         command = ft_strjoin2(command, node->args[0]);
         if (access(command, F_OK | X_OK) == 0)
         {
-            if (execve(command, node->args, NULL) == -1)
+            if (execve(command, node->args, input->env) == -1)
 	    {
 		free(command);
                 return (ft_cmd_error(input, NULL, node->args[0]));
