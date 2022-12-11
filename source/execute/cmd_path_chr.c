@@ -6,7 +6,7 @@
 /*   By: tda-silv <tda-silv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/26 21:01:00 by tda-silv          #+#    #+#             */
-/*   Updated: 2022/12/08 18:25:09 by tda-silv         ###   ########.fr       */
+/*   Updated: 2022/12/11 18:19:21 by tda-silv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,9 +26,7 @@ char	*cmd_path_chr(char *cmd, t_input *input)
 	char	**all_path;
 	char	*copy_for_return;
 	char	*stock;
-	int		i;
 
-	i = 0;
 	if (access(cmd, F_OK | X_OK) > -1)
 	{
 		copy_for_return = ft_strdup(cmd);
@@ -41,16 +39,12 @@ char	*cmd_path_chr(char *cmd, t_input *input)
 		all_path = ft_split(stock, ':');
 	else
 		return (NULL);
-	if (!all_path)
-		return (NULL);
-	if (check_path(&all_path, cmd))
+	if (!all_path || check_path(&all_path, cmd))
 		return (NULL);
 	copy_for_return = test_path(&all_path);
 	if (copy_for_return)
 		return (copy_for_return);
-	while (all_path[i])
-		free(all_path[i++]);
-	free(all_path);
+	my_strdfree(&all_path);
 	return (NULL);
 }
 
