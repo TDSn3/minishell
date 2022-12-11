@@ -6,7 +6,7 @@
 /*   By: tda-silv <tda-silv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/05 14:40:40 by tda-silv          #+#    #+#             */
-/*   Updated: 2022/12/11 22:34:29 by tda-silv         ###   ########.fr       */
+/*   Updated: 2022/12/11 23:07:21 by tda-silv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 
 static int	print_error(char *cmd, int nb_error);
 static int	part_two(char **argv, t_input *input, size_t size_argv);
+static int	part_three(char **argv, t_input *input);
 
 int	builtin_chr(char **argv, t_input *input)
 {
@@ -63,6 +64,14 @@ static int	part_two(char **argv, t_input *input, size_t size_argv)
 			ms_export(NULL, input);
 		return (1);
 	}
+	return (part_three(argv, input));
+}
+
+static int	part_three(char **argv, t_input *input)
+{
+	int		i;
+
+	i = 1;
 	if (!my_strcmp(argv[0], "unset"))
 	{
 		if (argv[1])
@@ -82,6 +91,7 @@ static int	part_two(char **argv, t_input *input, size_t size_argv)
 	}
 	return (0);
 }
+
 
 static int	print_error(char *cmd, int nb_error)
 {
