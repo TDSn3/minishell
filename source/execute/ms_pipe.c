@@ -6,7 +6,7 @@
 /*   By: tda-silv <tda-silv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/10 15:08:00 by tda-silv          #+#    #+#             */
-/*   Updated: 2022/12/11 19:38:47 by tda-silv         ###   ########.fr       */
+/*   Updated: 2022/12/11 19:46:48 by tda-silv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,7 @@ static int  execute(t_input *input, t_list *cmds)
 
     count = 0;
     node = cmds->content;
+	ms_redir(input, cmds);
     if (!node->args || !node->args[0])
         return (0);
     while (input->paths[count])
@@ -68,7 +69,6 @@ static int  execute(t_input *input, t_list *cmds)
         command = ft_strjoin2(command, node->args[0]);
         if (access(command, F_OK | X_OK) == 0)
         {
-            ms_redir(input, cmds);
             if (execve(command, node->args, NULL) == -1)
 	    {
 		free(command);
