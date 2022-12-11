@@ -6,7 +6,7 @@
 /*   By: tda-silv <tda-silv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/30 08:41:02 by tda-silv          #+#    #+#             */
-/*   Updated: 2022/12/10 21:55:31 by tda-silv         ###   ########.fr       */
+/*   Updated: 2022/12/11 01:32:51 by tda-silv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@ void	check_expand(t_input *input)
 	t_map	*tmp;
 	char	*s;
 
+	s = NULL;
 	tmp = input->lexer;
 	while (tmp)
 	{

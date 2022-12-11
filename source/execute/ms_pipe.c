@@ -6,7 +6,7 @@
 /*   By: tda-silv <tda-silv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/10 15:08:00 by tda-silv          #+#    #+#             */
-/*   Updated: 2022/12/11 01:13:02 by tda-silv         ###   ########.fr       */
+/*   Updated: 2022/12/11 02:17:10 by tda-silv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,9 +80,13 @@ static int    execute(t_input *input, t_list *cmds)
 
 static void    exec_cmd(t_input *input, t_list *cmds)
 {
-	int    pid;
-	int    status;
+	int		pid;
+	int		status;
+	t_node	*node;
 
+	node = cmds->content;
+	if (builtin_chr(node->args , input))
+		return ;
 	pid = fork();
 	if (pid < 0)
 	{
