@@ -6,7 +6,7 @@
 /*   By: tda-silv <tda-silv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/17 14:29:18 by tda-silv          #+#    #+#             */
-/*   Updated: 2022/12/11 14:15:21 by tda-silv         ###   ########.fr       */
+/*   Updated: 2022/12/11 15:25:01 by tda-silv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,6 @@ int		copy_env(char **strd, t_input *input);
 int		copy_env_in_export(t_input *input);
 void	init_input(t_input *input, char *line);
 int		shlvl(t_input *input);
-int		ms_path_var(char **argv, t_input *input);
 
 /* ************************************************************************** */
 /*																			  */
@@ -115,9 +114,8 @@ char	**del_one_env(char *var, t_input *input);
 /* ************************************************************************** */
 
 char	*cmd_path_chr(char *cmd, t_input *input);
-void	execute_cmd(char *cmd, char **argv, t_input *input);
-void    ms_pipe(t_input *input, t_list *cmds, size_t size);
-void    execute_em(t_input *input);
+void	ms_pipe(t_input *input, t_list *cmds, size_t size);
+void	execute_em(t_input *input);
 int		ft_cmd_error(t_input *input, t_list *cmd, char *message);
 
 /* ************************************************************************** */

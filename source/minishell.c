@@ -6,14 +6,14 @@
 /*   By: tda-silv <tda-silv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/19 13:33:37 by tda-silv          #+#    #+#             */
-/*   Updated: 2022/12/11 11:40:56 by tda-silv         ###   ########.fr       */
+/*   Updated: 2022/12/11 15:24:14 by tda-silv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <header.h>
 
 static void	start_execute(t_input *input);
-static void	init_struct_sigaction(t_input *input, struct sigaction	*ssa);
+static void	init_struct_sigaction(t_input *input, struct sigaction *ssa);
 static void	prompt(t_input *input);
 
 int	g_status;
@@ -27,14 +27,14 @@ int	main(int argc, char **argv, char **env)
 	(void) argv;
 	init_struct_sigaction(&input, &ssa);
 	if (copy_env(env, &input) || copy_env_in_export(&input)
-		|| shlvl(&input) || ms_path_var(argv, &input))
+		|| shlvl(&input))
 		ms_exit(&input, 1);
 	prompt(&input);
 	free_all(&input);
 	return (0);
 }
 
-static void	init_struct_sigaction(t_input *input, struct sigaction	*ssa)
+static void	init_struct_sigaction(t_input *input, struct sigaction *ssa)
 {
 	input->env = NULL;
 	input->export = NULL;

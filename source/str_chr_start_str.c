@@ -6,7 +6,7 @@
 /*   By: tda-silv <tda-silv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/08 09:06:50 by tda-silv          #+#    #+#             */
-/*   Updated: 2022/12/08 13:51:49 by tda-silv         ###   ########.fr       */
+/*   Updated: 2022/12/11 15:30:21 by tda-silv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 /* ************************************************************************** */
 /*																			  */
 /*   Cherche strchr au début de str. Si strchr n'est pas imédiatement		  */
-/*   trouvé, retounre 0, sinon, retourn 1.									  */
+/*   trouvé, return 0, sinon, return 1.										  */
 /*																			  */
 /* ************************************************************************** */
 int	str_chr_start_str(char *str, char *strchr)
