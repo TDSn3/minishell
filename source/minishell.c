@@ -6,16 +6,15 @@
 /*   By: tda-silv <tda-silv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/19 13:33:37 by tda-silv          #+#    #+#             */
-/*   Updated: 2022/12/11 00:20:48 by tda-silv         ###   ########.fr       */
+/*   Updated: 2022/12/11 11:40:56 by tda-silv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <header.h>
 
-static void	handler(int sig);
-static void	handler_off(int sig);
-static int	ctrl_d(t_input *input);
-//static void	exec_all(t_input *input, t_list *ast);
+static void	start_execute(t_input *input);
+static void	init_struct_sigaction(t_input *input, struct sigaction	*ssa);
+static void	prompt(t_input *input);
 
 int	g_status;
 
@@ -23,20 +22,48 @@ int	main(int argc, char **argv, char **env)
 {
 	t_input				input;
 	struct sigaction	ssa;
-	struct termios		termios_new;
 
 	(void) argc;
 	(void) argv;
-	input.env = NULL;
-	input.export = NULL;
-	ssa.sa_handler = &handler;
-	ssa.sa_flags = SA_RESTART;
-	sigemptyset(&ssa.sa_mask);
-	sigaction(SIGINT, &ssa, 0);
-	sigaction(SIGQUIT, &ssa, 0);
+	init_struct_sigaction(&input, &ssa);
 	if (copy_env(env, &input) || copy_env_in_export(&input)
 		|| shlvl(&input) || ms_path_var(argv, &input))
-		return (1);
+		ms_exit(&input, 1);
+	prompt(&input);
+	free_all(&input);
+	return (0);
+}
+
+static void	init_struct_sigaction(t_input *input, struct sigaction	*ssa)
+{
+	input->env = NULL;
+	input->export = NULL;
+	input->ssa = ssa;
+	input->ssa->sa_handler = &handler_on;
+	input->ssa->sa_flags = SA_RESTART;
+	sigemptyset(&input->ssa->sa_mask);
+	sigaction(SIGINT, input->ssa, 0);
+	sigaction(SIGQUIT, input->ssa, 0);
+}
+
+static void	start_execute(t_input *input)
+{
+	input->ssa->sa_handler = &handler_off;
+	sigaction(SIGINT, input->ssa, 0);
+	sigaction(SIGQUIT, input->ssa, 0);
+	if (input->paths)
+		execute_em(input);
+	else
+		perror("PATH");
+	input->ssa->sa_handler = &handler_on;
+	sigaction(SIGINT, input->ssa, 0);
+	sigaction(SIGQUIT, input->ssa, 0);
+}
+
+static void	prompt(t_input *input)
+{
+	struct termios		termios_new;
+
 	tcgetattr(0, &termios_new);
 	termios_new.c_lflag &= ~ECHOCTL;
 	tcsetattr(0, 0, &termios_new);
@@ -44,94 +71,20 @@ int	main(int argc, char **argv, char **env)
 	printf(" \033[36;01mminishell.\033[00m\n");
 	while (1)
 	{
-		init_input(&input, readline("\033[36;01m$> \033[00m"));
-		if (!input.raw)
-			exit (ctrl_d(&input));
-		if (ft_strlen(input.raw) > 0)
+		init_input(input, readline("\033[36;01m$> \033[00m"));
+		if (!input->raw)
+			ms_exit(input, 0);
+		if (ft_strlen(input->raw) > 0)
 		{
-			lexer(&input, input.raw);
-			check_syntax(&input);
-			check_expand(&input);
-			parser(&input);
-			ms_redir(&input);
-			ssa.sa_handler = &handler_off;
-			sigaction(SIGINT, &ssa, 0);
-			sigaction(SIGQUIT, &ssa, 0);
-
-			if (input.paths)
-				execute_em(&input);
-			else
-				perror("PATH");
-
-//			exec_all(&input, input.ast);
-			ssa.sa_handler = &handler;
-			sigaction(SIGINT, &ssa, 0);
-			sigaction(SIGQUIT, &ssa, 0);
+			lexer(input, input->raw);
+			check_syntax(input);
+			check_expand(input);
+			parser(input);
+			ms_redir(input);
+			start_execute(input);
 		}
-		if (input.raw && input.raw[0])
-			add_history(input.raw);
-		free_input(&input);
-	}
-	return (0);
-}
-
-/* ************************************************************************** */
-/*																			  */
-/*   sig == 2 | SIGINT	| ctrl+c											  */
-/*   sig == 3 | SIGQUIT	| ctrl+\											  */
-/*																			  */
-/* ************************************************************************** */
-static void	handler(int sig)
-{
-	int	return_write;
-
-	return_write = 0;
-	(void) return_write;
-	if (sig == 2)
-	{
-		return_write = write(1, "\n", 1);
-		rl_on_new_line();
-		rl_redisplay();
-		rl_replace_line("", 0);
-	}
-	if (sig == 3)
-	{
-		rl_on_new_line();
-		rl_redisplay();
-		rl_replace_line("", 0);
+		if (input->raw && (input->raw)[0])
+			add_history(input->raw);
+		free_input(input);
 	}
 }
-
-static void	handler_off(int sig)
-{
-	int	return_write;
-
-	return_write = 0;
-	(void) return_write;
-	if (sig == 2)
-		return ;
-	if (sig == 3)
-		return ;
-}
-
-static int	ctrl_d(t_input *input)
-{
-	printf("exit\n");
-	free_all(input);
-	free_input(input);
-	return (0);
-}
-/*
-static void	exec_all(t_input *input, t_list *ast)
-{
-	size_t	size;
-
-	if (!ast)
-		return ;
-	size = ft_lstsize(input->ast);
-	if (size == 1)
-		execute_cmd(input->raw, ast->content, input);
-	else if (size > 1)
-		ms_pipe(input, input->ast->content, size);
-}
-*/

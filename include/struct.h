@@ -6,7 +6,7 @@
 /*   By: tda-silv <tda-silv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/18 15:11:18 by tda-silv          #+#    #+#             */
-/*   Updated: 2022/12/10 21:35:51 by tda-silv         ###   ########.fr       */
+/*   Updated: 2022/12/11 11:15:43 by tda-silv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,15 +44,16 @@ typedef struct s_node {
 }	t_node;
 
 typedef struct s_input {
-	char			**env;
-	t_ls			*export;
-	char			**paths;
-	char			*raw;
-	int				fdin;
-	int				fdout;
-	t_map			*lexer;
-	t_map			*parser;
-	t_list			*ast;
+	char				**env;
+	t_ls				*export;
+	char				**paths;
+	char				*raw;
+	int					fdin;
+	int					fdout;
+	t_map				*lexer;
+	t_map				*parser;
+	t_list				*ast;
+	struct sigaction	*ssa;
 }	t_input;
 
 extern int	g_status;

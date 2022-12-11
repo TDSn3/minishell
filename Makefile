@@ -6,7 +6,7 @@
 #    By: tda-silv <tda-silv@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/10/17 14:32:32 by tda-silv          #+#    #+#              #
-#    Updated: 2022/12/11 02:19:42 by tda-silv         ###   ########.fr        #
+#    Updated: 2022/12/11 11:11:56 by tda-silv         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -105,6 +105,10 @@ NAME_FILE	= $(addprefix t_map/,												\
 			  )																	\
 			  $(addprefix redirection/,											\
 			  						  ms_redir									\
+			  )																	\
+			  $(addprefix signal/,												\
+			  					 handler_on										\
+								 handler_off									\
 			  )																	\
 			  minishell															\
 			  free_input														\

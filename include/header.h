@@ -6,7 +6,7 @@
 /*   By: tda-silv <tda-silv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/17 14:29:18 by tda-silv          #+#    #+#             */
-/*   Updated: 2022/12/11 00:21:14 by tda-silv         ###   ########.fr       */
+/*   Updated: 2022/12/11 11:29:12 by tda-silv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,7 @@ int		builtin_chr(char **argv, t_input *input);
 int		ms_env(t_input *input);
 int		ms_pwd(t_input *input);
 int		ms_echo(char **str);
-void	ms_exit(t_input *input);
+void	ms_exit(t_input *input, int exit_status);
 
 /*   CD   ******************************************************************* */
 int		ms_cd(const char *path, t_input *input);
@@ -152,5 +152,14 @@ char	*ft_strjoin_free(char *s1, char const *s2);
 /* ************************************************************************** */
 
 void	ms_redir(t_input *input);
+
+/* ************************************************************************** */
+/*																			  */
+/*   ../source/signal/                            							  */
+/*																			  */
+/* ************************************************************************** */
+
+void	handler_on(int sig);
+void	handler_off(int sig);
 
 #endif
