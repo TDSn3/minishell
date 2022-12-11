@@ -6,7 +6,7 @@
 /*   By: tda-silv <tda-silv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/19 13:33:37 by tda-silv          #+#    #+#             */
-/*   Updated: 2022/12/11 18:40:30 by tda-silv         ###   ########.fr       */
+/*   Updated: 2022/12/11 19:16:05 by tda-silv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,32 +31,6 @@ int	main(int argc, char **argv, char **env)
 	prompt(&input);
 	free_all(&input);
 	return (0);
-}
-
-static void	init_struct_sigaction(t_input *input, struct sigaction *ssa)
-{
-	input->env = NULL;
-	input->export = NULL;
-	input->ssa = ssa;
-	input->ssa->sa_handler = &handler_on;
-	input->ssa->sa_flags = SA_RESTART;
-	sigemptyset(&input->ssa->sa_mask);
-	sigaction(SIGINT, input->ssa, 0);
-	sigaction(SIGQUIT, input->ssa, 0);
-}
-
-static void	start_execute(t_input *input)
-{
-	input->ssa->sa_handler = &handler_off;
-	sigaction(SIGINT, input->ssa, 0);
-	sigaction(SIGQUIT, input->ssa, 0);
-	if (input->paths)
-		execute_em(input);
-	else
-		perror("PATH");
-	input->ssa->sa_handler = &handler_on;
-	sigaction(SIGINT, input->ssa, 0);
-	sigaction(SIGQUIT, input->ssa, 0);
 }
 
 /* ************************************************************************** */
@@ -86,11 +60,36 @@ static void	prompt(t_input *input)
 			check_syntax(input);
 			check_expand(input);
 			parser(input);
-			ms_redir(input);
 			start_execute(input);
 		}
 		if (input->raw && (input->raw)[0])
 			add_history(input->raw);
 		free_input(input);
 	}
+}
+
+static void	start_execute(t_input *input)
+{
+	input->ssa->sa_handler = &handler_off;
+	sigaction(SIGINT, input->ssa, 0);
+	sigaction(SIGQUIT, input->ssa, 0);
+	if (input->paths)
+		execute_em(input);
+	else
+		perror("PATH");
+	input->ssa->sa_handler = &handler_on;
+	sigaction(SIGINT, input->ssa, 0);
+	sigaction(SIGQUIT, input->ssa, 0);
+}
+
+static void	init_struct_sigaction(t_input *input, struct sigaction *ssa)
+{
+	input->env = NULL;
+	input->export = NULL;
+	input->ssa = ssa;
+	input->ssa->sa_handler = &handler_on;
+	input->ssa->sa_flags = SA_RESTART;
+	sigemptyset(&input->ssa->sa_mask);
+	sigaction(SIGINT, input->ssa, 0);
+	sigaction(SIGQUIT, input->ssa, 0);
 }

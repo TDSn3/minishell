@@ -6,13 +6,13 @@
 /*   By: tda-silv <tda-silv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/10 15:08:00 by tda-silv          #+#    #+#             */
-/*   Updated: 2022/12/11 15:13:56 by tda-silv         ###   ########.fr       */
+/*   Updated: 2022/12/11 19:36:44 by tda-silv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <header.h>
 
-int    exit_cmd;
+int exit_cmd;
 
 static size_t	ft_strlen2(const char *s)
 {
@@ -52,61 +52,71 @@ static char	*ft_strjoin2(char *s1, char const *s2)
 	return (all);
 }
 
-static int    execute(t_input *input, t_list *cmds)
+static int  execute(t_input *input, t_list *cmds)
 {
-	int    count;
-	char    *command;
-	t_node    *node;
+    int count;
+    char    *command;
+    t_node  *node;
 
-	count = 0;
-	node = cmds->content;
-	if (!node->args || !node->args[0])
-		return (0);
-	while (input->paths[count])
-	{
-		command = ft_strjoin(input->paths[count++], "/");
-		command = ft_strjoin2(command, node->args[0]);
-		if (access(command, F_OK | X_OK) == 0)
-		{
-			if (execve(command, node->args, NULL) == -1)
-				return (ft_cmd_error(input, NULL, node->args[0]));
-		}
-	}
-	if (access(command, F_OK) != 0)
-		return (ft_cmd_error(input, NULL, node->args[0]));
-	free(command);
-	return (1);
+    count = 0;
+    node = cmds->content;
+    if (!node->args || !node->args[0])
+        return (0);
+    while (input->paths[count])
+    {
+        command = ft_strjoin(input->paths[count++], "/");
+        command = ft_strjoin2(command, node->args[0]);
+        if (access(command, F_OK | X_OK) == 0)
+        {
+            ms_redir(input, cmds);
+            if (execve(command, node->args, NULL) == -1)
+	    {
+		free(command);
+                return (ft_cmd_error(input, NULL, node->args[0]));
+	    }
+        }
+    }
+    if (access(command, F_OK) != 0)
+        return (ft_cmd_error(input, NULL, node->args[0]));
+    free(command);
+    return (1);
 }
 
-static void    exec_cmd(t_input *input, t_list *cmds)
+static void exec_cmd(t_input *input, t_list *cmds)
 {
-	int		pid;
-	int		status;
+    int pid;
+    int status;
 	t_node	*node;
 
 	node = cmds->content;
-	if (builtin_chr(node->args , input))
-	{
-		printf("exit_status = %d\n", g_status);
-		return ;
-	}
-	pid = fork();
-	if (pid < 0)
-	{
-		ft_cmd_error(input, NULL, "fork");
-		return ;
-	}
-	if (pid == 0) //fiston
-	{
+    pid = fork();
+    if (pid < 0)
+    {
+        ft_cmd_error(input, NULL, "fork");
+		free_all(input);
+		free_input(input);
+        return ;
+    }
+    if (pid == 0) //fiston
+    {
+		if (builtin_chr(node->args, input))
+		{
+			printf("exit_status = %d\n", g_status);
+			free_all(input);
+			free_input(input);
+			exit(0);
+		}
 		execute(input, cmds);
-		exit(1);
-	}
-	else
-	{
-		wait(&status);            // papa
-		if (WIFEXITED(status))
-			exit_cmd = WEXITSTATUS(status);
-	
+		free_all(input);
+		free_input(input);
+        exit(1);
+    }
+    else
+    {
+        wait(&status);          // papa
+        if (WIFEXITED(status))
+            exit_cmd = WEXITSTATUS(status);
+
 		if (WCOREDUMP(status))
 			printf("Quit (core dumped)\n");
 		if (WEXITSTATUS(status) == 1)
@@ -116,44 +126,28 @@ static void    exec_cmd(t_input *input, t_list *cmds)
 		else
 			g_status = 0;
 		printf("exit_status = %d\n", g_status);
-	}
+    }
 }
 
 static void    create_pipes(t_input *input, t_list *cmds, int *pids, size_t count, int fd[2])
 {
-	pids[count] = fork();
-	if (pids[count] < 0)
-	{
-		ft_cmd_error(NULL, cmds, "pids");
-		return ;
-	}
-	else if (pids[count] == 0) // papa
-	{
-		if (fd[0] != 0 && dup2(fd[0], STDIN_FILENO) == -1)
-			return;
-		if (fd[1] != 1 && dup2(fd[1], STDOUT_FILENO) == -1)
-			return;
-		exec_cmd(input, cmds);
-		exit(exit_cmd);
-	}
-}
-
-static void kill_all(int *pids, size_t size, int except)
-{
-	size_t i;
-
-	i = 0;
-	while (i < size)
-	{
-		if (except == pids[i])
-		{
-			i++;
-			continue;
-		}
-		if (kill(pids[i], SIGTERM) == -1)
-			kill(pids[i], SIGKILL);
-		i++;
-	}
+    pids[count] = fork();
+    if (pids[count] < 0)
+    {
+        ft_cmd_error(NULL, cmds, "pids");
+        return ;
+    }
+    else if (pids[count] == 0) // papa
+    {
+        if (fd[0] != 0 && dup2(fd[0], STDIN_FILENO) == -1)
+            return;
+        if (fd[1] != 1 && dup2(fd[1], STDOUT_FILENO) == -1)
+            return;
+        exec_cmd(input, cmds);
+	free(pids);
+	free_input(input);
+        exit(exit_cmd);
+    }
 }
 
 static void    wait_pipes(int *pids, size_t size)
@@ -189,7 +183,6 @@ static void    wait_pipes(int *pids, size_t size)
             }
             count ++;
         }
-
         if (should_stop)
             return;
     }
@@ -197,43 +190,44 @@ static void    wait_pipes(int *pids, size_t size)
 
 void    ms_pipe(t_input *input, t_list *cmds, size_t size)
 {
-	int    *pids;
-	size_t    count;
-	int in = 0;
+    int    *pids;
+    size_t    count;
+    int in = 0;
 
-	pids = (int *) ft_calloc(ft_lstsize(cmds), sizeof(int));
-	if (!pids)
-		return ;
-	count = 0;
-	while (cmds && count < size)
-	{
-		int    fd[2];
+    pids = (int *) ft_calloc(ft_lstsize(cmds), sizeof(int));
+    if (!pids)
+        return ;
+    count = 0;
+    while (cmds && count < size)
+    {
+        int    fd[2];
 
-		if (pipe(fd) < 0)
-		{
-			kill_all(pids, count, -1);
-			return ;
-		}
-		int tmp = fd[0];
-		fd[0] = in;
-		if (count == size - 1)
-			fd[1] = 1;
-		create_pipes(input, cmds, pids, count, fd);
-		if (fd[1] != STDOUT_FILENO)
-			close(fd[1]);
-		if (fd[0] != STDIN_FILENO)
-			close(fd[0]);
-		in = tmp;
-		cmds = cmds->next;
-		count ++;
-	}
-	wait_pipes(pids, size);
+        if (cmds->next && pipe(fd) < 0)
+        {
+            return ;
+        }
+        int tmp = fd[0];
+        fd[0] = in;
+        if (count == size - 1)
+            fd[1] = 1;
+
+        create_pipes(input, cmds, pids, count, fd);
+        if (fd[1] != STDOUT_FILENO)
+            close(fd[1]);
+        if (fd[0] != STDIN_FILENO)
+            close(fd[0]);
+        in = tmp;
+        cmds = cmds->next;
+        count ++;
+    }
+    wait_pipes(pids, size);
+    free(pids);
 }
 
 void    execute_em(t_input *input)
 {
-    t_list    *cmds;
-    size_t    size;
+    t_list  *cmds;
+    size_t  size;
 
     cmds = input->ast;
     size = ft_lstsize(cmds);
@@ -241,4 +235,6 @@ void    execute_em(t_input *input)
         exec_cmd(input, cmds);
     else if (size > 1)
         ms_pipe(input, cmds, size);
+    else
+        return ;
 }
