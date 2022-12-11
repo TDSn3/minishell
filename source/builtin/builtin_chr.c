@@ -6,21 +6,19 @@
 /*   By: tda-silv <tda-silv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/05 14:40:40 by tda-silv          #+#    #+#             */
-/*   Updated: 2022/12/10 15:54:54 by tda-silv         ###   ########.fr       */
+/*   Updated: 2022/12/11 14:40:10 by tda-silv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <header.h>
 
-static void	execute_minishell(char *cmd, char **argv, t_input *input);
+static int	buildtin_chr_suite(char **argv, t_input *input);
 static int	print_error(char *cmd, int nb_error);
 
 int	builtin_chr(char **argv, t_input *input)
 {
-	int		i;
 	size_t	size_argv;
 
-	i = 1;
 	size_argv = my_strdlen(argv);
 	if (!my_strcmp(argv[0], "env"))
 	{
@@ -28,24 +26,29 @@ int	builtin_chr(char **argv, t_input *input)
 			print_error(argv[0], -1);
 		else
 			g_status = ms_env(input);
-		return (1);
 	}
-	if (!my_strcmp(argv[0], "pwd"))
+	else if (!my_strcmp(argv[0], "pwd"))
 	{
 		if (size_argv > 1)
 			print_error(argv[0], -1);
 		else
 			g_status = ms_pwd(input);
-		return (1);
 	}
-	if (!my_strcmp(argv[0], "cd"))
+	else if (!my_strcmp(argv[0], "cd"))
 	{
 		if (size_argv > 2)
 			print_error(argv[0], -1);
 		else
 			g_status = ms_cd(argv[1], input);
-		return (1);
 	}
+	return (buildtin_chr_suite(argv, input));
+}
+
+static int	buildtin_chr_suite(char **argv, t_input *input)
+{
+	int		i;
+
+	i = 1;
 	if (!my_strcmp(argv[0], "export"))
 	{
 		if (argv[1])
@@ -53,71 +56,17 @@ int	builtin_chr(char **argv, t_input *input)
 				g_status = ms_export(argv[i++], input);
 		if (!argv[1])
 			g_status = ms_export(NULL, input);
-		return (1);
 	}
-	if (!my_strcmp(argv[0], "unset"))
-	{
-		if (argv[1])
-			while (argv[i])
-				g_status = ms_unset(argv[i++], input);
-		return (1);
-	}
-	if (!my_strcmp(argv[0], "echo"))
-	{
+	else if (!my_strcmp(argv[0], "unset") && argv[1])
+		while (argv[i])
+			g_status = ms_unset(argv[i++], input);
+	else if (!my_strcmp(argv[0], "echo"))
 		g_status = ms_echo(argv);
-		return (1);
-	}
-	if (!my_strcmp(argv[0], "exit"))
-	{
-		ms_exit(input);
-		return (1);
-	}
-	if (!my_strcmp(argv[0], "minishell"))
-	{
-		execute_minishell(ms_get_env("MS_PATH", input), argv, input);
-		return (1);
-	}
-	return (0);
-}
-
-static void	execute_minishell(char *cmd, char **argv, t_input *input)
-{
-	pid_t	pid;
-	int		status;
-
-	pid = 0;
-	if (!argv || !*argv)
-		return ;
-	if (access(cmd, F_OK | X_OK) == -1)
-		return (perror("execute_minishell"));
-	pid = fork();
-	if (pid == -1)
-	{
-		perror("fork");
-		if (cmd)
-			free(cmd);
-		return ;
-	}
-	else if (pid > 0)
-	{
-		waitpid(pid, &status, 0);
-		kill(pid, SIGTERM);
-		if (WCOREDUMP(status))
-			printf("Quit (core dumped)\n");
-		if (WEXITSTATUS(status) == 1)
-			g_status = 1;
-		else if (WIFSIGNALED(status))
-			g_status = WTERMSIG(status) + 128;
-		else
-			g_status = 0;
-		printf("exit_status = %d\n", g_status);
-	}
+	else if (!my_strcmp(argv[0], "exit"))
+		ms_exit(input, 0);
 	else
-	{
-		if (execve(cmd, argv, input->env) == -1)
-			ms_exit(input);
-		exit(EXIT_FAILURE);
-	}
+		return (0);
+	return (1);
 }
 
 static int	print_error(char *cmd, int nb_error)

@@ -6,17 +6,22 @@
 /*   By: tda-silv <tda-silv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/05 18:32:13 by tda-silv          #+#    #+#             */
-/*   Updated: 2022/12/05 19:02:14 by tda-silv         ###   ########.fr       */
+/*   Updated: 2022/12/11 14:39:26 by tda-silv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <header.h>
 
+static void	init_var(
+				char **save,
+				char **stock_one,
+				char **stock_two,
+				char **stock_three);
 static int	free_all_here(
-					char *save,
-					char *stock_one,
-					char *stock_two,
-					char *stock_three);
+				char *save,
+				char *stock_one,
+				char *stock_two,
+				char *stock_three);
 
 int	two_point(char **copy, int i)
 {
@@ -25,10 +30,7 @@ int	two_point(char **copy, int i)
 	char	*stock_two;
 	char	*stock_three;
 
-	save = NULL;
-	stock_one = NULL;
-	stock_two = NULL;
-	stock_three = NULL;
+	init_var(&save, &stock_one, &stock_two, &stock_three);
 	stock_one = ft_substr(*copy, 0, i - 2);
 	if (!stock_one)
 		return (1);
@@ -42,8 +44,6 @@ int	two_point(char **copy, int i)
 		if (!stock_three)
 			return (free_all_here(save, stock_one, stock_two, stock_three));
 	}
-	else
-		stock_three = NULL;
 	save = *copy;
 	*copy = ft_strjoin(stock_two, stock_three);
 	if (!*copy)
@@ -67,4 +67,16 @@ static int	free_all_here(
 	if (stock_three)
 		free(stock_three);
 	return (1);
+}
+
+static void	init_var(
+				char **save,
+				char **stock_one,
+				char **stock_two,
+				char **stock_three)
+{
+	*save = NULL;
+	*stock_one = NULL;
+	*stock_two = NULL;
+	*stock_three = NULL;
 }

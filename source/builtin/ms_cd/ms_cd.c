@@ -6,7 +6,7 @@
 /*   By: tda-silv <tda-silv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/21 19:17:38 by tda-silv          #+#    #+#             */
-/*   Updated: 2022/12/09 04:53:19 by tda-silv         ###   ########.fr       */
+/*   Updated: 2022/12/11 13:34:56 by tda-silv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,6 @@ int	ms_cd(const char *path, t_input *input)
 	stock_pwd = ft_strdup(ms_get_env("PWD", input));
 	if (!stock_pwd)
 		return (print_error(12, path_update));
-	path_update = NULL;
 	if (!path || !*path)
 		return (empty_path(stock_pwd, input));
 	if (ft_strlen(path) == 1 && path[0] == '-')

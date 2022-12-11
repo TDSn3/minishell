@@ -6,7 +6,7 @@
 /*   By: tda-silv <tda-silv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/17 14:29:18 by tda-silv          #+#    #+#             */
-/*   Updated: 2022/12/11 11:29:12 by tda-silv         ###   ########.fr       */
+/*   Updated: 2022/12/11 14:15:21 by tda-silv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,6 +101,7 @@ int		ms_export(char *var, t_input *input);
 int		wrong_name_var(char *var);
 char	*get_export(char *strchr, t_input *input);
 int		show_export(t_input *input);
+int		update_var(char *var, t_input *input);
 
 /*   UNSET   **************************************************************** */
 int		ms_unset(const char *var, t_input *input);

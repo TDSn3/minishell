@@ -6,17 +6,22 @@
 /*   By: tda-silv <tda-silv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/05 17:51:25 by tda-silv          #+#    #+#             */
-/*   Updated: 2022/12/05 18:31:02 by tda-silv         ###   ########.fr       */
+/*   Updated: 2022/12/11 14:39:33 by tda-silv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <header.h>
 
+static void	init_var(
+				char **save,
+				char **stock_one,
+				char **stock_two,
+				char **stock_three);
 static int	free_all_here(
-					char *save,
-					char *stock_one,
-					char *stock_two,
-					char *stock_three);
+				char *save,
+				char *stock_one,
+				char *stock_two,
+				char *stock_three);
 
 int	one_point(char **copy, int i)
 {
@@ -25,10 +30,7 @@ int	one_point(char **copy, int i)
 	char	*stock_two;
 	char	*stock_three;
 
-	save = NULL;
-	stock_one = NULL;
-	stock_two = NULL;
-	stock_three = NULL;
+	init_var(&save, &stock_one, &stock_two, &stock_three);
 	stock_one = ft_substr(*copy, 0, i - 1);
 	if (!stock_one)
 		return (1);
@@ -64,4 +66,16 @@ static int	free_all_here(
 	if (stock_three)
 		free(stock_three);
 	return (1);
+}
+
+static void	init_var(
+				char **save,
+				char **stock_one,
+				char **stock_two,
+				char **stock_three)
+{
+	*save = NULL;
+	*stock_one = NULL;
+	*stock_two = NULL;
+	*stock_three = NULL;
 }
