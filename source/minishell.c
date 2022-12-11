@@ -6,7 +6,7 @@
 /*   By: tda-silv <tda-silv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/19 13:33:37 by tda-silv          #+#    #+#             */
-/*   Updated: 2022/12/11 21:36:29 by tda-silv         ###   ########.fr       */
+/*   Updated: 2022/12/11 22:43:46 by tda-silv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 static void	start_execute(t_input *input);
 static void	init_struct_sigaction(t_input *input, struct sigaction *ssa);
 static void	prompt(t_input *input);
+static void	handler_on2(int sig);
 
 int	g_status;
 
@@ -77,7 +78,7 @@ static void	start_execute(t_input *input)
 		execute_em(input);
 	else
 		perror("PATH");
-	input->ssa->sa_handler = &handler_on;
+	input->ssa->sa_handler = &handler_on2;
 	sigaction(SIGINT, input->ssa, 0);
 	sigaction(SIGQUIT, input->ssa, 0);
 }
@@ -87,9 +88,30 @@ static void	init_struct_sigaction(t_input *input, struct sigaction *ssa)
 	input->env = NULL;
 	input->export = NULL;
 	input->ssa = ssa;
-	input->ssa->sa_handler = &handler_on;
+	input->ssa->sa_handler = &handler_on2;
 	input->ssa->sa_flags = SA_RESTART;
 	sigemptyset(&input->ssa->sa_mask);
 	sigaction(SIGINT, input->ssa, 0);
 	sigaction(SIGQUIT, input->ssa, 0);
+}
+
+static void	handler_on2(int sig)
+{
+	int	return_write;
+
+	return_write = 0;
+	(void) return_write;
+	if (sig == 2)
+	{
+		return_write = write(1, "\n", 1);
+		rl_replace_line("", 0);
+		rl_on_new_line();
+		rl_redisplay();
+	}
+	if (sig == 3)
+	{
+	//	rl_replace_line("", 0);
+	//	rl_on_new_line();
+	//	rl_redisplay();
+	}
 }

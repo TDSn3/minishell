@@ -6,7 +6,7 @@
 /*   By: tda-silv <tda-silv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/24 12:58:37 by tda-silv          #+#    #+#             */
-/*   Updated: 2022/12/11 14:38:36 by tda-silv         ###   ########.fr       */
+/*   Updated: 2022/12/11 22:20:33 by tda-silv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,10 @@ int	ms_export(char *var, t_input *input)
 	char	*copy_var;
 	char	**new_env;
 
-	if (!var || !*var)
+	if (!var)
 		return (show_export(input));
+	if (!*var)
+		return (print_error(NULL, -1));
 	new_env = NULL;
 	copy_var = ft_strdup(var);
 	if (!copy_var)
@@ -88,7 +90,12 @@ static void	free_env(t_input *input)
 static int	print_error(char *var, int nb_error)
 {
 	if (nb_error == -1)
-		printf("export: `%s': not a valid identifier\n", var);
+	{
+		if (var && *var)
+			printf("export: `%s': not a valid identifier\n", var);
+		else
+			printf("export: `': not a valid identifier\n");
+	}
 	else
 	{
 		errno = nb_error;

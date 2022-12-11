@@ -6,20 +6,21 @@
 /*   By: tda-silv <tda-silv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/05 14:40:40 by tda-silv          #+#    #+#             */
-/*   Updated: 2022/12/11 22:00:44 by tda-silv         ###   ########.fr       */
+/*   Updated: 2022/12/11 22:34:29 by tda-silv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <header.h>
 
 static int	print_error(char *cmd, int nb_error);
+static int	part_two(char **argv, t_input *input, size_t size_argv);
 
 int	builtin_chr(char **argv, t_input *input)
 {
-	int		i;
 	size_t	size_argv;
 
-	i = 1;
+	if (!argv || !*argv)
+		return (1);
 	size_argv = my_strdlen(argv);
 	if (!my_strcmp(argv[0], "env"))
 	{
@@ -37,6 +38,14 @@ int	builtin_chr(char **argv, t_input *input)
 			ms_pwd(input);
 		return (1);
 	}
+	return (part_two(argv, input, size_argv));
+}
+
+static int	part_two(char **argv, t_input *input, size_t size_argv)
+{
+	int		i;
+
+	i = 1;
 	if (!my_strcmp(argv[0], "cd"))
 	{
 		if (size_argv > 2)
