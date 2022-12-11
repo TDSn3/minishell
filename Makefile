@@ -6,7 +6,7 @@
 #    By: tda-silv <tda-silv@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/10/17 14:32:32 by tda-silv          #+#    #+#              #
-#    Updated: 2022/12/11 01:39:54 by tda-silv         ###   ########.fr        #
+#    Updated: 2022/12/11 02:19:42 by tda-silv         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -120,7 +120,7 @@ OBJ			= $(addsuffix .o, $(addprefix $(OBJ_DIR), $(NAME_FILE)))
 
 $(OBJ_DIR)%.o: $(SRC_DIR)%.c
 	mkdir -p $(dir $@)
-	$(CC) $(CFLAGS) $(I_HEADERS) -O3 -c $< -o $@
+	$(CC) $(CFLAGS) $(I_HEADERS) -c $< -o $@
 
 all: $(NAME) $(HEADERS)
 

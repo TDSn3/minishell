@@ -6,7 +6,7 @@
 /*   By: tda-silv <tda-silv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/10 15:08:00 by tda-silv          #+#    #+#             */
-/*   Updated: 2022/12/11 02:17:10 by tda-silv         ###   ########.fr       */
+/*   Updated: 2022/12/11 02:21:04 by tda-silv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,7 +86,10 @@ static void    exec_cmd(t_input *input, t_list *cmds)
 
 	node = cmds->content;
 	if (builtin_chr(node->args , input))
+	{
+		printf("exit_status = %d\n", g_status);
 		return ;
+	}
 	pid = fork();
 	if (pid < 0)
 	{
