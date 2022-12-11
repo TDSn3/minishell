@@ -6,7 +6,7 @@
 /*   By: tda-silv <tda-silv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/10 15:08:00 by tda-silv          #+#    #+#             */
-/*   Updated: 2022/12/11 19:46:48 by tda-silv         ###   ########.fr       */
+/*   Updated: 2022/12/11 21:42:50 by tda-silv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,6 +89,12 @@ static void exec_cmd(t_input *input, t_list *cmds)
 	t_node	*node;
 
 	node = cmds->content;
+	if (!builtin_chr(node->args, input))
+	{
+		printf("exit_status = %d\n", g_status);
+		return ;
+	}
+	printf("OK\n");
     pid = fork();
     if (pid < 0)
     {
@@ -99,13 +105,6 @@ static void exec_cmd(t_input *input, t_list *cmds)
     }
     if (pid == 0) //fiston
     {
-		if (builtin_chr(node->args, input))
-		{
-			printf("exit_status = %d\n", g_status);
-			free_all(input);
-			free_input(input);
-			exit(0);
-		}
 		execute(input, cmds);
 		free_all(input);
 		free_input(input);
