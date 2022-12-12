@@ -6,7 +6,7 @@
 /*   By: tda-silv <tda-silv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/18 15:11:18 by tda-silv          #+#    #+#             */
-/*   Updated: 2022/12/11 11:15:43 by tda-silv         ###   ########.fr       */
+/*   Updated: 2022/12/12 12:05:19 by tda-silv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,5 +57,6 @@ typedef struct s_input {
 }	t_input;
 
 extern int	g_status;
+extern int	exit_cmd;
 
 #endif

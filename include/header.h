@@ -6,7 +6,7 @@
 /*   By: tda-silv <tda-silv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/17 14:29:18 by tda-silv          #+#    #+#             */
-/*   Updated: 2022/12/12 11:48:55 by tda-silv         ###   ########.fr       */
+/*   Updated: 2022/12/12 12:07:14 by tda-silv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,6 +83,7 @@ void	ms_pipe(t_input *input, t_list *cmds, size_t size);
 int		ft_cmd_error(t_input *input, t_list *cmd, char *message);
 void	ms_redir(t_input *input, t_list *cmd);
 void	execute_cmd(t_input *input);
+void	execute_one_cmd(t_input *input, t_list *cmds);
 
 /* ************************************************************************** */
 /*																			  */
