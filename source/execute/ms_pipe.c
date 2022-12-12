@@ -6,7 +6,7 @@
 /*   By: tda-silv <tda-silv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/10 15:08:00 by tda-silv          #+#    #+#             */
-/*   Updated: 2022/12/12 12:15:54 by tda-silv         ###   ########.fr       */
+/*   Updated: 2022/12/12 13:50:08 by tda-silv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,7 @@ static void	create_pipes(t_input *input, t_list *cmds, int *pids, size_t count, 
 	free(pids);
 	free_input(input);
 	free_all(input);
-		exit(exit_cmd);
+	exit(exit_cmd);
 	}
 }
 

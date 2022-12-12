@@ -6,7 +6,7 @@
 /*   By: tda-silv <tda-silv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/19 13:33:37 by tda-silv          #+#    #+#             */
-/*   Updated: 2022/12/12 12:05:01 by tda-silv         ###   ########.fr       */
+/*   Updated: 2022/12/12 13:14:20 by tda-silv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@ int	main(int argc, char **argv, char **env)
 
 	(void) argc;
 	(void) argv;
+	g_status = 0;
 	init_struct_sigaction(&input, &ssa);
 	if (copy_env(env, &input) || copy_env_in_export(&input) || shlvl(&input))
 		ms_exit(&input, 1);

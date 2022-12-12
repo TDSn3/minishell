@@ -6,7 +6,7 @@
 /*   By: tda-silv <tda-silv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/12 12:00:55 by tda-silv          #+#    #+#             */
-/*   Updated: 2022/12/12 12:10:28 by tda-silv         ###   ########.fr       */
+/*   Updated: 2022/12/12 13:49:58 by tda-silv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,9 @@ void	execute_one_cmd(t_input *input, t_list *cmds)
 	int		status;
 	t_node	*node;
 
+	status = 0;
 	node = cmds->content;
+	ms_redir(input, cmds);
 	if (builtin_chr(node->args, input))
 		return ;
 	pid = fork();
@@ -61,7 +63,6 @@ static int	chr_and_exec(t_input *input, t_list *cmds)
 	t_node	*node;
 
 	node = cmds->content;
-	ms_redir(input, cmds);
 	if (!node->args || !node->args[0])
 		return (0);
 	command = cmd_path_chr(node->args[0], input);
