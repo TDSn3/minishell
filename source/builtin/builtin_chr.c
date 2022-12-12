@@ -6,7 +6,7 @@
 /*   By: tda-silv <tda-silv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/05 14:40:40 by tda-silv          #+#    #+#             */
-/*   Updated: 2022/12/12 17:17:36 by tda-silv         ###   ########.fr       */
+/*   Updated: 2022/12/12 18:52:21 by tda-silv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,7 +92,6 @@ static int	part_three(t_node *node, t_input *input)
 	}
 	return (0);
 }
-
 
 static int	print_error(char *cmd, int nb_error)
 {

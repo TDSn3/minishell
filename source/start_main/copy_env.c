@@ -6,14 +6,13 @@
 /*   By: tda-silv <tda-silv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/21 22:27:43 by tda-silv          #+#    #+#             */
-/*   Updated: 2022/12/10 20:41:03 by tda-silv         ###   ########.fr       */
+/*   Updated: 2022/12/12 17:28:08 by tda-silv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <header.h>
 
 static int	free_function_all(char ***copy);
-static char	**ft_path(char **env);
 
 int	copy_env(char **strd, t_input *input)
 {
@@ -40,7 +39,6 @@ int	copy_env(char **strd, t_input *input)
 	}
 	copy[x] = NULL;
 	input->env = copy;
-	input->paths = ft_path(input->env);
 	return (0);
 }
 
@@ -55,21 +53,4 @@ static int	free_function_all(char ***copy)
 	if (copy && *copy)
 		free(*copy);
 	return (1);
-}
-
-static char	**ft_path(char **env)
-{
-	int	count;
-
-	count = 0;
-	if (env && *env)
-	{
-		while (env[count])
-		{
-			if (!ft_strncmp(env[count], "PATH=", 5))
-				return (ft_split(env[count] + 5, ':'));
-			count ++;
-		}
-	}
-	return (NULL);
 }

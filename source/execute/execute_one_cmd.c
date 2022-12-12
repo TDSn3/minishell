@@ -6,7 +6,7 @@
 /*   By: tda-silv <tda-silv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/12 12:00:55 by tda-silv          #+#    #+#             */
-/*   Updated: 2022/12/12 16:58:36 by tda-silv         ###   ########.fr       */
+/*   Updated: 2022/12/12 19:05:19 by tda-silv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ void	execute_one_cmd(t_input *input, t_list *cmds)
 		wait(&status);
 		if (WIFEXITED(status))
 			exit_cmd = WEXITSTATUS(status);
-/*
+
 		if (WIFSIGNALED(status))
 			if (WCOREDUMP(status))
 			printf("Quit (core dumped)\n");
@@ -57,7 +57,6 @@ void	execute_one_cmd(t_input *input, t_list *cmds)
 			g_status = WTERMSIG(status) + 128;
 		else
 			g_status = 0;
-			*/
 	}
 }
 

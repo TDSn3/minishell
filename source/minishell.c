@@ -6,7 +6,7 @@
 /*   By: tda-silv <tda-silv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/19 13:33:37 by tda-silv          #+#    #+#             */
-/*   Updated: 2022/12/12 15:16:24 by tda-silv         ###   ########.fr       */
+/*   Updated: 2022/12/12 18:53:06 by tda-silv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ static void	init_struct_sigaction(t_input *input, struct sigaction *ssa);
 static void	prompt(t_input *input);
 
 int	g_status;
-int exit_cmd;
+int	exit_cmd;
 
 int	main(int argc, char **argv, char **env)
 {

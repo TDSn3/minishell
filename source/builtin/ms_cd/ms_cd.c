@@ -6,7 +6,7 @@
 /*   By: tda-silv <tda-silv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/21 19:17:38 by tda-silv          #+#    #+#             */
-/*   Updated: 2022/12/12 16:48:27 by tda-silv         ###   ########.fr       */
+/*   Updated: 2022/12/12 18:42:13 by tda-silv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,12 +47,16 @@ static int	rev_pwd_oldpwd(char *stock_pwd, t_input *input)
 {
 	int		res;
 	char	pwd[4096];
+	char	*oldpwd;
 
+	res = 0;
 	getcwd(pwd, 4096);
-	res = chdir(ms_get_env("OLDPWD", input));
-	if (res < 0)
+	oldpwd = ms_get_env("OLDPWD", input);
+	if (oldpwd)
+		res = chdir(oldpwd);
+	if (!oldpwd || res < 0)
 		return (print_error(-2, NULL));
-	if (update_env(ms_get_env("OLDPWD", input), input))
+	if (update_env(oldpwd, input))
 		return (print_error(12, NULL));
 	printf("%s\n", pwd);
 	if (get_oldpwd(stock_pwd, input))

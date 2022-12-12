@@ -6,7 +6,7 @@
 /*   By: tda-silv <tda-silv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/17 14:29:18 by tda-silv          #+#    #+#             */
-/*   Updated: 2022/12/12 15:47:47 by tda-silv         ###   ########.fr       */
+/*   Updated: 2022/12/12 18:52:50 by tda-silv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,7 +96,6 @@ t_type	switch_type(char c);
 int		is_break(t_type type);
 int		lexer_char_error(t_input *input, char *message, char content);
 void	put_in_map(t_input *input, char *line, int count, int start);
-
 
 /* ************************************************************************** */
 /*																			  */

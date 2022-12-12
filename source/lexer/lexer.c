@@ -6,7 +6,7 @@
 /*   By: tda-silv <tda-silv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/19 17:50:14 by tda-silv          #+#    #+#             */
-/*   Updated: 2022/12/12 11:14:32 by tda-silv         ###   ########.fr       */
+/*   Updated: 2022/12/12 18:51:54 by tda-silv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,7 +99,8 @@ static int	split_redir(t_input *input, char *line, int index, t_type *type)
 		status ++;
 	if (status > 1)
 	{
-		lexer_char_error(input, "error syntaxe unexpected token : `, ", line[index]);
+		lexer_char_error(input,
+			"error syntaxe unexpected token : `, ", line[index]);
 		return ((index + 1) * (-1));
 	}
 	if (status > 0)
@@ -109,7 +110,7 @@ static int	split_redir(t_input *input, char *line, int index, t_type *type)
 			map_last(input->lexer)->type = GRREDIR;
 		if (*type == DREDIR)
 			map_last(input->lexer)->type = DRREDIR;
-		map_last(input->lexer)->content = ft_substr(line, index, 2);
+		(map_last(input->lexer))->content = ft_substr(line, index, 2);
 	}
 	return (status);
 }
@@ -133,7 +134,8 @@ static int	split_quote(t_input *input, char *line, int index, t_type type)
 		}
 	}
 	if (line[index] != c)
-		return (lexer_char_error(input, "error syntaxe unexpected token : ` ", c));
+		return (lexer_char_error(input,
+				"error syntaxe unexpected token : ` ", c));
 	if (index == start)
 		map_add(&input->lexer, map_new(ft_strdup(""), WORD));
 	split_delim(input, &start, index, type);

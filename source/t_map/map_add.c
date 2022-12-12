@@ -6,7 +6,7 @@
 /*   By: tda-silv <tda-silv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/19 18:16:33 by tda-silv          #+#    #+#             */
-/*   Updated: 2022/12/12 11:21:42 by tda-silv         ###   ########.fr       */
+/*   Updated: 2022/12/12 18:52:31 by tda-silv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,4 +28,3 @@ void	map_add(t_map **lst, t_map *new)
 	tmp->next = new;
 	tmp->next->key = tmp->key + 1;
 }
-

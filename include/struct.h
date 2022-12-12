@@ -6,7 +6,7 @@
 /*   By: tda-silv <tda-silv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/18 15:11:18 by tda-silv          #+#    #+#             */
-/*   Updated: 2022/12/12 15:39:55 by tda-silv         ###   ########.fr       */
+/*   Updated: 2022/12/12 17:27:18 by tda-silv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,8 +46,6 @@ typedef struct s_node {
 typedef struct s_input {
 	char				**env;
 	t_ls				*export;
-	char				*var_path;
-	char				*var_pwd;
 	char				*raw;
 	int					fdin;
 	int					fdout;
