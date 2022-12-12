@@ -6,7 +6,7 @@
 /*   By: tda-silv <tda-silv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/12 12:00:55 by tda-silv          #+#    #+#             */
-/*   Updated: 2022/12/12 15:30:10 by tda-silv         ###   ########.fr       */
+/*   Updated: 2022/12/12 16:58:36 by tda-silv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,10 @@ void	execute_one_cmd(t_input *input, t_list *cmds)
 	}
 	if (pid == 0)
 	{
+		ms_redir(input, node);
 		chr_and_exec(input, cmds);
+		close(input->fdin);
+		close(input->fdout);
 		free_all(input);
 		free_input(input);
 		exit(1);
@@ -44,7 +47,7 @@ void	execute_one_cmd(t_input *input, t_list *cmds)
 		wait(&status);
 		if (WIFEXITED(status))
 			exit_cmd = WEXITSTATUS(status);
-
+/*
 		if (WIFSIGNALED(status))
 			if (WCOREDUMP(status))
 			printf("Quit (core dumped)\n");
@@ -54,6 +57,7 @@ void	execute_one_cmd(t_input *input, t_list *cmds)
 			g_status = WTERMSIG(status) + 128;
 		else
 			g_status = 0;
+			*/
 	}
 }
 
@@ -63,7 +67,6 @@ static int	chr_and_exec(t_input *input, t_list *cmds)
 	t_node	*node;
 
 	node = cmds->content;
-	ms_redir(input, node);
 	if (!node->args || !node->args[0])
 		return (0);
 	command = cmd_path_chr(node->args[0], input);

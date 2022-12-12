@@ -6,18 +6,18 @@
 /*   By: tda-silv <tda-silv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/02 15:58:37 by tda-silv          #+#    #+#             */
-/*   Updated: 2022/12/11 21:41:51 by tda-silv         ###   ########.fr       */
+/*   Updated: 2022/12/12 15:47:33 by tda-silv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <header.h>
 
-int	ms_pwd(t_input *input)
+int	ms_pwd(void)
 {
-	char	*pwd;
+	char	pwd[4096];
 
-	pwd = ms_get_env("PWD", input);
-	if (!pwd || !*pwd)
+	getcwd(pwd, 4096);
+	if (!*pwd)
 		return (1);
 	printf("%s\n", pwd);
 	return (0);

@@ -6,7 +6,7 @@
 /*   By: tda-silv <tda-silv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/24 19:34:31 by tda-silv          #+#    #+#             */
-/*   Updated: 2022/12/07 15:43:50 by tda-silv         ###   ########.fr       */
+/*   Updated: 2022/12/12 16:54:11 by tda-silv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,8 @@ int	wrong_name_var(char *var)
 		return (1);
 	while (var[i])
 	{
-		if (!ft_isalnum(var[i]) && var[i] != '_')
+		if ((!ft_isalnum(var[i]) && var[i] != '_')
+			|| (var[0] != '_' && !ft_isalpha(var[0])))
 		{
 			if (equal > -1)
 				var[equal] = '=';

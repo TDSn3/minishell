@@ -6,7 +6,7 @@
 /*   By: tda-silv <tda-silv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/17 14:29:18 by tda-silv          #+#    #+#             */
-/*   Updated: 2022/12/12 15:31:02 by tda-silv         ###   ########.fr       */
+/*   Updated: 2022/12/12 15:47:47 by tda-silv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -130,7 +130,7 @@ void	handler_off(int sig);
 
 int		builtin_chr(t_node *node, t_input *input);
 int		ms_env(t_input *input);
-int		ms_pwd(t_input *input);
+int		ms_pwd(void);
 int		ms_echo(char **str);
 void	ms_exit(t_input *input, int exit_status);
 

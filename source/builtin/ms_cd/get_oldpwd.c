@@ -6,7 +6,7 @@
 /*   By: tda-silv <tda-silv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/22 18:17:46 by tda-silv          #+#    #+#             */
-/*   Updated: 2022/12/09 02:17:32 by tda-silv         ###   ########.fr       */
+/*   Updated: 2022/12/12 16:24:33 by tda-silv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,5 @@ int	get_oldpwd(char *str, t_input *input)
 		*oldpwd = new_oldpwd;
 	if (save_for_free)
 		free(save_for_free);
-	if (str)
-		free(str);
 	return (0);
 }

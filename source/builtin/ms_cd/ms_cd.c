@@ -6,7 +6,7 @@
 /*   By: tda-silv <tda-silv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/21 19:17:38 by tda-silv          #+#    #+#             */
-/*   Updated: 2022/12/11 18:44:38 by tda-silv         ###   ########.fr       */
+/*   Updated: 2022/12/12 16:48:27 by tda-silv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,20 +18,18 @@ static int	print_error(int nb_error, char *path_update);
 
 int	ms_cd(const char *path, t_input *input)
 {
-	int			res;
-	char		*path_update;
-	char		*stock_pwd;
+	int		res;
+	char	pwd[4096];
+	char	*path_update;
 
 	if ((!path || !*path) && !ms_get_env("HOME", input))
 		return (print_error(-1, NULL));
 	path_update = NULL;
-	stock_pwd = ft_strdup(ms_get_env("PWD", input));
-	if (!stock_pwd)
-		return (print_error(-2, path_update));
+	getcwd(pwd, 4096);
 	if (!path || !*path)
-		return (empty_path(stock_pwd, input));
+		return (empty_path(pwd, input));
 	if (ft_strlen(path) == 1 && path[0] == '-')
-		return (rev_pwd_oldpwd(stock_pwd, input));
+		return (rev_pwd_oldpwd(pwd, input));
 	if (update_path(path, &path_update, input))
 		return (print_error(12, path_update));
 	res = chdir(path_update);
@@ -39,7 +37,7 @@ int	ms_cd(const char *path, t_input *input)
 		return (print_error(2, path_update));
 	if (update_env(path_update, input))
 		return (print_error(12, path_update));
-	if (get_oldpwd(stock_pwd, input))
+	if (get_oldpwd(pwd, input))
 		return (print_error(12, path_update));
 	free(path_update);
 	return (0);
@@ -47,14 +45,16 @@ int	ms_cd(const char *path, t_input *input)
 
 static int	rev_pwd_oldpwd(char *stock_pwd, t_input *input)
 {
-	int	res;
+	int		res;
+	char	pwd[4096];
 
+	getcwd(pwd, 4096);
 	res = chdir(ms_get_env("OLDPWD", input));
 	if (res < 0)
-		return (print_error(2, NULL));
+		return (print_error(-2, NULL));
 	if (update_env(ms_get_env("OLDPWD", input), input))
 		return (print_error(12, NULL));
-	printf("%s\n", ms_get_env("PWD", input));
+	printf("%s\n", pwd);
 	if (get_oldpwd(stock_pwd, input))
 		return (print_error(12, NULL));
 	return (0);
@@ -86,7 +86,7 @@ static int	print_error(int nb_error, char *path_update)
 	if (nb_error == -1)
 		printf("cd: HOME not set\n");
 	else if (nb_error == -2)
-		printf("cd: PWD not set\n");
+		printf("cd: OLDPWD not set\n");
 	else
 		perror("cd");
 	if (path_update)

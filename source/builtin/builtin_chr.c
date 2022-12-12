@@ -6,7 +6,7 @@
 /*   By: tda-silv <tda-silv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/05 14:40:40 by tda-silv          #+#    #+#             */
-/*   Updated: 2022/12/12 15:34:57 by tda-silv         ###   ########.fr       */
+/*   Updated: 2022/12/12 15:48:03 by tda-silv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ int	builtin_chr(t_node *node, t_input *input)
 		if (size_argv > 1)
 			print_error(node->args[0], -1);
 		else
-			ms_pwd(input);
+			ms_pwd();
 		return (1);
 	}
 	return (part_two(node->args, input, size_argv));
