@@ -6,7 +6,7 @@
 /*   By: tda-silv <tda-silv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/19 13:33:37 by tda-silv          #+#    #+#             */
-/*   Updated: 2022/12/12 13:14:20 by tda-silv         ###   ########.fr       */
+/*   Updated: 2022/12/12 15:16:24 by tda-silv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,10 +89,7 @@ static void	change_handler_and_start_execute(t_input *input)
 	input->ssa->sa_handler = &handler_off;
 	sigaction(SIGINT, input->ssa, 0);
 	sigaction(SIGQUIT, input->ssa, 0);
-	if (input->paths)
-		execute_cmd(input);
-	else
-		perror("PATH");
+	execute_cmd(input);
 	input->ssa->sa_handler = &handler_on;
 	sigaction(SIGINT, input->ssa, 0);
 	sigaction(SIGQUIT, input->ssa, 0);

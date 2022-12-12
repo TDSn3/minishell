@@ -6,7 +6,7 @@
 /*   By: tda-silv <tda-silv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/17 14:29:18 by tda-silv          #+#    #+#             */
-/*   Updated: 2022/12/12 12:07:14 by tda-silv         ###   ########.fr       */
+/*   Updated: 2022/12/12 15:31:02 by tda-silv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,7 @@ void	map_clear(t_map **lst, void (*del)(void *));
 char	*cmd_path_chr(char *cmd, t_input *input);
 void	ms_pipe(t_input *input, t_list *cmds, size_t size);
 int		ft_cmd_error(t_input *input, t_list *cmd, char *message);
-void	ms_redir(t_input *input, t_list *cmd);
+void	ms_redir(t_input *input, t_node *node);
 void	execute_cmd(t_input *input);
 void	execute_one_cmd(t_input *input, t_list *cmds);
 
@@ -128,7 +128,7 @@ void	handler_off(int sig);
 /*																			  */
 /* ************************************************************************** */
 
-int		builtin_chr(char **argv, t_input *input);
+int		builtin_chr(t_node *node, t_input *input);
 int		ms_env(t_input *input);
 int		ms_pwd(t_input *input);
 int		ms_echo(char **str);

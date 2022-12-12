@@ -6,7 +6,7 @@
 /*   By: tda-silv <tda-silv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/10 14:18:20 by tda-silv          #+#    #+#             */
-/*   Updated: 2022/12/12 11:13:42 by tda-silv         ###   ########.fr       */
+/*   Updated: 2022/12/12 15:26:46 by tda-silv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,13 +106,11 @@ static int	ft_redirect(t_input *input, t_node *node, int todup)
 	return (1);
 }
 
-void	ms_redir(t_input *input, t_list *cmd)
+void	ms_redir(t_input *input, t_node *node)
 {
-	t_node	*node;
 	int		todup;
 
 	todup = 1;
-	node = cmd->content;
 	if (!node->args || !node->args[0])
 		todup = 0;
 	if (!ft_redirect(input, node, todup))

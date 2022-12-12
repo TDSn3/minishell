@@ -6,7 +6,7 @@
 /*   By: tda-silv <tda-silv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/12 12:00:55 by tda-silv          #+#    #+#             */
-/*   Updated: 2022/12/12 13:49:58 by tda-silv         ###   ########.fr       */
+/*   Updated: 2022/12/12 15:30:10 by tda-silv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,7 @@ void	execute_one_cmd(t_input *input, t_list *cmds)
 
 	status = 0;
 	node = cmds->content;
-	ms_redir(input, cmds);
-	if (builtin_chr(node->args, input))
+	if (builtin_chr(node, input))
 		return ;
 	pid = fork();
 	if (pid < 0)
@@ -46,7 +45,8 @@ void	execute_one_cmd(t_input *input, t_list *cmds)
 		if (WIFEXITED(status))
 			exit_cmd = WEXITSTATUS(status);
 
-		if (WCOREDUMP(status))
+		if (WIFSIGNALED(status))
+			if (WCOREDUMP(status))
 			printf("Quit (core dumped)\n");
 		if (WEXITSTATUS(status) == 1)
 			g_status = 1;
@@ -63,6 +63,7 @@ static int	chr_and_exec(t_input *input, t_list *cmds)
 	t_node	*node;
 
 	node = cmds->content;
+	ms_redir(input, node);
 	if (!node->args || !node->args[0])
 		return (0);
 	command = cmd_path_chr(node->args[0], input);
