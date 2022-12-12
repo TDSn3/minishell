@@ -6,7 +6,7 @@
 #    By: tda-silv <tda-silv@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/10/17 14:32:32 by tda-silv          #+#    #+#              #
-#    Updated: 2022/12/11 18:31:51 by tda-silv         ###   ########.fr        #
+#    Updated: 2022/12/12 11:22:03 by tda-silv         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -80,6 +80,7 @@ NAME_FILE	= $(addprefix builtin/,												\
 							   switch_type										\
 							   is_break											\
 							   lexer_char_error									\
+							   put_in_map										\
 			  )																	\
 			  $(addprefix parser/,												\
 			  					 parser											\

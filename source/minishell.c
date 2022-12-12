@@ -6,7 +6,7 @@
 /*   By: tda-silv <tda-silv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/19 13:33:37 by tda-silv          #+#    #+#             */
-/*   Updated: 2022/12/11 23:17:09 by tda-silv         ###   ########.fr       */
+/*   Updated: 2022/12/12 11:16:00 by tda-silv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,17 @@ int	main(int argc, char **argv, char **env)
 	return (0);
 }
 
+static void	first_check(t_input *input)
+{
+	if (!lexer(input, input->raw))
+		return ;
+	if (!check_syntax(input))
+		return ;
+	check_expand(input);
+	parser(input);
+	start_execute(input);
+}
+
 /* ************************************************************************** */
 /*																			  */
 /*   Terminos et les focntins tc[...] change le comportement du terminal.	  */
@@ -56,14 +67,9 @@ static void	prompt(t_input *input)
 			ms_exit(input, 0);
 		if (ft_strlen(input->raw) > 0)
 		{
-			lexer(input, input->raw);
-			check_syntax(input);
-			check_expand(input);
-			parser(input);
-			start_execute(input);
-		}
-		if (input->raw && (input->raw)[0])
+			first_check(input);
 			add_history(input->raw);
+		}
 		free_input(input);
 	}
 }

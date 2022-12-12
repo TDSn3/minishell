@@ -6,7 +6,7 @@
 /*   By: tda-silv <tda-silv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/17 14:29:18 by tda-silv          #+#    #+#             */
-/*   Updated: 2022/12/11 19:01:29 by tda-silv         ###   ########.fr       */
+/*   Updated: 2022/12/12 11:23:19 by tda-silv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,6 +74,55 @@ void	map_clear(t_map **lst, void (*del)(void *));
 
 /* ************************************************************************** */
 /*																			  */
+/*   ../source/execute/                             						  */
+/*																			  */
+/* ************************************************************************** */
+
+char	*cmd_path_chr(char *cmd, t_input *input);
+void	ms_pipe(t_input *input, t_list *cmds, size_t size);
+void	execute_em(t_input *input);
+int		ft_cmd_error(t_input *input, t_list *cmd, char *message);
+void	ms_redir(t_input *input, t_list *cmd);
+
+/* ************************************************************************** */
+/*																			  */
+/*   ../source/lexer/            	                 						  */
+/*																			  */
+/* ************************************************************************** */
+
+int		lexer(t_input *input, char *line);
+t_type	switch_type(char c);
+int		is_break(t_type type);
+int		lexer_char_error(t_input *input, char *message, char content);
+void	put_in_map(t_input *input, char *line, int count, int start);
+
+
+/* ************************************************************************** */
+/*																			  */
+/*   ../source/parser/            	                 						  */
+/*																			  */
+/* ************************************************************************** */
+
+void	parser(t_input *input);
+char	*ft_streplace(char *oldstr, char *newstr);
+char	**ft_strdjoin(char **strd, char *s);
+size_t	ft_strdlen(char **strd);
+void	ft_strdfree(char **strd);
+int		check_syntax(t_input *input);
+void	check_expand(t_input *input);
+char	*ft_strjoin_free(char *s1, char const *s2);
+
+/* ************************************************************************** */
+/*																			  */
+/*   ../source/signal/                            							  */
+/*																			  */
+/* ************************************************************************** */
+
+void	handler_on(int sig);
+void	handler_off(int sig);
+
+/* ************************************************************************** */
+/*																			  */
 /*   ../source/builtin/                            							  */
 /*																			  */
 /* ************************************************************************** */
@@ -106,52 +155,5 @@ int		update_var(char *var, t_input *input);
 int		ms_unset(const char *var, t_input *input);
 void	ls_clear_one_export(t_ls **lst, char *content);
 char	**del_one_env(char *var, t_input *input);
-
-/* ************************************************************************** */
-/*																			  */
-/*   ../source/execute/                             						  */
-/*																			  */
-/* ************************************************************************** */
-
-char	*cmd_path_chr(char *cmd, t_input *input);
-void	ms_pipe(t_input *input, t_list *cmds, size_t size);
-void	execute_em(t_input *input);
-int		ft_cmd_error(t_input *input, t_list *cmd, char *message);
-void	ms_redir(t_input *input, t_list *cmd);
-
-/* ************************************************************************** */
-/*																			  */
-/*   ../source/lexer/            	                 						  */
-/*																			  */
-/* ************************************************************************** */
-
-void	lexer(t_input *input, char *line);
-t_type	switch_type(char c);
-int		is_break(t_type type);
-void	lexer_char_error(t_input *input, char *message, char content);
-
-/* ************************************************************************** */
-/*																			  */
-/*   ../source/parser/            	                 						  */
-/*																			  */
-/* ************************************************************************** */
-
-void	parser(t_input *input);
-char	*ft_streplace(char *oldstr, char *newstr);
-char	**ft_strdjoin(char **strd, char *s);
-size_t	ft_strdlen(char **strd);
-void	ft_strdfree(char **strd);
-void	check_syntax(t_input *input);
-void	check_expand(t_input *input);
-char	*ft_strjoin_free(char *s1, char const *s2);
-
-/* ************************************************************************** */
-/*																			  */
-/*   ../source/signal/                            							  */
-/*																			  */
-/* ************************************************************************** */
-
-void	handler_on(int sig);
-void	handler_off(int sig);
 
 #endif

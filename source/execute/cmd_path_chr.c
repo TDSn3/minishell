@@ -6,14 +6,14 @@
 /*   By: tda-silv <tda-silv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/26 21:01:00 by tda-silv          #+#    #+#             */
-/*   Updated: 2022/12/11 18:19:21 by tda-silv         ###   ########.fr       */
+/*   Updated: 2022/12/12 11:10:11 by tda-silv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <header.h>
 
 static int	check_path(char ***all_path, char *cmd);
-static char	*test_path(char ***all_path);
+static char	*test_path(char ***all_path, char *cmd);
 
 /* ************************************************************************** */
 /*																			  */
@@ -41,7 +41,7 @@ char	*cmd_path_chr(char *cmd, t_input *input)
 		return (NULL);
 	if (!all_path || check_path(&all_path, cmd))
 		return (NULL);
-	copy_for_return = test_path(&all_path);
+	copy_for_return = test_path(&all_path, cmd);
 	if (copy_for_return)
 		return (copy_for_return);
 	my_strdfree(&all_path);
@@ -84,7 +84,7 @@ static int	check_path(char ***all_path, char *cmd)
 /*   return NULL.															  */
 /*																			  */
 /* ************************************************************************** */
-static char	*test_path(char ***all_path)
+static char	*test_path(char ***all_path, char *cmd)
 {
 	int		i;
 	char	*copy_for_return;
@@ -105,5 +105,6 @@ static char	*test_path(char ***all_path)
 		}
 		i++;
 	}
+	perror(cmd);
 	return (NULL);
 }

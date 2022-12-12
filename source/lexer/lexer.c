@@ -6,7 +6,7 @@
 /*   By: tda-silv <tda-silv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/19 17:50:14 by tda-silv          #+#    #+#             */
-/*   Updated: 2022/12/10 21:28:54 by tda-silv         ###   ########.fr       */
+/*   Updated: 2022/12/12 11:14:32 by tda-silv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ static int	split_dollar(t_input *input, int *start, int index, t_type type);
 static int	split_redir(t_input *input, char *line, int index, t_type *type);
 static int	split_quote(t_input *input, char *line, int index, t_type type);
 
-void	lexer(t_input *input, char *line)
+int	lexer(t_input *input, char *line)
 {
 	int		count;
 	int		start;
@@ -37,13 +37,14 @@ void	lexer(t_input *input, char *line)
 				count += split_redir(input, line, count, &type);
 			if (type == SQUOTE || type == DQUOTE)
 				count = split_quote(input, line, count, type);
+			if (count < 0)
+				return (0);
 			start = count + 1;
 		}
 		count ++;
 	}
-	if (count > start)
-		map_add(&input->lexer,
-			map_new(ft_substr(line, start, count), WORD));
+	put_in_map(input, line, count, start);
+	return (1);
 }
 
 static void	split_delim(t_input *input, int *start, int index, t_type type)
@@ -99,7 +100,7 @@ static int	split_redir(t_input *input, char *line, int index, t_type *type)
 	if (status > 1)
 	{
 		lexer_char_error(input, "error syntaxe unexpected token : `, ", line[index]);
-		exit (0);
+		return ((index + 1) * (-1));
 	}
 	if (status > 0)
 	{
@@ -132,78 +133,9 @@ static int	split_quote(t_input *input, char *line, int index, t_type type)
 		}
 	}
 	if (line[index] != c)
-		lexer_char_error(input, "error syntaxe unexpected token : ` ", c);
+		return (lexer_char_error(input, "error syntaxe unexpected token : ` ", c));
 	if (index == start)
 		map_add(&input->lexer, map_new(ft_strdup(""), WORD));
 	split_delim(input, &start, index, type);
 	return (index);
 }
-
-/*
-static char	*search(char *line, int *start);
-static bool	is_delim(char c);
-
-void	lexer(t_input *input, char *line)
-{
-	int		count;
-	int		start;
-	char	c;
-
-	count = 0;
-	start = 0;
-	while (line[count])
-	{
-		c = line[count];
-		if (is_delim(c))
-		{
-			map_add(&input->lexer,
-				map_new(ft_substr(line, start, count - start), WORD));
-			map_add(&input->lexer,
-				map_new(ft_substr(line, count, 1), DELIM));
-			start = count + 1;
-		}
-		if (c == '\'' || c == '\"')
-		{
-			if (count - start > 0)
-				map_add(&input->lexer,
-					map_new(ft_substr(line, start, count - start), WORD));
-			if (c == '\'')
-				map_add(&input->lexer, map_new(search(line, &count), SQUOTE));
-			else if (c == '\"')
-				map_add(&input->lexer, map_new(search(line, &count), DQUOTE));
-			start = count + 1;
-		}
-		count ++;
-	}
-}
-
-static char	*search(char *line, int *start)
-{
-	int		count;
-	char	*s;
-	char	c;
-
-	count = *start;
-	c = line[*start];
-	while (line[++count])
-	{
-		if (c == line[count])
-			break ;
-	}
-	if (line[count] != c)
-	{
-		ft_putstr_fd("Error : unclosed quote\n", 2);
-		exit(1);
-	}
-	s = ft_substr(line, *start, count - *start + 1);
-	*start = count;
-	return (s);
-}
-
-static bool	is_delim(char c)
-{
-	if (c == ' ' || c == '\n' || c == '|' || c == '<' || c == '>' || c == '$')
-		return (true);
-	return (false);
-}
-*/

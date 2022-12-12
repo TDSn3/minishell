@@ -6,7 +6,7 @@
 /*   By: tda-silv <tda-silv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/10 14:18:20 by tda-silv          #+#    #+#             */
-/*   Updated: 2022/12/11 19:01:25 by tda-silv         ###   ########.fr       */
+/*   Updated: 2022/12/12 11:13:42 by tda-silv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 static void	ft_heredoc(char *file, char *limit)
 {
 	char	*input;
-	int	heredoc;
+	int		heredoc;
 
 	heredoc = open(file, O_CREAT | O_WRONLY | O_TRUNC, 0644);
 	input = NULL;
@@ -26,7 +26,7 @@ static void	ft_heredoc(char *file, char *limit)
 		if (input && ft_strncmp(limit, input, ft_strlen(limit)))
 			write(heredoc, input, ft_strlen(input));
 		else
-			break;
+			break ;
 		free(input);
 	}
 	if (input)
@@ -51,7 +51,7 @@ static int	g_redir(t_input *input, t_redir *redir, int status, int todup)
 	if (todup)
 	{
 		if (dup2(infile, input->fdin) == -1)
-		       return (0);
+			return (0);
 	}
 	close(infile);
 	(void) input;
@@ -61,7 +61,7 @@ static int	g_redir(t_input *input, t_redir *redir, int status, int todup)
 static int	d_redir(t_input *input, char *file, int status, int todup)
 {
 	int	outfile;
-	
+
 	if (status)
 		outfile = open(file, O_CREAT | O_WRONLY | O_APPEND, 0644);
 	else
@@ -71,7 +71,7 @@ static int	d_redir(t_input *input, char *file, int status, int todup)
 	if (todup)
 	{
 		if (dup2(outfile, input->fdout) == -1)
-	    	   return (0);
+			return (0);
 	}
 	close(outfile);
 	return (1);
@@ -81,7 +81,7 @@ static int	ft_redirect(t_input *input, t_node *node, int todup)
 {
 	t_redir	*redir;
 	t_list	*r;
-	int	res;
+	int		res;
 
 	res = 1;
 	r = node->redir;
@@ -116,5 +116,5 @@ void	ms_redir(t_input *input, t_list *cmd)
 	if (!node->args || !node->args[0])
 		todup = 0;
 	if (!ft_redirect(input, node, todup))
-		return ;	
+		return ;
 }
