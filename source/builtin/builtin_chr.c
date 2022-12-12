@@ -6,15 +6,15 @@
 /*   By: tda-silv <tda-silv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/05 14:40:40 by tda-silv          #+#    #+#             */
-/*   Updated: 2022/12/12 15:48:03 by tda-silv         ###   ########.fr       */
+/*   Updated: 2022/12/12 17:17:36 by tda-silv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <header.h>
 
 static int	print_error(char *cmd, int nb_error);
-static int	part_two(char **argv, t_input *input, size_t size_argv);
-static int	part_three(char **argv, t_input *input);
+static int	part_two(t_node *node, t_input *input, size_t size_argv);
+static int	part_three(t_node *node, t_input *input);
 
 int	builtin_chr(t_node *node, t_input *input)
 {
@@ -40,52 +40,52 @@ int	builtin_chr(t_node *node, t_input *input)
 			ms_pwd();
 		return (1);
 	}
-	return (part_two(node->args, input, size_argv));
+	return (part_two(node, input, size_argv));
 }
 
-static int	part_two(char **argv, t_input *input, size_t size_argv)
+static int	part_two(t_node *node, t_input *input, size_t size_argv)
 {
 	int		i;
 
 	i = 1;
-	if (!my_strcmp(argv[0], "cd"))
+	if (!my_strcmp(node->args[0], "cd"))
 	{
 		if (size_argv > 2)
-			print_error(argv[0], -1);
+			print_error(node->args[0], -1);
 		else
-			ms_cd(argv[1], input);
+			ms_cd(node->args[1], input);
 		return (1);
 	}
-	if (!my_strcmp(argv[0], "export"))
+	if (!my_strcmp(node->args[0], "export"))
 	{
-		if (argv[1])
-			while (argv[i])
-				ms_export(argv[i++], input);
-		if (!argv[1])
+		if (node->args[1])
+			while (node->args[i])
+				ms_export(node->args[i++], input);
+		if (!node->args[1])
 			ms_export(NULL, input);
 		return (1);
 	}
-	return (part_three(argv, input));
+	return (part_three(node, input));
 }
 
-static int	part_three(char **argv, t_input *input)
+static int	part_three(t_node *node, t_input *input)
 {
 	int		i;
 
 	i = 1;
-	if (!my_strcmp(argv[0], "unset"))
+	if (!my_strcmp(node->args[0], "unset"))
 	{
-		if (argv[1])
-			while (argv[i])
-				ms_unset(argv[i++], input);
+		if (node->args[1])
+			while (node->args[i])
+				ms_unset(node->args[i++], input);
 		return (1);
 	}
-	if (!my_strcmp(argv[0], "echo"))
+	if (!my_strcmp(node->args[0], "echo"))
 	{
-		ms_echo(argv);
+		ms_echo(node->args);
 		return (1);
 	}
-	if (!my_strcmp(argv[0], "exit"))
+	if (!my_strcmp(node->args[0], "exit"))
 	{
 		ms_exit(input, 0);
 		return (1);
