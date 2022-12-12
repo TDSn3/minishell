@@ -6,7 +6,7 @@
 #    By: tda-silv <tda-silv@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/10/17 14:32:32 by tda-silv          #+#    #+#              #
-#    Updated: 2022/12/12 16:59:44 by tda-silv         ###   ########.fr        #
+#    Updated: 2022/12/12 21:30:34 by tda-silv         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -66,6 +66,8 @@ NAME_FILE	= $(addprefix builtin/,												\
 								  ms_pwd										\
 								  builtin_chr									\
 								  ms_exit										\
+								  ft_clone_redir								\
+								  ft_back_redir									\
 																				\
 			  )																	\
 			  $(addprefix t_map/,												\
@@ -81,6 +83,7 @@ NAME_FILE	= $(addprefix builtin/,												\
 							   is_break											\
 							   lexer_char_error									\
 							   put_in_map										\
+							   split_delim										\
 			  )																	\
 			  $(addprefix parser/,												\
 			  					 parser											\

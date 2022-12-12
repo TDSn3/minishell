@@ -6,7 +6,7 @@
 /*   By: tda-silv <tda-silv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/12 12:00:55 by tda-silv          #+#    #+#             */
-/*   Updated: 2022/12/12 19:05:19 by tda-silv         ###   ########.fr       */
+/*   Updated: 2022/12/12 21:18:06 by tda-silv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,11 @@ void	execute_one_cmd(t_input *input, t_list *cmds)
 	status = 0;
 	node = cmds->content;
 	if (builtin_chr(node, input))
+	{
+		close(STDIN_FILENO);
+		close(STDOUT_FILENO);
 		return ;
+	}
 	pid = fork();
 	if (pid < 0)
 	{
@@ -36,21 +40,20 @@ void	execute_one_cmd(t_input *input, t_list *cmds)
 	{
 		ms_redir(input, node);
 		chr_and_exec(input, cmds);
-		close(input->fdin);
-		close(input->fdout);
 		free_all(input);
 		free_input(input);
+		close(0);
+		close(1);
 		exit(1);
 	}
 	else
 	{
 		wait(&status);
 		if (WIFEXITED(status))
-			exit_cmd = WEXITSTATUS(status);
-
+			g_status = WEXITSTATUS(status);
 		if (WIFSIGNALED(status))
 			if (WCOREDUMP(status))
-			printf("Quit (core dumped)\n");
+				printf("Quit (core dumped)\n");
 		if (WEXITSTATUS(status) == 1)
 			g_status = 1;
 		else if (WIFSIGNALED(status))

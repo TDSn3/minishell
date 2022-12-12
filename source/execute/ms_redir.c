@@ -6,7 +6,7 @@
 /*   By: tda-silv <tda-silv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/10 14:18:20 by tda-silv          #+#    #+#             */
-/*   Updated: 2022/12/12 15:26:46 by tda-silv         ###   ########.fr       */
+/*   Updated: 2022/12/12 21:34:34 by tda-silv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,15 +34,15 @@ static void	ft_heredoc(char *file, char *limit)
 	close(heredoc);
 }
 
-static int	g_redir(t_input *input, t_redir *redir, int status, int todup)
+static int	g_redir(t_redir *redir, int status, int todup)
 {
 	int	infile;
 
 	infile = -1;
 	if (status)
 	{
-		ft_heredoc(".heredoc", redir->file);
-		infile = open(".heredoc", O_RDONLY);
+		ft_heredoc("/tmp/heredoc", redir->file);
+		infile = open("/tmp/heredoc", O_RDONLY);
 	}
 	else
 		infile = open(redir->file, O_RDONLY);
@@ -50,15 +50,14 @@ static int	g_redir(t_input *input, t_redir *redir, int status, int todup)
 		return (0);
 	if (todup)
 	{
-		if (dup2(infile, input->fdin) == -1)
+		if (dup2(infile, STDIN_FILENO) == -1)
 			return (0);
 	}
 	close(infile);
-	(void) input;
 	return (1);
 }
 
-static int	d_redir(t_input *input, char *file, int status, int todup)
+static int	d_redir(char *file, int status, int todup)
 {
 	int	outfile;
 
@@ -70,14 +69,14 @@ static int	d_redir(t_input *input, char *file, int status, int todup)
 		return (0);
 	if (todup)
 	{
-		if (dup2(outfile, input->fdout) == -1)
+		if (dup2(outfile, STDOUT_FILENO) == -1)
 			return (0);
 	}
 	close(outfile);
 	return (1);
 }
 
-static int	ft_redirect(t_input *input, t_node *node, int todup)
+static int	ft_redirect(t_node *node, int todup)
 {
 	t_redir	*redir;
 	t_list	*r;
@@ -89,16 +88,16 @@ static int	ft_redirect(t_input *input, t_node *node, int todup)
 	{
 		redir = r->content;
 		if (redir->type == 1)
-			res = g_redir(input, redir, 0, todup);
+			res = g_redir(redir, 0, todup);
 		if (redir->type == 11)
-			res = g_redir(input, redir, 1, todup);
+			res = g_redir(redir, 1, todup);
 		if (redir->type == 2)
-			res = d_redir(input, redir->file, 0, todup);
+			res = d_redir(redir->file, 0, todup);
 		if (redir->type == 22)
-			res = d_redir(input, redir->file, 1, todup);
+			res = d_redir(redir->file, 1, todup);
 		if (res != 1)
 		{
-			perror("redirection ");
+			perror(node->args[0]);
 			return (0);
 		}
 		r = r->next;
@@ -113,6 +112,7 @@ void	ms_redir(t_input *input, t_node *node)
 	todup = 1;
 	if (!node->args || !node->args[0])
 		todup = 0;
-	if (!ft_redirect(input, node, todup))
+	if (!ft_redirect(node, todup))
 		return ;
+	(void) input;
 }

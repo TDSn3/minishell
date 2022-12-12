@@ -6,59 +6,51 @@
 /*   By: tda-silv <tda-silv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/19 17:50:14 by tda-silv          #+#    #+#             */
-/*   Updated: 2022/12/12 18:51:54 by tda-silv         ###   ########.fr       */
+/*   Updated: 2022/12/12 20:03:31 by tda-silv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <header.h>
 
-static void	split_delim(t_input *input, int *start, int index, t_type type);
 static int	split_dollar(t_input *input, int *start, int index, t_type type);
 static int	split_redir(t_input *input, char *line, int index, t_type *type);
 static int	split_quote(t_input *input, char *line, int index, t_type type);
+static int	in_the_while(t_input *input, char *line, t_type	*type, int *start);
 
 int	lexer(t_input *input, char *line)
 {
-	int		count;
 	int		start;
 	t_type	type;
 
-	count = 0;
 	start = 0;
+	return (in_the_while(input, line, &type, &start));
+}
+
+static int	in_the_while(t_input *input, char *line, t_type	*type, int *start)
+{
+	int		count;
+
+	count = 0;
 	while (line[count])
 	{
-		type = switch_type(line[count]);
-		if (type != WORD)
+		*type = switch_type(line[count]);
+		if (*type != WORD)
 		{
-			split_delim(input, &start, count, type);
-			if (type == DOLLAR)
-				count = split_dollar(input, &start, count, type);
-			if (type == GREDIR || type == DREDIR)
-				count += split_redir(input, line, count, &type);
-			if (type == SQUOTE || type == DQUOTE)
-				count = split_quote(input, line, count, type);
+			split_delim(input, start, count, *type);
+			if (*type == DOLLAR)
+				count = split_dollar(input, start, count, *type);
+			if (*type == GREDIR || *type == DREDIR)
+				count += split_redir(input, line, count, type);
+			if (*type == SQUOTE || *type == DQUOTE)
+				count = split_quote(input, line, count, *type);
 			if (count < 0)
 				return (0);
-			start = count + 1;
+			*start = count + 1;
 		}
 		count ++;
 	}
-	put_in_map(input, line, count, start);
+	put_in_map(input, line, count, *start);
 	return (1);
-}
-
-static void	split_delim(t_input *input, int *start, int index, t_type type)
-{
-	int		r;
-	char	*line;
-
-	r = index - *start;
-	line = input->raw;
-	if (r > 0)
-		map_add(&input->lexer, map_new(ft_substr(line, *start, r), WORD));
-	if (type != ESPACE)
-		map_add(&input->lexer, map_new(ft_substr(line, index, 1), type));
-	*start = index + 1;
 }
 
 static int	split_dollar(t_input *input, int *start, int index, t_type type)
