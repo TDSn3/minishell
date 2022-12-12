@@ -6,7 +6,7 @@
 /*   By: tda-silv <tda-silv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/10 15:08:00 by tda-silv          #+#    #+#             */
-/*   Updated: 2022/12/12 11:45:53 by tda-silv         ###   ########.fr       */
+/*   Updated: 2022/12/12 11:48:30 by tda-silv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -173,19 +173,4 @@ void    ms_pipe(t_input *input, t_list *cmds, size_t size)
     }
     wait_pipes(pids, size);
     free(pids);
-}
-
-void    execute_cmd(t_input *input)
-{
-    t_list  *cmds;
-    size_t  size;
-
-    cmds = input->ast;
-    size = ft_lstsize(cmds);
-    if (size == 1)
-        exec_cmd(input, cmds);
-    else if (size > 1)
-        ms_pipe(input, cmds, size);
-    else
-        return ;
 }

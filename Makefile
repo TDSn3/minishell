@@ -6,7 +6,7 @@
 #    By: tda-silv <tda-silv@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/10/17 14:32:32 by tda-silv          #+#    #+#              #
-#    Updated: 2022/12/12 11:22:03 by tda-silv         ###   ########.fr        #
+#    Updated: 2022/12/12 11:49:13 by tda-silv         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -97,6 +97,7 @@ NAME_FILE	= $(addprefix builtin/,												\
 								  ms_pipe										\
 								  ft_cmd_error									\
 								  ms_redir										\
+								  execute_cmd									\
 			  )																	\
 			  $(addprefix start_main/,											\
 			  						 copy_env_in_export							\
