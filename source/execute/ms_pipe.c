@@ -6,7 +6,7 @@
 /*   By: tda-silv <tda-silv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/10 15:08:00 by tda-silv          #+#    #+#             */
-/*   Updated: 2022/12/12 11:12:03 by tda-silv         ###   ########.fr       */
+/*   Updated: 2022/12/12 11:45:53 by tda-silv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -175,7 +175,7 @@ void    ms_pipe(t_input *input, t_list *cmds, size_t size)
     free(pids);
 }
 
-void    execute_em(t_input *input)
+void    execute_cmd(t_input *input)
 {
     t_list  *cmds;
     size_t  size;

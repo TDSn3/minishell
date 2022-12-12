@@ -6,13 +6,14 @@
 /*   By: tda-silv <tda-silv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/19 13:33:37 by tda-silv          #+#    #+#             */
-/*   Updated: 2022/12/12 11:16:00 by tda-silv         ###   ########.fr       */
+/*   Updated: 2022/12/12 11:45:44 by tda-silv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <header.h>
 
-static void	start_execute(t_input *input);
+static void	first_check(t_input *input);
+static void	change_handler_and_start_execute(t_input *input);
 static void	init_struct_sigaction(t_input *input, struct sigaction *ssa);
 static void	prompt(t_input *input);
 
@@ -31,17 +32,6 @@ int	main(int argc, char **argv, char **env)
 	prompt(&input);
 	free_all(&input);
 	return (0);
-}
-
-static void	first_check(t_input *input)
-{
-	if (!lexer(input, input->raw))
-		return ;
-	if (!check_syntax(input))
-		return ;
-	check_expand(input);
-	parser(input);
-	start_execute(input);
 }
 
 /* ************************************************************************** */
@@ -74,13 +64,31 @@ static void	prompt(t_input *input)
 	}
 }
 
-static void	start_execute(t_input *input)
+static void	first_check(t_input *input)
+{
+	if (!lexer(input, input->raw))
+		return ;
+	if (!check_syntax(input))
+		return ;
+	check_expand(input);
+	parser(input);
+	change_handler_and_start_execute(input);
+}
+
+/* ************************************************************************** */
+/*																			  */
+/*   Passe le gestionnaire de signaux en non interactif avce handler_off.     */
+/*   En mode non interactif, aucun signal n'est interprété.	    			  */
+/*   Puis, repasse en mode interactif aprés l'éxecution.					  */
+/*																			  */
+/* ************************************************************************** */
+static void	change_handler_and_start_execute(t_input *input)
 {
 	input->ssa->sa_handler = &handler_off;
 	sigaction(SIGINT, input->ssa, 0);
 	sigaction(SIGQUIT, input->ssa, 0);
 	if (input->paths)
-		execute_em(input);
+		execute_cmd(input);
 	else
 		perror("PATH");
 	input->ssa->sa_handler = &handler_on;
