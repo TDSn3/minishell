@@ -6,7 +6,7 @@
 /*   By: tda-silv <tda-silv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/23 18:09:20 by tda-silv          #+#    #+#             */
-/*   Updated: 2022/12/12 16:26:03 by tda-silv         ###   ########.fr       */
+/*   Updated: 2022/12/13 15:28:07 by tda-silv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,12 @@ int	update_path(const char *path, char **path_update, t_input *input)
 
 	(void) input;
 	getcwd(pwd, 4096);
+	if (access(path, F_OK) > -1)
+	{
+		save_for_free = *path_update;
+		*path_update = ft_strdup(path);
+		return (0);
+	}
 	save_for_free = *path_update;
 	stock = ft_strjoin("/", path);
 	if (!stock)

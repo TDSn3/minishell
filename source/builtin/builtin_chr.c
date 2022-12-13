@@ -6,7 +6,7 @@
 /*   By: tda-silv <tda-silv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/05 14:40:40 by tda-silv          #+#    #+#             */
-/*   Updated: 2022/12/12 21:31:39 by tda-silv         ###   ########.fr       */
+/*   Updated: 2022/12/13 14:08:16 by tda-silv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,6 +97,7 @@ static int	part_three(t_node *node, t_input *input, int fd[2])
 	if (!my_strcmp(node->args[0], "exit"))
 	{
 		ms_redir(input, node);
+		ms_exit(input, 0);
 		g_status = 0;
 		return (1);
 	}

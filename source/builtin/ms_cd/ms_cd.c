@@ -6,7 +6,7 @@
 /*   By: tda-silv <tda-silv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/21 19:17:38 by tda-silv          #+#    #+#             */
-/*   Updated: 2022/12/12 18:42:13 by tda-silv         ###   ########.fr       */
+/*   Updated: 2022/12/13 14:17:14 by tda-silv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,11 +22,13 @@ int	ms_cd(const char *path, t_input *input)
 	char	pwd[4096];
 	char	*path_update;
 
-	if ((!path || !*path) && !ms_get_env("HOME", input))
+	if (path && !*path)
+		return (0);
+	if ((!path) && !ms_get_env("HOME", input))
 		return (print_error(-1, NULL));
 	path_update = NULL;
 	getcwd(pwd, 4096);
-	if (!path || !*path)
+	if (!path)
 		return (empty_path(pwd, input));
 	if (ft_strlen(path) == 1 && path[0] == '-')
 		return (rev_pwd_oldpwd(pwd, input));

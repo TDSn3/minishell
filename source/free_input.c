@@ -6,7 +6,7 @@
 /*   By: tda-silv <tda-silv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/21 19:48:38 by tda-silv          #+#    #+#             */
-/*   Updated: 2022/12/10 22:22:36 by tda-silv         ###   ########.fr       */
+/*   Updated: 2022/12/13 13:56:36 by tda-silv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,8 @@ static void	ft_freeredir(void *r);
 
 void	free_input(t_input *input)
 {
-	if (input->raw)
-		free(input->raw);
+//	if (input->raw)
+//		free(input->raw);
 	map_clear(&input->lexer, free);
 	map_clear(&input->parser, free);
 	ft_lstiter(input->ast, &ft_freenode);

@@ -6,7 +6,7 @@
 /*   By: tda-silv <tda-silv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/12 12:00:55 by tda-silv          #+#    #+#             */
-/*   Updated: 2022/12/12 21:18:06 by tda-silv         ###   ########.fr       */
+/*   Updated: 2022/12/13 14:12:52 by tda-silv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,8 @@ void	execute_one_cmd(t_input *input, t_list *cmds)
 	node = cmds->content;
 	if (builtin_chr(node, input))
 	{
-		close(STDIN_FILENO);
-		close(STDOUT_FILENO);
+	//	close(STDIN_FILENO);
+	//	close(STDOUT_FILENO);
 		return ;
 	}
 	pid = fork();
