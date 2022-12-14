@@ -6,7 +6,7 @@
 /*   By: tda-silv <tda-silv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/11 11:10:02 by tda-silv          #+#    #+#             */
-/*   Updated: 2022/12/11 11:12:29 by tda-silv         ###   ########.fr       */
+/*   Updated: 2022/12/14 12:36:55 by tda-silv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,10 @@ void	handler_off(int sig)
 	return_write = 0;
 	(void) return_write;
 	if (sig == 2)
+	{
+		return_write = write(1, "\n", 1);
 		return ;
+	}
 	if (sig == 3)
 		return ;
 }
