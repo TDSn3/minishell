@@ -1,29 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ms_pwd.c                                           :+:      :+:    :+:   */
+/*   ft_nbrlen_base_u.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tda-silv <tda-silv@student.42.fr>          +#+  +:+       +#+        */
+/*   By: enolbas <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/12/02 15:58:37 by tda-silv          #+#    #+#             */
-/*   Updated: 2022/12/15 09:30:48 by tda-silv         ###   ########.fr       */
+/*   Created: 2022/02/11 15:59:16 by enolbas           #+#    #+#             */
+/*   Updated: 2022/02/11 16:09:32 by enolbas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <header.h>
+#include "ft_printf.h"
 
-int	ms_pwd(void)
+int	ft_nbrlen_base_u(unsigned int nbr, int base)
 {
-	char	pwd[PATH_MAX];
+	unsigned int	count;
+	unsigned int	len;
 
-	pwd[0] = 0;
-	if (!getcwd(pwd, PATH_MAX))
+	len = (unsigned int) base;
+	count = 0;
+	if (nbr == 0)
+		count ++;
+	while (nbr)
 	{
-		perror("getcwd");
-		return (1);
+		nbr /= len;
+		count ++;
 	}
-	if (!*pwd)
-		return (1);
-	printf("%s\n", pwd);
-	return (0);
+	return (count);
 }

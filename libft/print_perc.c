@@ -1,27 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_oldpwd.c                                       :+:      :+:    :+:   */
+/*   print_perc.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tda-silv <tda-silv@student.42.fr>          +#+  +:+       +#+        */
+/*   By: enolbas <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/11/22 18:17:46 by tda-silv          #+#    #+#             */
-/*   Updated: 2022/12/12 18:34:12 by tda-silv         ###   ########.fr       */
+/*   Created: 2022/02/11 16:02:18 by enolbas           #+#    #+#             */
+/*   Updated: 2022/02/11 16:02:20 by enolbas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <header.h>
+#include "ft_printf.h"
 
-int	get_oldpwd(char *str, t_input *input)
+int	print_perc(void)
 {
-	char	*stock;
+	char	c;
 
-	stock = ft_strjoin("OLDPWD=", str);
-	if (ms_export(stock, input))
-	{
-		free(stock);
-		return (1);
-	}
-	free(stock);
-	return (0);
+	c = '%';
+	write(1, &c, 1);
+	return (1);
 }

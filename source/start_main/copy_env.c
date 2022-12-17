@@ -6,7 +6,7 @@
 /*   By: tda-silv <tda-silv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/21 22:27:43 by tda-silv          #+#    #+#             */
-/*   Updated: 2022/12/12 17:28:08 by tda-silv         ###   ########.fr       */
+/*   Updated: 2022/12/17 04:34:22 by tda-silv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,14 +24,14 @@ int	copy_env(char **strd, t_input *input)
 	if (!strd || !*strd || !**strd)
 		return (0);
 	x = my_strdlen(strd);
-	copy = calloc(x + 1, sizeof(char *));
+	copy = ft_calloc(x + 1, sizeof(char *));
 	if (!copy)
 		return (1);
 	i = 0;
 	while (i < x)
 	{
 		y = ft_strlen(strd[i]);
-		copy[i] = calloc(y + 1, sizeof(char));
+		copy[i] = ft_calloc(y + 1, sizeof(char));
 		if (!copy[i])
 			return (free_function_all(&copy));
 		ft_strlcpy(copy[i], strd[i], y + 1);

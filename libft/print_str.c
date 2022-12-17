@@ -1,30 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   update_env.c                                       :+:      :+:    :+:   */
+/*   print_str.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tda-silv <tda-silv@student.42.fr>          +#+  +:+       +#+        */
+/*   By: enolbas <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/11/23 18:07:29 by tda-silv          #+#    #+#             */
-/*   Updated: 2022/12/13 15:39:54 by tda-silv         ###   ########.fr       */
+/*   Created: 2022/02/04 16:52:05 by enolbas           #+#    #+#             */
+/*   Updated: 2022/02/11 16:05:58 by enolbas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+#include "ft_printf.h"
 
-#include <header.h>
-
-int	update_env(const char *str, t_input *input)
+int	print_str(va_list args)
 {
-	char	*stock;
-	char	pwd[4096];
+	char	*str;
+	int		len;
 
-	getcwd(pwd, 4096);
-	stock = ft_strjoin("PWD=", pwd);
-	if (ms_export(stock, input))
+	len = 0;
+	str = va_arg(args, char *);
+	if (!str)
 	{
-		free(stock);
-		return (1);
+		write(1, "(null)", 6);
+		return (6);
 	}
-	(void) str;
-	free(stock);
-	return (0);
+	while (str[len])
+	{
+		write(1, &str[len], 1);
+		len++;
+	}
+	return (len);
 }

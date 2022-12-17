@@ -1,28 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   cmd_error.c                                        :+:      :+:    :+:   */
+/*   print_char.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tda-silv <tda-silv@student.42.fr>          +#+  +:+       +#+        */
+/*   By: enolbas <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/12/10 20:56:55 by tda-silv          #+#    #+#             */
-/*   Updated: 2022/12/10 20:58:35 by tda-silv         ###   ########.fr       */
+/*   Created: 2022/02/04 16:55:45 by enolbas           #+#    #+#             */
+/*   Updated: 2022/02/11 16:01:50 by enolbas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+#include "ft_printf.h"
 
-#include <header.h>
-
-int	ft_cmd_error(t_input *input, t_list *cmd, char *message)
+int	print_char(va_list args)
 {
-	t_node	*node;
+	int	c;
 
-	if (cmd)
-	{
-		node = cmd->content;
-		printf("%s", node->args[0]);
-	}
-	if (message)
-		perror(message);
-	(void) input;
-	return (0);
+	c = va_arg(args, int);
+	write(1, &c, 1);
+	return (1);
 }

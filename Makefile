@@ -6,7 +6,7 @@
 #    By: tda-silv <tda-silv@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/10/17 14:32:32 by tda-silv          #+#    #+#              #
-#    Updated: 2022/12/12 21:30:34 by tda-silv         ###   ########.fr        #
+#    Updated: 2022/12/17 23:51:51 by tda-silv         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,8 +20,6 @@ LIB_DIR		= libft/
 CC			= gcc
 
 CFLAGS		= -Wall -Wextra -Werror
-LDFLAGS_1	= -fsanitize=address -g
-LDFLAGS_2	= -fsanitize=address -g -static-libasan -fsanitize=leak
 
 # **************************************************************************** #
 # -I | Chemin du dossier où trouver un .h									   #
@@ -38,17 +36,6 @@ HEADERS		= ./include/header.h \
 			  ./include/struct.h \
 
 NAME_FILE	= $(addprefix builtin/,												\
-					$(addprefix	  ms_cd/,										\
-			  							ms_cd									\
-										update_env								\
-										update_env_home							\
-										update_path								\
-										get_oldpwd								\
-										remove_point							\
-										remove_last								\
-										one_point								\
-										two_point								\
-					)															\
 					$(addprefix	  ms_export/,									\
 			  								ms_export							\
 											wrong_name_var						\
@@ -66,8 +53,9 @@ NAME_FILE	= $(addprefix builtin/,												\
 								  ms_pwd										\
 								  builtin_chr									\
 								  ms_exit										\
+								  ft_cd											\
 								  ft_clone_redir								\
-								  ft_back_redir									\
+								  ft_replace_varenv								\
 																				\
 			  )																	\
 			  $(addprefix t_map/,												\
@@ -84,6 +72,7 @@ NAME_FILE	= $(addprefix builtin/,												\
 							   lexer_char_error									\
 							   put_in_map										\
 							   split_delim										\
+							   p_iii											\
 			  )																	\
 			  $(addprefix parser/,												\
 			  					 parser											\
@@ -94,14 +83,17 @@ NAME_FILE	= $(addprefix builtin/,												\
 								 check_syntax									\
 								 check_expand									\
 								 ft_strjoin_free								\
+								 ft_findstr										\
+								 unquoted										\
 			  )																	\
 			  $(addprefix execute/,												\
 			  					  cmd_path_chr									\
-								  ms_pipe										\
 								  ft_cmd_error									\
 								  ms_redir										\
+								  ms_pipe										\
 								  execute_cmd									\
 								  execute_one_cmd								\
+								  ret_er										\
 			  )																	\
 			  $(addprefix start_main/,											\
 			  						 copy_env_in_export							\
@@ -112,6 +104,7 @@ NAME_FILE	= $(addprefix builtin/,												\
 			  $(addprefix signal/,												\
 			  					 handler_on										\
 								 handler_off									\
+								 handler_herdoc									\
 			  )																	\
 			  minishell															\
 			  free_input														\
@@ -139,14 +132,6 @@ $(NAME): $(OBJ)
 
 valgrind: $(OBJ)
 	valgrind --tool=memcheck --track-origins=yes --leak-check=full --show-leak-kinds=all --suppressions=readline_leaks --track-fds=yes ./$(NAME)
-
-fsanitize1: $(OBJ)
-	@cd libft; make bonus; cd ..
-	$(CC) $(LDFLAGS_1) $(OBJ) $(I_HEADERS) $(L_LIB) -o $(NAME)
-
-fsanitize2: $(OBJ)
-	@cd libft; make bonus; cd ..
-	$(CC) $(LDFLAGS_2) $(OBJ) $(I_HEADERS) $(L_LIB) -o $(NAME)
 
 ################################################################################
 

@@ -18,6 +18,7 @@ void	init_input(t_input *input, char *line)
 	input->lexer = NULL;
 	input->parser = NULL;
 	input->ast = NULL;
+	input->pids = NULL;
 	input->fdin = 0;
 	input->fdout = 1;
 }

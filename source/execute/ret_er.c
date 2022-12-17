@@ -1,31 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   remove_last.c                                      :+:      :+:    :+:   */
+/*   ret_er.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tda-silv <tda-silv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/11/23 19:20:55 by tda-silv          #+#    #+#             */
-/*   Updated: 2022/12/05 17:41:34 by tda-silv         ###   ########.fr       */
+/*   Created: 2022/12/17 04:28:25 by tda-silv          #+#    #+#             */
+/*   Updated: 2022/12/17 04:28:45 by tda-silv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <header.h>
 
-int	remove_last(char **copy)
+int	ret_er(t_redir *redir, int res)
 {
-	char	*save;
-	size_t	size;
-
-	size = ft_strlen(*copy);
-	save = *copy;
-	if (size > 0 && (*copy)[size - 1] == '/')
+	if (res < 0)
 	{
-		(*copy)[size - 1] = 0;
-		*copy = ft_strdup(*copy);
-		free(save);
-		if (!*copy)
-			return (1);
+		perror(redir->file);
+		return (-1);
 	}
 	return (0);
 }

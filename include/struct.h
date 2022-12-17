@@ -6,7 +6,7 @@
 /*   By: tda-silv <tda-silv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/18 15:11:18 by tda-silv          #+#    #+#             */
-/*   Updated: 2022/12/12 20:55:12 by tda-silv         ###   ########.fr       */
+/*   Updated: 2022/12/16 16:40:05 by tda-silv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,7 @@ typedef struct s_input {
 	char				**env;
 	t_ls				*export;
 	char				*raw;
+	int					*pids;
 	int					fdin;
 	int					fdout;
 	t_map				*lexer;

@@ -6,7 +6,7 @@
 /*   By: tda-silv <tda-silv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/25 15:41:15 by tda-silv          #+#    #+#             */
-/*   Updated: 2022/12/09 01:33:31 by tda-silv         ###   ########.fr       */
+/*   Updated: 2022/12/15 10:34:59 by tda-silv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ static char	**creat_new_env(int i, int i_env, int x, t_input *input)
 	char	**new_env;
 
 	pos_del = i;
-	new_env = calloc(x + 1, sizeof(char *));
+	new_env = ft_calloc(x + 1, sizeof(char *));
 	if (!new_env)
 		return (NULL);
 	i = 0;
@@ -54,7 +54,7 @@ static char	**creat_new_env(int i, int i_env, int x, t_input *input)
 			continue ;
 		}
 		y = ft_strlen((input->env)[i_env]);
-		new_env[i] = calloc(y + 1, sizeof(char));
+		new_env[i] = ft_calloc(y + 1, sizeof(char));
 		if (!new_env[i])
 			return (NULL);
 		ft_strlcpy(new_env[i++], (input->env)[i_env++], y + 1);

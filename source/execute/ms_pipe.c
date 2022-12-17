@@ -6,91 +6,65 @@
 /*   By: tda-silv <tda-silv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/10 15:08:00 by tda-silv          #+#    #+#             */
-/*   Updated: 2022/12/12 21:20:13 by tda-silv         ###   ########.fr       */
+/*   Updated: 2022/12/16 16:37:37 by tda-silv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <header.h>
 
-static void	create_pipes(t_input *input, t_list *cmds, int *pids, size_t count, int fd[2]);
-static void	wait_pipes(int *pids, size_t size);
+static void	ft_link_pipes(int *fd, int todup);
 
-void	ms_pipe(t_input *input, t_list *cmds, size_t size)
+static void	ft_link_pipes(int *fd, int todup)
 {
-	int		*pids;
-	size_t	count;
-	int		in;
-
-	in = 0;
-	pids = (int *) ft_calloc(ft_lstsize(cmds), sizeof(int));
-	if (!pids)
+	if (*fd != todup && dup2(*fd, todup) == -1)
 		return ;
-	count = 0;
-	while (cmds && count < size)
-	{
-		int    fd[2];
-
-		if (cmds->next && pipe(fd) < 0)
-		{
-			return ;
-		}
-		int tmp = fd[0];
-		fd[0] = in;
-		if (count == size - 1)
-			fd[1] = 1;
-		create_pipes(input, cmds, pids, count, fd);
-		if (fd[1] != STDOUT_FILENO)
-			close(fd[1]);
-		if (fd[0] != STDIN_FILENO)
-			close(fd[0]);
-		in = tmp;
-		cmds = cmds->next;
-		count ++;
-	}
-	wait_pipes(pids, size);
-	free(pids);
+	else if (*fd != todup)
+		close(*fd);
 }
 
-static void	create_pipes(t_input *input, t_list *cmds, int *pids, size_t count, int fd[2])
+void	ft_close_pipes(int fd[2])
 {
-	pids[count] = fork();
-	if (pids[count] < 0)
-	{
-		ft_cmd_error(NULL, cmds, "pids");
-		return ;
-	}
-	else if (pids[count] == 0) // papa
-	{
-		if (fd[0] != 0 && dup2(fd[0], STDIN_FILENO) == -1)
-			return;
-		else if (fd[0] != 0)
-			close(fd[0]);
-		if (fd[1] != 1 && dup2(fd[1], STDOUT_FILENO) == -1)
-			return;
-		else if (fd[1] != 1)
-			close(fd[1]);
-		execute_one_cmd(input, cmds);
-		free(pids);
-		free_input(input);
-		free_all(input);
-		close(fd[0]);
+	if (fd[1] != STDOUT_FILENO)
 		close(fd[1]);
-		close(0);
-		close(1);
-		char str[512];
-		snprintf(str, sizeof str, "lsof -p %d", getpid());
-		system(str);
-		exit(g_status);
-	}
+	if (fd[0] != STDIN_FILENO)
+		close(fd[0]);
 }
 
-static void	wait_pipes(int *pids, size_t size)
+void	pipe_child(t_input *input, t_list *cmds, int fd[2])
+{
+	ft_link_pipes(&fd[0], 0);
+	if (cmds->next)
+		ft_link_pipes(&fd[1], 1);
+	check_cmd(input, cmds);
+	free_input(input);
+	free_all(input);
+	ft_close_pipes(fd);
+	exit(g_status);
+}
+
+static int	waiting(int *pids, int count, int status)
+{
+	int	ret;
+
+	ret = waitpid(pids[count], &status, WNOHANG | WUNTRACED);
+	if (ret < 0)
+		perror("wait");
+	else if (ret > 0)
+	{
+		pids[count] = -1;
+		if (WIFEXITED(status) && WEXITSTATUS(status) != 141)
+			g_status = WEXITSTATUS(status);
+	}
+	return (ret);
+}
+
+void	wait_pipes(int *pids, size_t size)
 {
 	size_t	count;
 	int		status;
-	int		ret;
 	int		should_stop;
 
+	status = 0;
 	while (1)
 	{
 		should_stop = 1;
@@ -103,22 +77,12 @@ static void	wait_pipes(int *pids, size_t size)
 				continue ;
 			}
 			should_stop = 0;
-			ret = waitpid(pids[count], &status, WNOHANG | WUNTRACED);
-			if (ret < 0)
-			{
-				perror("wait");
+			if (waiting(pids, count, status) < 0)
 				continue ;
-			}
-			else if (ret > 0)
-			{
-				pids[count] = -1;
-				if (WIFEXITED(status))
-					g_status = WEXITSTATUS(status);
-			}
-			count ++;
+			else
+				count ++;
 		}
 		if (should_stop)
 			return ;
 	}
 }
-

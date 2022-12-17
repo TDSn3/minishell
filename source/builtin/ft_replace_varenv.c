@@ -1,31 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_back_redir.c                                    :+:      :+:    :+:   */
+/*   ft_replace_varenv.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tda-silv <tda-silv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/12/12 21:30:09 by tda-silv          #+#    #+#             */
-/*   Updated: 2022/12/12 21:30:21 by tda-silv         ###   ########.fr       */
+/*   Created: 2022/12/17 04:15:58 by tda-silv          #+#    #+#             */
+/*   Updated: 2022/12/17 04:16:19 by tda-silv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <header.h>
 
-void	ft_back_redir(int *fd)
+void	ft_replace_varenv(char **env, char *var, char *newvar)
 {
-	if (fd[0] != -1)
+	size_t	count;
+	char	*tmp;
+
+	count = 0;
+	if (!env)
+		return ;
+	while (env[count])
 	{
-		if (dup2(STDIN_FILENO, fd[0]) == -1)
-			perror("redirections");
-		close(fd[0]);
-		fd[0] = -1;
-	}
-	if (fd[1] != -1)
-	{
-		if (dup2(STDOUT_FILENO, fd[1]) == -1)
-			perror("redirections");
-		close(fd[1]);
-		fd[1] = -1;
+		if (ft_findstr(env[count], var))
+		{
+			tmp = ft_strjoin(var, "=");
+			free(env[count]);
+			env[count] = NULL;
+			env[count] = ft_strjoin(tmp, newvar);
+			free(tmp);
+		}
+		count ++;
 	}
 }

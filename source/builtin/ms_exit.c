@@ -14,7 +14,7 @@
 
 void	ms_exit(t_input *input, int exit_status)
 {
-	printf("exit\n");
+	ft_putstr_fd("exit\n", 2);
 	free_input(input);
 	free_all(input);
 	exit(exit_status);

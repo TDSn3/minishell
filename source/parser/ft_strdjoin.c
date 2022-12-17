@@ -33,5 +33,6 @@ char	**ft_strdjoin(char **strd, char *s)
 	newd[count] = ft_strdup(s);
 	if (strd)
 		ft_strdfree(strd);
+	strd = NULL;
 	return (newd);
 }

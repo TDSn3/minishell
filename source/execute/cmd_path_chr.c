@@ -6,7 +6,7 @@
 /*   By: tda-silv <tda-silv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/26 21:01:00 by tda-silv          #+#    #+#             */
-/*   Updated: 2022/12/12 11:10:11 by tda-silv         ###   ########.fr       */
+/*   Updated: 2022/12/14 15:07:01 by tda-silv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,8 +86,8 @@ static int	check_path(char ***all_path, char *cmd)
 /* ************************************************************************** */
 static char	*test_path(char ***all_path, char *cmd)
 {
-	int		i;
-	char	*copy_for_return;
+	int			i;
+	char		*copy_for_return;
 
 	i = 0;
 	while ((*all_path)[i])
@@ -105,6 +105,6 @@ static char	*test_path(char ***all_path, char *cmd)
 		}
 		i++;
 	}
-	perror(cmd);
+	(void) cmd;
 	return (NULL);
 }

@@ -6,15 +6,13 @@
 /*   By: tda-silv <tda-silv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/19 17:50:14 by tda-silv          #+#    #+#             */
-/*   Updated: 2022/12/12 20:03:31 by tda-silv         ###   ########.fr       */
+/*   Updated: 2022/12/17 04:23:53 by tda-silv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <header.h>
 
-static int	split_dollar(t_input *input, int *start, int index, t_type type);
 static int	split_redir(t_input *input, char *line, int index, t_type *type);
-static int	split_quote(t_input *input, char *line, int index, t_type type);
 static int	in_the_while(t_input *input, char *line, t_type	*type, int *start);
 
 int	lexer(t_input *input, char *line)
@@ -34,50 +32,25 @@ static int	in_the_while(t_input *input, char *line, t_type	*type, int *start)
 	while (line[count])
 	{
 		*type = switch_type(line[count]);
-		if (*type != WORD)
+		if (*type == SQUOTE || *type == DQUOTE || *type == DOLLAR)
+		{
+			p_iii(input, type, &count, line);
+			if (count < 0)
+				return (0);
+		}
+		else if (*type != WORD)
 		{
 			split_delim(input, start, count, *type);
-			if (*type == DOLLAR)
-				count = split_dollar(input, start, count, *type);
 			if (*type == GREDIR || *type == DREDIR)
 				count += split_redir(input, line, count, type);
-			if (*type == SQUOTE || *type == DQUOTE)
-				count = split_quote(input, line, count, *type);
 			if (count < 0)
 				return (0);
 			*start = count + 1;
 		}
-		count ++;
+		count += !!line[count];
 	}
 	put_in_map(input, line, count, *start);
 	return (1);
-}
-
-static int	split_dollar(t_input *input, int *start, int index, t_type type)
-{
-	int		r;
-	int		count;
-	char	*line;
-
-	count = index + 1;
-	line = input->raw;
-	while (line[count] && line[count] != ' ')
-	{
-		if (switch_type(line[count]) == type)
-			return (index);
-		count ++;
-	}
-	if (line[count] == ' ')
-	{
-		r = count - *start;
-		type = switch_type(line[count - 1]);
-		if (!is_break(type))
-			type = WORD;
-		map_add(&input->lexer, map_new(ft_substr(line, *start, r), type));
-		*start = count;
-		return (count);
-	}
-	return (index);
 }
 
 static int	split_redir(t_input *input, char *line, int index, t_type *type)
@@ -105,31 +78,4 @@ static int	split_redir(t_input *input, char *line, int index, t_type *type)
 		(map_last(input->lexer))->content = ft_substr(line, index, 2);
 	}
 	return (status);
-}
-
-static int	split_quote(t_input *input, char *line, int index, t_type type)
-{
-	int		start;
-	char	c;
-
-	c = line[index];
-	start = index + 1;
-	while (line[index] && line[++index] != c)
-	{
-		if (c == '\"')
-		{
-			if (line[index] == '$')
-			{
-				split_delim(input, &start, index, DOLLAR);
-				index = split_dollar(input, &start, index, type);
-			}
-		}
-	}
-	if (line[index] != c)
-		return (lexer_char_error(input,
-				"error syntaxe unexpected token : ` ", c));
-	if (index == start)
-		map_add(&input->lexer, map_new(ft_strdup(""), WORD));
-	split_delim(input, &start, index, type);
-	return (index);
 }
