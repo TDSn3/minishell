@@ -6,7 +6,7 @@
 /*   By: tda-silv <tda-silv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/19 13:33:37 by tda-silv          #+#    #+#             */
-/*   Updated: 2022/12/17 01:16:46 by tda-silv         ###   ########.fr       */
+/*   Updated: 2022/12/18 00:15:58 by tda-silv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,3 +116,5 @@ static void	init_struct_sigaction(t_input *input, struct sigaction *ssa)
 	sigaction(SIGINT, input->ssa, 0);
 	sigaction(SIGQUIT, input->ssa, 0);
 }
+
+//test
