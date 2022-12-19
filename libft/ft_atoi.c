@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_atoi.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tda-silv <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: tda-silv <tda-silv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/30 17:58:31 by tda-silv          #+#    #+#             */
-/*   Updated: 2022/03/31 14:34:37 by tda-silv         ###   ########.fr       */
+/*   Updated: 2022/12/19 14:37:27 by tda-silv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,8 @@ int	ft_atoi(const char *nptr)
 	i = 0;
 	nb = 0;
 	if_is_negative = 1;
+	if (!nptr)
+		return (0);
 	while (nptr[i] == ' ' || (nptr[i] >= '\t' && nptr[i] <= '\r'))
 		i++;
 	if (nptr[i] == '+' || nptr[i] == '-')
