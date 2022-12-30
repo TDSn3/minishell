@@ -6,7 +6,7 @@
 #    By: tda-silv <tda-silv@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/10/17 14:32:32 by tda-silv          #+#    #+#              #
-#    Updated: 2022/12/17 23:51:51 by tda-silv         ###   ########.fr        #
+#    Updated: 2022/12/30 13:02:58 by tda-silv         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -131,7 +131,7 @@ $(NAME): $(OBJ)
 ################################################################################
 
 valgrind: $(OBJ)
-	valgrind --tool=memcheck --track-origins=yes --leak-check=full --show-leak-kinds=all --suppressions=readline_leaks --track-fds=yes ./$(NAME)
+	valgrind --tool=memcheck --track-origins=yes --leak-check=full --show-leak-kinds=all --suppressions=readline_leaks ./$(NAME)
 
 ################################################################################
 

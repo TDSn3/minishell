@@ -6,7 +6,7 @@
 /*   By: tda-silv <tda-silv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/30 08:41:02 by tda-silv          #+#    #+#             */
-/*   Updated: 2022/12/17 05:07:21 by tda-silv         ###   ########.fr       */
+/*   Updated: 2022/12/30 13:01:54 by tda-silv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,7 @@ char	*replace_dollar(t_input *input, char *word, int *start, t_type type)
 {
 	int		count;
 	char	*tmp;
+	char	*stock_return;
 
 	tmp = NULL;
 	count = *start;
@@ -52,9 +53,16 @@ char	*replace_dollar(t_input *input, char *word, int *start, t_type type)
 		tmp = ft_substr(word, *start + 1, count - *start);
 		*start = count;
 		if (tmp && !ft_strncmp("?", tmp, 2))
+		{
+			free(tmp);
 			return (ft_itoa(g_status));
+		}
 		else if (tmp)
-			return (find_in_env(input->env, tmp));
+		{
+			stock_return = find_in_env(input->env, tmp);
+			free(tmp);
+			return (stock_return);
+		}
 	}
 	return (ft_strdup("$"));
 }
