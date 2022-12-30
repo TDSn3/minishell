@@ -6,11 +6,32 @@
 /*   By: tda-silv <tda-silv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/10 14:18:20 by tda-silv          #+#    #+#             */
-/*   Updated: 2022/12/17 23:44:17 by tda-silv         ###   ########.fr       */
+/*   Updated: 2022/12/30 19:49:15 by tda-silv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <header.h>
+
+static int	g_redir(t_redir *redir, int status);
+static int	d_redir(char *file, int status);
+static int	ft_redirect_in(t_node *node);
+static int	ft_redirect_out(t_node *node);
+
+int	ms_redir(t_node *node)
+{
+	int	res;
+
+	res = -1;
+	if (ft_redirect_in(node) < 0)
+		return (-1);
+	else
+		res ++;
+	if (ft_redirect_out(node) < 0)
+		return (-1);
+	else
+		res += 2;
+	return (res);
+}
 
 static int	g_redir(t_redir *redir, int status)
 {
@@ -91,20 +112,4 @@ static int	ft_redirect_out(t_node *node)
 		return (1);
 	}
 	return (0);
-}
-
-int	ms_redir(t_node *node)
-{
-	int	res;
-
-	res = -1;
-	if (ft_redirect_in(node) < 0)
-		return (-1);
-	else
-		res ++;
-	if (ft_redirect_out(node) < 0)
-		return (-1);
-	else
-		res += 2;
-	return (res);
 }

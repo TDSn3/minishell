@@ -6,7 +6,7 @@
 /*   By: tda-silv <tda-silv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/17 14:29:18 by tda-silv          #+#    #+#             */
-/*   Updated: 2022/12/17 05:05:58 by tda-silv         ###   ########.fr       */
+/*   Updated: 2022/12/30 20:42:30 by tda-silv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,18 +78,24 @@ void	map_clear(t_map **lst, void (*del)(void *));
 /*																			  */
 /* ************************************************************************** */
 
+void	start_execute(t_input *input);
 char	*cmd_path_chr(char *cmd, t_input *input);
 int		ft_cmd_error(t_list *cmd, char *message);
 int		ms_redir(t_node *node);
 void	ft_heredoc(char *file, char *limit);
-void	exec_pipe(t_input *input, t_list *cmds, size_t size);
-void	pipe_child(t_input *input, t_list *cmds, int fd[2]);
-void	ft_close_pipes(int fd[2]);
-void	execute(t_input *input);
 void	check_cmd(t_input *input, t_list *cmds);
-void	wait_pipes(int *pids, size_t size);
-void	wait_exec(void);
 int		ret_er(t_redir *redir, int res);
+
+/* ************************************************************************** */
+/*																			  */
+/*   ../source/execute/pipe/												  */
+/*																			  */
+/* ************************************************************************** */
+
+void	exec_pipe(t_input *input, t_list *cmds, size_t size);
+void	ft_close_pipes(int fd[2]);
+void	ft_link_pipes(int *fd, int todup);
+void	wait_pipes(int *pids, size_t size);
 
 /* ************************************************************************** */
 /*																			  */

@@ -6,7 +6,7 @@
 #    By: tda-silv <tda-silv@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/10/17 14:32:32 by tda-silv          #+#    #+#              #
-#    Updated: 2022/12/30 13:02:58 by tda-silv         ###   ########.fr        #
+#    Updated: 2022/12/30 21:41:31 by tda-silv         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -87,22 +87,27 @@ NAME_FILE	= $(addprefix builtin/,												\
 								 unquoted										\
 			  )																	\
 			  $(addprefix execute/,												\
-			  					  cmd_path_chr									\
+					$(addprefix	  pipe/,										\
+									   exec_pipe								\
+									   ft_link_pipes							\
+									   ft_close_pipes							\
+									   wait_pipes								\
+					)															\
+								  start_execute									\
+								  cmd_path_chr									\
 								  ft_cmd_error									\
 								  ms_redir										\
-								  ms_pipe										\
-								  execute_cmd									\
-								  execute_one_cmd								\
+								  check_cmd										\
 								  ret_er										\
 			  )																	\
 			  $(addprefix start_main/,											\
-			  						 copy_env_in_export							\
+									 copy_env_in_export							\
 									 copy_env									\
 									 init_input									\
 									 shlvl										\
 			  )																	\
 			  $(addprefix signal/,												\
-			  					 handler_on										\
+								 handler_on										\
 								 handler_off									\
 								 handler_herdoc									\
 			  )																	\
@@ -145,4 +150,4 @@ fclean: clean
 
 re: fclean all
 
-.PHONY: all valgrind fsanitize1 fsanitize2 clean fclean re
+.PHONY: all valgrind clean fclean re

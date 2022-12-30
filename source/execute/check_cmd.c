@@ -6,14 +6,15 @@
 /*   By: tda-silv <tda-silv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/12 12:00:55 by tda-silv          #+#    #+#             */
-/*   Updated: 2022/12/17 23:46:39 by tda-silv         ###   ########.fr       */
+/*   Updated: 2022/12/30 18:56:00 by tda-silv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <header.h>
 
 static void	exec_cmd(t_input *input, t_list *cmds, char *command);
-static int	ft_execve(t_input *input, t_list *cmds, char *command);
+static int	access_execve(t_input *input, t_list *cmds, char *command);
+static void	wait_exec(void);
 
 void	check_cmd(t_input *input, t_list *cmds)
 {
@@ -56,7 +57,7 @@ static void	exec_cmd(t_input *input, t_list *cmds, char *command)
 	if (pid == 0)
 	{
 		if (ms_redir(node) >= 0)
-			ft_execve(input, cmds, command);
+			access_execve(input, cmds, command);
 		free_all(input);
 		free_input(input);
 		free(command);
@@ -65,7 +66,7 @@ static void	exec_cmd(t_input *input, t_list *cmds, char *command)
 	wait_exec();
 }
 
-void	wait_exec(void)
+static void	wait_exec(void)
 {
 	int	status;
 
@@ -83,7 +84,7 @@ void	wait_exec(void)
 		g_status = 0;
 }
 
-static int	ft_execve(t_input *input, t_list *cmds, char *command)
+static int	access_execve(t_input *input, t_list *cmds, char *command)
 {
 	t_node	*node;
 
@@ -91,11 +92,7 @@ static int	ft_execve(t_input *input, t_list *cmds, char *command)
 	if (!node->args || !node->args[0])
 		return (0);
 	if (command && access(command, F_OK | X_OK) == 0)
-	{
 		if (execve(command, node->args, input->env) == -1)
-		{
 			return (ft_cmd_error(NULL, node->args[0]));
-		}
-	}
 	return (1);
 }
