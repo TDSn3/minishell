@@ -6,7 +6,7 @@
 /*   By: tda-silv <tda-silv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/19 17:50:14 by tda-silv          #+#    #+#             */
-/*   Updated: 2022/12/17 04:23:53 by tda-silv         ###   ########.fr       */
+/*   Updated: 2022/12/31 14:17:34 by tda-silv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,22 @@
 static int	split_redir(t_input *input, char *line, int index, t_type *type);
 static int	in_the_while(t_input *input, char *line, t_type	*type, int *start);
 
+/* ************************************************************************** */
+/*																			  */
+/*   t_type																	  */
+/*																			  */
+/*   WORD	 																  */
+/*   SQUOTE	 : '															  */
+/*   DQUOTE	 : "															  */
+/*   DOLLAR	 : $															  */
+/*   PIPE	 : |															  */
+/*   ESPACE	   																  */
+/*   DREDIR	 : >															  */
+/*   DRREDIR : >>															  */
+/*   GREDIR	 : <															  */
+/*   GRREDIR : <<															  */
+/*																			  */
+/* ************************************************************************** */
 int	lexer(t_input *input, char *line)
 {
 	int		start;
@@ -26,41 +42,41 @@ int	lexer(t_input *input, char *line)
 
 static int	in_the_while(t_input *input, char *line, t_type	*type, int *start)
 {
-	int		count;
+	int		i;
 
-	count = 0;
-	while (line[count])
+	i = 0;
+	while (line[i])
 	{
-		*type = switch_type(line[count]);
+		*type = switch_type(line[i]);
 		if (*type == SQUOTE || *type == DQUOTE || *type == DOLLAR)
 		{
-			p_iii(input, type, &count, line);
-			if (count < 0)
+			p_iii(input, type, &i, line);
+			if (i < 0)
 				return (0);
 		}
 		else if (*type != WORD)
 		{
-			split_delim(input, start, count, *type);
+			split_delim(input, start, i, *type);
 			if (*type == GREDIR || *type == DREDIR)
-				count += split_redir(input, line, count, type);
-			if (count < 0)
+				i += split_redir(input, line, i, type);
+			if (i < 0)
 				return (0);
-			*start = count + 1;
+			*start = i + 1;
 		}
-		count += !!line[count];
+		i += !!line[i];
 	}
-	put_in_map(input, line, count, *start);
+	put_in_map(input, line, i, *start);
 	return (1);
 }
 
 static int	split_redir(t_input *input, char *line, int index, t_type *type)
 {
 	int	status;
-	int	count;
+	int	i;
 
 	status = 0;
-	count = index;
-	while (line[count] && line[++count] == line[index])
+	i = index;
+	while (line[i] && line[++i] == line[index])
 		status ++;
 	if (status > 1)
 	{

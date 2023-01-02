@@ -6,11 +6,13 @@
 /*   By: tda-silv <tda-silv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/30 08:41:02 by tda-silv          #+#    #+#             */
-/*   Updated: 2022/12/30 13:01:54 by tda-silv         ###   ########.fr       */
+/*   Updated: 2023/01/02 13:16:20 by tda-silv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <header.h>
+
+static void	check_one_c(char *word, int *i, t_type type);
 
 void	check_expand(t_input *input)
 {
@@ -32,26 +34,17 @@ void	check_expand(t_input *input)
 
 char	*replace_dollar(t_input *input, char *word, int *start, t_type type)
 {
-	int		count;
+	int		i;
 	char	*tmp;
 	char	*stock_return;
 
 	tmp = NULL;
-	count = *start;
-	while (word[count] && word[count + 1])
+	i = *start;
+	check_one_c(word, &i, type);
+	if (i > *start)
 	{
-		if ((switch_type(word[count + 1]) == type
-				|| word[count + 1] == ' '
-				|| word[count + 1] == '$'
-				|| (type == DOLLAR && (word[count + 1] == '\''
-						|| word[count + 1] == '\"'))))
-			break ;
-		count++;
-	}
-	if (count > *start)
-	{
-		tmp = ft_substr(word, *start + 1, count - *start);
-		*start = count;
+		tmp = ft_substr(word, *start + 1, i - *start);
+		*start = i;
 		if (tmp && !ft_strncmp("?", tmp, 2))
 		{
 			free(tmp);
@@ -65,4 +58,18 @@ char	*replace_dollar(t_input *input, char *word, int *start, t_type type)
 		}
 	}
 	return (ft_strdup("$"));
+}
+
+static void	check_one_c(char *word, int *i, t_type type)
+{
+	while (word[*i] && word[*i + 1])
+	{
+		if ((switch_type(word[*i + 1]) == type
+				|| word[*i + 1] == ' '
+				|| word[*i + 1] == '$'
+				|| (type == DOLLAR && (word[*i + 1] == '\''
+						|| word[*i + 1] == '\"'))))
+			return ;
+		*i += 1;
+	}
 }

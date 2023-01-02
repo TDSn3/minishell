@@ -6,7 +6,7 @@
 /*   By: tda-silv <tda-silv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/10 14:18:20 by tda-silv          #+#    #+#             */
-/*   Updated: 2022/12/30 19:49:15 by tda-silv         ###   ########.fr       */
+/*   Updated: 2022/12/31 12:05:04 by tda-silv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,13 @@ static int	d_redir(char *file, int status);
 static int	ft_redirect_in(t_node *node);
 static int	ft_redirect_out(t_node *node);
 
+/* ************************************************************************** */
+/*                                                                            */
+/*   >  : redirection de sortie, écrase le fichier							  */
+/*   >> : ajoute en fin de fichier											  */
+/*   <  : redirection d'entrée												  */
+/*                                                                            */
+/* ************************************************************************** */
 int	ms_redir(t_node *node)
 {
 	int	res;
