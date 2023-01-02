@@ -6,7 +6,7 @@
 /*   By: tda-silv <tda-silv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/30 16:55:33 by tda-silv          #+#    #+#             */
-/*   Updated: 2022/12/30 16:59:13 by tda-silv         ###   ########.fr       */
+/*   Updated: 2023/01/02 17:30:47 by tda-silv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,9 @@ void	start_execute(t_input *input)
 	cmds = input->ast;
 	size = ft_lstsize(cmds);
 	if (size == 1)
+	{
 		check_cmd(input, cmds);
+	}
 	else if (size > 1)
 	{
 		input->pids = (int *) ft_calloc(size, sizeof(int));

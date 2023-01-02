@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   execute_one_cmd.c                                  :+:      :+:    :+:   */
+/*   check_cmd.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tda-silv <tda-silv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/12 12:00:55 by tda-silv          #+#    #+#             */
-/*   Updated: 2022/12/30 18:56:00 by tda-silv         ###   ########.fr       */
+/*   Updated: 2023/01/02 19:25:07 by tda-silv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,8 +34,9 @@ void	check_cmd(t_input *input, t_list *cmds)
 		{
 			ft_putstr_fd(node->args[0], 2);
 			ft_putstr_fd(": command not found\n", 2);
+			g_status = 127;
 		}
-		g_status = 127;
+	//	g_status = 127;
 	}
 	free(command);
 }
@@ -61,6 +62,8 @@ static void	exec_cmd(t_input *input, t_list *cmds, char *command)
 		free_all(input);
 		free_input(input);
 		free(command);
+		if (g_status == 130)
+			exit(130);
 		exit(1);
 	}
 	wait_exec();
@@ -72,6 +75,11 @@ static void	wait_exec(void)
 
 	status = 0;
 	wait(&status);
+	if (status == 33280)
+	{
+		g_status = 130;
+		return ;
+	}
 	if (WIFSIGNALED(status))
 	{
 		if (WCOREDUMP(status))

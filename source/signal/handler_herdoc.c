@@ -6,7 +6,7 @@
 /*   By: tda-silv <tda-silv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/11 11:10:02 by tda-silv          #+#    #+#             */
-/*   Updated: 2022/12/15 16:48:22 by tda-silv         ###   ########.fr       */
+/*   Updated: 2023/01/02 17:27:31 by tda-silv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,5 +25,8 @@ void	handler_herdoc(int sig)
 	return_write = 0;
 	(void) return_write;
 	if (sig == 2)
+	{
 		close(0);
+		g_status = 130;
+	}
 }

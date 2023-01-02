@@ -6,7 +6,7 @@
 /*   By: tda-silv <tda-silv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/17 04:33:41 by tda-silv          #+#    #+#             */
-/*   Updated: 2022/12/30 13:01:06 by tda-silv         ###   ########.fr       */
+/*   Updated: 2023/01/02 17:04:25 by tda-silv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,8 @@ char	*find_in_env(char **env, char *var)
 	int	count;
 
 	count = 0;
+	if (!env)
+		return (ft_strdup(""));
 	while (env[count])
 	{
 		if (ft_findstr(env[count], var))
