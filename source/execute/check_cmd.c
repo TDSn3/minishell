@@ -6,7 +6,7 @@
 /*   By: tda-silv <tda-silv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/12 12:00:55 by tda-silv          #+#    #+#             */
-/*   Updated: 2023/01/02 19:25:07 by tda-silv         ###   ########.fr       */
+/*   Updated: 2023/01/03 12:42:47 by tda-silv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,6 @@ void	check_cmd(t_input *input, t_list *cmds)
 			ft_putstr_fd(": command not found\n", 2);
 			g_status = 127;
 		}
-	//	g_status = 127;
 	}
 	free(command);
 }

@@ -6,7 +6,7 @@
 /*   By: tda-silv <tda-silv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/17 14:29:18 by tda-silv          #+#    #+#             */
-/*   Updated: 2022/12/30 20:42:30 by tda-silv         ###   ########.fr       */
+/*   Updated: 2023/01/03 15:47:21 by tda-silv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,6 +85,7 @@ int		ms_redir(t_node *node);
 void	ft_heredoc(char *file, char *limit);
 void	check_cmd(t_input *input, t_list *cmds);
 int		ret_er(t_redir *redir, int res);
+int		last_cmd(t_input *input, t_list *cmds);
 
 /* ************************************************************************** */
 /*																			  */
@@ -129,10 +130,10 @@ bool	ft_findstr(char *find, const char *var);
 char	*ft_strjoin_free(char *s1, char const *s2);
 void	ft_replace_quote(t_input *input);
 char	*unquoted(t_input *input, char *word);
-char	*remove_quote_in_word(t_input *input,
-			char *line, t_type type, int *start);
 char	*replace_dollar(t_input *input, char *word, int *start, t_type type);
 char	*find_in_env(char **env, char *var);
+char	*unquoted_simple(t_input *input, char *word);
+int		check_next_redir(t_map *tmp);
 
 /* ************************************************************************** */
 /*																			  */

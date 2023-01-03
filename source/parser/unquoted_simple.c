@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   unquoted.c                                         :+:      :+:    :+:   */
+/*   unquoted_simple.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tda-silv <tda-silv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/17 04:42:01 by tda-silv          #+#    #+#             */
-/*   Updated: 2023/01/03 13:50:37 by tda-silv         ###   ########.fr       */
+/*   Updated: 2023/01/03 13:50:32 by tda-silv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ static char	*extend_line(char *extension, char *line);
 static char	*remove_quote_in_word(t_input *input,
 				char *line, t_type type, int *start);
 
-char	*unquoted(t_input *input, char *word)
+char	*unquoted_simple(t_input *input, char *word)
 {
 	t_type	type;
 	char	*q;
@@ -30,8 +30,6 @@ char	*unquoted(t_input *input, char *word)
 		type = switch_type(word[count]);
 		if (type == DQUOTE || type == SQUOTE)
 			tmp = remove_quote_in_word(input, word, type, &count);
-		else if (type == DOLLAR)
-			tmp = replace_dollar(input, word, &count, type);
 		else
 			tmp = ft_substr(word, count, 1);
 		q = ft_strjoin_free(q, tmp);

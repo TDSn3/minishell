@@ -6,7 +6,7 @@
 #    By: tda-silv <tda-silv@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/10/17 14:32:32 by tda-silv          #+#    #+#              #
-#    Updated: 2022/12/30 21:41:31 by tda-silv         ###   ########.fr        #
+#    Updated: 2023/01/03 15:47:31 by tda-silv         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -85,6 +85,7 @@ NAME_FILE	= $(addprefix builtin/,												\
 								 ft_strjoin_free								\
 								 ft_findstr										\
 								 unquoted										\
+								 check_next_redir								\
 			  )																	\
 			  $(addprefix execute/,												\
 					$(addprefix	  pipe/,										\
@@ -99,6 +100,7 @@ NAME_FILE	= $(addprefix builtin/,												\
 								  ms_redir										\
 								  check_cmd										\
 								  ret_er										\
+								  last_cmd										\
 			  )																	\
 			  $(addprefix start_main/,											\
 									 copy_env_in_export							\

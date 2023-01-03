@@ -6,7 +6,7 @@
 /*   By: tda-silv <tda-silv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/30 08:38:40 by tda-silv          #+#    #+#             */
-/*   Updated: 2022/12/16 16:34:53 by tda-silv         ###   ########.fr       */
+/*   Updated: 2023/01/03 15:44:46 by tda-silv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,8 @@ int	check_syntax(t_input *input)
 	tmp = input->lexer;
 	while (tmp)
 	{
+		if (check_next_redir(tmp))
+			return (0);
 		if (is_break(tmp->type))
 		{
 			if (tmp->next)
