@@ -6,7 +6,7 @@
 #    By: tda-silv <tda-silv@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/10/17 14:32:32 by tda-silv          #+#    #+#              #
-#    Updated: 2023/01/03 15:47:31 by tda-silv         ###   ########.fr        #
+#    Updated: 2023/01/04 08:26:14 by tda-silv         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -56,6 +56,7 @@ NAME_FILE	= $(addprefix builtin/,												\
 								  ft_cd											\
 								  ft_clone_redir								\
 								  ft_replace_varenv								\
+								  herdoc_limit_unquote							\
 																				\
 			  )																	\
 			  $(addprefix t_map/,												\

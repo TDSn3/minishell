@@ -6,7 +6,7 @@
 /*   By: tda-silv <tda-silv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/17 04:42:01 by tda-silv          #+#    #+#             */
-/*   Updated: 2023/01/03 13:50:37 by tda-silv         ###   ########.fr       */
+/*   Updated: 2023/01/04 10:06:45 by tda-silv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,8 +34,7 @@ char	*unquoted(t_input *input, char *word)
 			tmp = replace_dollar(input, word, &count, type);
 		else
 			tmp = ft_substr(word, count, 1);
-		q = ft_strjoin_free(q, tmp);
-		free(tmp);
+		q = my_strjoin_free(&q, &tmp);
 		count++;
 	}
 	return (q);
