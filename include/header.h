@@ -6,7 +6,7 @@
 /*   By: tda-silv <tda-silv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/17 14:29:18 by tda-silv          #+#    #+#             */
-/*   Updated: 2023/01/04 08:25:57 by tda-silv         ###   ########.fr       */
+/*   Updated: 2023/01/04 17:43:46 by tda-silv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -161,6 +161,7 @@ void	ms_exit(t_input *input, int exit_status);
 int		ft_cd(t_input *input, char **args, int nb_arg);
 void	ft_replace_varenv(char **env, char *var, char *newvar);
 char	*herdoc_limit_unquote(char *str);
+void	exit_bultin_util(t_node *node, t_input *input);
 
 /*   EXPORT   *************************************************************** */
 int		ms_export(char *var, t_input *input);

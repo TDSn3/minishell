@@ -1,28 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   handler_off.c                                      :+:      :+:    :+:   */
+/*   my_str_isdigit.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tda-silv <tda-silv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/12/11 11:10:02 by tda-silv          #+#    #+#             */
-/*   Updated: 2023/01/04 17:27:30 by tda-silv         ###   ########.fr       */
+/*   Created: 2023/01/04 17:30:17 by tda-silv          #+#    #+#             */
+/*   Updated: 2023/01/04 17:32:52 by tda-silv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <header.h>
-
-void	handler_off(int sig)
+int	my_str_isdigit(char *str)
 {
-	int	return_write;
+	int	i;
 
-	return_write = 0;
-	(void) return_write;
-	if (sig == 2)
+	i = 0;
+	if (!str)
+		return (0);
+	while (str[i])
 	{
-		return_write = write(1, "\n", 1);
-		return ;
+		if (str[i] < '0' || str[i] > '9')
+			return (0);
+		i++;
 	}
-	if (sig == 3)
-		return ;
+	return (1);
 }

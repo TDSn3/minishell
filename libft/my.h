@@ -6,7 +6,7 @@
 /*   By: tda-silv <tda-silv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/30 10:19:40 by tda-silv          #+#    #+#             */
-/*   Updated: 2022/12/10 21:57:44 by tda-silv         ###   ########.fr       */
+/*   Updated: 2023/01/04 17:32:54 by tda-silv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,5 +23,6 @@ int				my_strcmp(const char *s1, const char *s2);
 char			*my_strdup_until(const char *s, char c);
 int				my_strchr_pos(const char *s, char c);
 int				my_strdfree(char ***strd);
+int				my_str_isdigit(char *str);
 
 #endif

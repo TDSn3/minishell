@@ -6,7 +6,7 @@
 #    By: tda-silv <tda-silv@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/10/17 14:32:32 by tda-silv          #+#    #+#              #
-#    Updated: 2023/01/04 08:26:14 by tda-silv         ###   ########.fr        #
+#    Updated: 2023/01/04 17:44:10 by tda-silv         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -57,6 +57,7 @@ NAME_FILE	= $(addprefix builtin/,												\
 								  ft_clone_redir								\
 								  ft_replace_varenv								\
 								  herdoc_limit_unquote							\
+								  exit_bultin_util								\
 																				\
 			  )																	\
 			  $(addprefix t_map/,												\
@@ -136,13 +137,6 @@ $(NAME): $(OBJ)
 	@cd libft; make bonus; cd ..
 	$(CC) $(OBJ) $(I_HEADERS) $(L_LIB) -o $(NAME)
 
-################################################################################
-
-valgrind: $(OBJ)
-	valgrind --tool=memcheck --track-origins=yes --leak-check=full --show-leak-kinds=all --suppressions=readline_leaks ./$(NAME)
-
-################################################################################
-
 clean:
 	cd libft; make clean
 	rm -rf $(OBJ_DIR)
@@ -153,4 +147,4 @@ fclean: clean
 
 re: fclean all
 
-.PHONY: all valgrind clean fclean re
+.PHONY: all clean fclean re

@@ -6,7 +6,7 @@
 /*   By: tda-silv <tda-silv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/05 14:40:40 by tda-silv          #+#    #+#             */
-/*   Updated: 2023/01/02 17:21:22 by tda-silv         ###   ########.fr       */
+/*   Updated: 2023/01/04 17:45:45 by tda-silv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,7 +103,7 @@ static int	print_error(char *cmd, int nb_error)
 
 static void	part_three(t_node *node, t_input *input, int builtin)
 {
-	int	i;
+	int		i;
 
 	i = 1;
 	if (builtin == 5)
@@ -116,7 +116,5 @@ static void	part_three(t_node *node, t_input *input, int builtin)
 	if (builtin == 6)
 			g_status = ms_echo(node->args);
 	if (builtin == 7)
-	{
-		ms_exit(input, ft_atoi(node->args[i]));
-	}
+		exit_bultin_util(node, input);
 }

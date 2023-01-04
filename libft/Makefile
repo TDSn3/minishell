@@ -6,7 +6,7 @@
 #    By: tda-silv <tda-silv@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/12/11 16:59:26 by tda-silv          #+#    #+#              #
-#    Updated: 2022/12/10 20:52:02 by tda-silv         ###   ########.fr        #
+#    Updated: 2023/01/04 17:33:33 by tda-silv         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -64,6 +64,7 @@ SRC = ./ft_isalpha.c \
 	  ./my_strdup_until.c \
 	  ./my_strchr_pos.c \
 	  ./my_strdfree.c \
+	  ./my_str_isdigit.c \
 	  $(addprefix ./t_dl/, \
 	  					 dl_add_back.c \
 						 dl_clear_one.c \
